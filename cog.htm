@@ -140,6 +140,12 @@
                 });
             }
         });
+        // MAJ Version
+        getAttrs(['VERFDP'], function(values) {
+            setAttrs({
+                VERSION: values.VERFDP
+            });
+        });        
     });
 
     on('change:dex_buff1 change:dex_buff2 change:dex_buff3 change:dex_buff4 change:dex_buff5', function(eventInfo) {
@@ -482,7 +488,8 @@
 </script>
 <div class="sheet-mainBg"> <!-- FDP -->
     <!-- INPUT HIDDEN Version FdP -->
-    <input type="hidden" name="attr_VERSION" value="3.0" />
+    <input type="hidden" name="attr_VERFDP" value="3.1" />
+    <input type="hidden" name="attr_VERSION" value="3.1" />
     <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
     <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Type de jets -->
