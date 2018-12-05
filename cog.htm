@@ -127,6 +127,7 @@
                         DEP_BUFF1_DESC: dep_bonus_desc,
                         DEP_BUFF1: depdiv,
                         DEP_BUFF: depdiv,
+                        ATKTIRV_BUFF: 0,
                         VERSION: '3.0'
                     });
                 });
@@ -337,6 +338,21 @@
                 var buff5 = parseInt(values.DEP_BUFF5) || 0;
                 setAttrs({
                     DEP_BUFF: buff1 + buff2 + buff3 + buff4 + buff5
+                });
+            }
+        });
+    });
+
+    on('change:atktirv_buff1 change:atktirv_buff2 change:atktirv_buff3 change:atktirv_buff4 change:atktirv_buff5', function(eventInfo) {
+        getAttrs(['UNIVERS', 'ATKTIRV_BUFF1', 'ATKTIRV_BUFF2', 'ATKTIRV_BUFF3', 'ATKTIRV_BUFF4', 'ATKTIRV_BUFF5'], function(values) {
+            if (values.UNIVERS == 'CG') {
+                var buff1 = parseInt(values.ATKTIRV_BUFF1) || 0;
+                var buff2 = parseInt(values.ATKTIRV_BUFF2) || 0;
+                var buff3 = parseInt(values.ATKTIRV_BUFF3) || 0;
+                var buff4 = parseInt(values.ATKTIRV_BUFF4) || 0;
+                var buff5 = parseInt(values.ATKTIRV_BUFF5) || 0;
+                setAttrs({
+                    ATKTIRV_BUFF: buff1 + buff2 + buff3 + buff4 + buff5
                 });
             }
         });
@@ -721,7 +737,7 @@
                                             <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="JET_TIR" title="Jet d'attaque à distance" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=&Agrave; Distance}} {{subtags=Attaque}} {{attaque=[[ @{JETNORMAL}cs20cf1[Dé] + [[@{ATKTIR}]][Bonus] ]] }}"> &Agrave; DISTANCE</button></td>
                                             <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIR_BASE" value="0" title="@{ATKTIR_BASE} Score de base" /></td>
                                             <td class="sheet-boxinput">
-                                                <select class="sheet-carac" name="attr_ATKTIR_CARAC" size="1" title="@{ATKCAC_CARAC}">
+                                                <select class="sheet-carac" name="attr_ATKTIR_CARAC" size="1" title="@{ATKTIR_CARAC}">
                                                     <option value="@{FOR}">FOR</option>
                                                     <option value="@{DEX}" selected>DEX</option>
                                                     <option value="@{CON}">CON</option>
@@ -1357,15 +1373,15 @@
                                             <td class="sheet-textfat">Total</td>
                                         </tr>
                                         <tr>
-                                            <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="JET_TIR" title="Jet d'attaque à distance" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=&Agrave; Distance}} {{subtags=Attaque}} {{attaque=[[ 1d20cs20cf1[Dé] + [[@{ATKTIR}]][Bonus] ]] }}"> &Agrave; DISTANCE</button></td>
-                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIR_BASE" value="@{NIVEAU}" title="@{ATKTIR_BASE} Score de base" disabled /></td>
+                                            <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="JET_TIRV" title="Jet d'attaque à distance" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=&Agrave; Distance}} {{subtags=Attaque}} {{attaque=[[ 1d20cs20cf1[Dé] + [[@{ATKTIRV}]][Bonus] ]] }}"> &Agrave; DISTANCE</button></td>
+                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIRV_BASE" value="@{NIVEAU}" title="@{ATKTIRV_BASE} Score de base" disabled /></td>
                                             <td class="sheet-boxinput">
-                                                <select class="sheet-carac" name="attr_ATKTIR_CARAC" size="1" title="@{ATKTIR_CARAC}">
+                                                <select class="sheet-carac" name="attr_ATKTIRV_CARAC" size="1" title="@{ATKTIRV_CARAC}">
                                                     <option value="@{INT}" selected>INT</option>
                                                 </select>
                                             </td>
-                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIR_DIV" title="@{ATKTIR_DIV} Bonus divers" value="@{ATKTIR_BUFF}" disabled /></td>
-                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIR" title="@{ATKTIR}" value="@{ATKTIR_BASE}+@{ATKTIR_CARAC}+@{ATKTIR_DIV}" disabled /></td>
+                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIRV_DIV" title="@{ATKTIRV_DIV} Bonus divers" value="@{ATKTIRV_BUFF}" disabled /></td>
+                                            <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIRV" title="@{ATKTIRV}" value="@{ATKTIRV_BASE}+@{ATKTIRV_CARAC}+@{ATKTIRV_DIV}" disabled /></td>
                                         </tr>
                                         <tr>
                                             <td class="sheet-boxtitre" title="Poste de pilotage (PIL)">Pilotage</td>
@@ -1876,6 +1892,24 @@
                 <div class="sheet-block-hidden"></div>
                 <div class="sheet-block-show">
                     <table>
+                        <tr>
+                            <td style="width: 5%;">ATD:</td>
+                            <td style="width: 19%;">
+                                <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF1_DESC" /><input class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF1" />
+                            </td>
+                            <td style="width: 19%;">
+                                <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF2_DESC" /><input class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF2" />
+                            </td>
+                            <td style="width: 19%;">
+                                <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF3_DESC" /><input class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF3" />
+                            </td>
+                            <td style="width: 19%;">
+                                <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF4_DESC" /><input class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF4" />
+                            </td>
+                            <td style="width: 19%;">
+                                <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF5_DESC" /><input class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF5" />
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 5%;">PIL:</td>
                             <td style="width: 19%;">
