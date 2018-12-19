@@ -201,6 +201,9 @@ input, select{
 select.sheet-carac{
     width: 62px;
 }
+select.sheet-pjstatus{
+    width: 75px;
+}
 select.sheet-selectmin{
     width: 18px;
     -webkit-appearance: none;
@@ -295,6 +298,12 @@ input.sheet-tab:checked + span::before {
     border-bottom-color: #fff;
     border-bottom-width: 5px
 }
+input.sheet-hidden-tab {
+  display: none;
+  height: 0px;
+  position: relative;
+  top: -10px;
+}
 .sheet-block-hidden,
 .sheet-block-switch:checked ~ .sheet-block-show {
   display: block;
@@ -323,13 +332,13 @@ input[type="checkbox"].sheet-block-switch + span::before {
     text-align: center;
     display: inline-block;
     vertical-align: middle;
-    content: "▼";
+    content: "►";
     width: 16px;
     height: 16px;
     font-size: 12px;    
 }
 input[type="checkbox"].sheet-block-switch:checked + span::before {
-    content: "►";
+    content: "▼";
 }
 .sheet-block-hidden,
 .sheet-block-switch:checked ~ .sheet-block-show {
