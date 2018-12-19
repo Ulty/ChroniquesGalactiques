@@ -16,19 +16,19 @@
     var npc = {};
     var rows = text.split(/\n/);
     console.log('** CO sheetworker : parsing text <<<');
-    for (var row = 0; row < rows.length; row++) {
-      console.log(rows[row]);
-      if (rows[row].toUpperCase().indexOf('DM') != -1) { // this is an attack line
-        rows[row] = rows[row].replace(/\)$/g, ''); // handle CG statblocks
+    rows.forEach(function(row) {
+      console.log(row);
+      if (row.toUpperCase().indexOf('DM') != -1) { // this is an attack line
+        row = row.replace(/\)$/g, ''); // handle CG statblocks
         if (!npc.Atks) npc.Atks = [];
-        npc.Atks.push(rows[row]);
-        continue;
+        npc.Atks.push(row);
+        return;
       }
-      rows[row] = rows[row].replace(/ \(/g, '('); // strip space before '(
-      rows[row] = rows[row].replace(/très /g, 'très~'); // handle 'très petite' size
-      rows[row] = rows[row].replace(/créature /g, 'PROFIL créature~'); // handle 'créature' mention
-      var items = rows[row].split(' ');
-      for (var item = 0; item < items.length; item++) {
+      row = row.replace(/ \(/g, '('); // strip space before '(
+      row = row.replace(/très /g, 'très~'); // handle 'très petite' size
+      row = row.replace(/créature /g, 'PROFIL créature~'); // handle 'créature' mention
+      var items = row.split(' ');
+      for (var item = 0; item < items.length-1; item++) {
         if (item % 2 === 0) {
           var k = items[item].toUpperCase().replace(/\./g, '');
           var v = items[item + 1].replace(/~/g, ' ');
@@ -36,7 +36,7 @@
           npc[k] = v;
         }
       }
-    }
+    });
     console.log('** CO sheetworker : parsing text >>>');
     return npc;
   }
@@ -746,6 +746,7 @@
         });
       }
     });
+  });
 </script>
 <div class="sheet-mainBg">
   <!-- FDP -->
