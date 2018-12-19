@@ -201,6 +201,9 @@ input, select{
 select.sheet-carac{
     width: 62px;
 }
+select.sheet-pjstatus{
+    width: 75px;
+}
 select.sheet-selectmin{
     width: 18px;
     -webkit-appearance: none;
@@ -294,6 +297,12 @@ input.sheet-tab:checked + span::before {
     background: #dcdcdc;
     border-bottom-color: #fff;
     border-bottom-width: 5px
+}
+input.sheet-hidden-tab {
+  display: none;
+  height: 0px;
+  position: relative;
+  top: -10px;
 }
 .sheet-block-hidden,
 .sheet-block-switch:checked ~ .sheet-block-show {

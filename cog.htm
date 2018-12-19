@@ -325,7 +325,8 @@
       if (values.UNIVERS == 'CG') {
         if (values.fp == 'pj') {
           setAttrs({
-            voir_psy: '1'
+            voir_psy: '1',
+            PJ_STATUS: 'PJ'
           });
         } else if (values.fp == 'vaisseau' && values.PE_ONCE !== '') {
           var for_buff_desc = (values.FOR_BUFF1_DESC) || values.PE_ONCE;
@@ -351,7 +352,8 @@
             DEFVPIL_BUFF2_DESC: defvpil_buff2_desc,
             DEFVSEN_BUFF1_DESC: defvsen_buff1_desc,
             DEFVSEN_BUFF2_DESC: defvsen_buff2_desc,
-            PE_ONCE: ''
+            PE_ONCE: '',
+            PJ_STATUS: 'VAISSEAU'
           });
         }
       }
@@ -747,6 +749,25 @@
       }
     });
   });
+
+  on('change:PJ_STATUS', function(eventinfo) {
+    getAttrs(['PJ_STATUS'], function(values) {
+      switch (values.PJ_STATUS) {
+        case 'PJ':
+          setAttrs({fp:'pj'});
+          return;
+        case 'PNJ':
+          setAttrs({fp:'pnj'});
+          return;
+        case 'VAISSEAU':
+          setAttrs({fp:'vaisseau'});
+          return;
+        default:
+          console.log('** CO sheetworker: unknown PJ status '+values.PJ_STATUS);
+          return;
+      }
+    });
+  });
 </script>
 <div class="sheet-mainBg">
   <!-- FDP -->
@@ -796,23 +817,31 @@
       <table>
         <tr>
           <td class="sheet-textfatleft">Nom</td>
-          <td><input class="sheet-nobox" name="attr_character_name" type="text" title="@{character_name}" /></td>
+          <td colspan="3"><input class="sheet-nobox" name="attr_character_name" type="text" title="@{character_name}" /></td>
         </tr>
         <tr>
           <td class="sheet-textfatleft">Race</td>
-          <td><input class="sheet-nobox" name="attr_RACE" type="text" title="@{RACE}" /></td>
+          <td colspan="3"><input class="sheet-nobox" name="attr_RACE" type="text" title="@{RACE}" /></td>
         </tr>
         <tr>
           <td class="sheet-textfatleft">Profil</td>
-          <td><input class="sheet-nobox" name="attr_PROFIL" type="text" title="@{PROFIL}" /></td>
+          <td colspan="3"><input class="sheet-nobox" name="attr_PROFIL" type="text" title="@{PROFIL}" /></td>
         </tr>
         <tr>
           <td class="sheet-textfatleft">Niveau</td>
           <td style="text-align:left;"><input class="sheet-nobox" name="attr_NIVEAU" type="number" value="1" min="0" title="@{NIVEAU}" /></td>
+          <td class="sheet-textfatleft">Type</td>
+          <td class="sheet-boxinput">
+            <select class="sheet-pjstatus" name="attr_PJ_STATUS" size="1" title="@{PJ_STATUS}">
+              <option value="PJ" selected>PJ</option>
+              <option value="PNJ">PNJ</option>
+              <option value="VAISSEAU">Vaisseau</option>
+            </select>
+          </td>
         </tr>
       </table>
     </div>
-    <div style="width: 130px;">
+    <div style="width: 110px;">
       <table>
         <tr>
           <td class="sheet-textfatleft">Sexe</td>
@@ -834,10 +863,9 @@
     </div>
   </div> <!-- FIN Identité -->
   &nbsp;
-  <input type="radio" name="attr_fp" class="sheet-tab sheet-fp1" value="pj" checked="checked"><span title="Personnage"></span>
-  <input type="radio" name="attr_fp" class="sheet-tab sheet-fp2" value="vaisseau"><span title="Vaisseau"></span>
-  <input type="radio" name="attr_fp" class="sheet-tab sheet-fp3" value="pnj"><span title="PNJ"></span>
-  <img class="sheet-imghr-up" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
+  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp1" value="pj" checked="checked"><span title="Personnage"></span>
+  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp2" value="vaisseau"><span title="Vaisseau"></span>
+  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp3" value="pnj"><span title="PNJ"></span>
   <div class="sheet-tab-content sheet-fp1">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab1" value="caracs" checked="checked"><span title="Caractéristiques"></span>
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab2" value="voies"><span title="Capacités"></span>
