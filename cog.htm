@@ -321,14 +321,13 @@
       }
     });
     // Activer Buffs PSY ou de vaisseau
-    getAttrs(['UNIVERS', 'fp', 'PE_ONCE', 'FOR_BUFF1_DESC', 'DEX_BUFF1_DESC', 'INT_BUFF1_DESC', 'PER_BUFF1_DESC', 'CHA_BUFF1_DESC', 'ATKTIRV_BUFF1_DESC', 'INIT_BUFF1_DESC', 'DEFVPIL_BUFF1_DESC', 'DEFVPIL_BUFF2_DESC', 'DEFVSEN_BUFF1_DESC', 'DEFVSEN_BUFF2_DESC'], function(values) {
+    getAttrs(['UNIVERS', 'type_personnage', 'PE_ONCE', 'FOR_BUFF1_DESC', 'DEX_BUFF1_DESC', 'INT_BUFF1_DESC', 'PER_BUFF1_DESC', 'CHA_BUFF1_DESC', 'ATKTIRV_BUFF1_DESC', 'INIT_BUFF1_DESC', 'DEFVPIL_BUFF1_DESC', 'DEFVPIL_BUFF2_DESC', 'DEFVSEN_BUFF1_DESC', 'DEFVSEN_BUFF2_DESC'], function(values) {
       if (values.UNIVERS == 'CG') {
-        if (values.fp == 'pj') {
+        if (values.type_personnage == 'pj') {
           setAttrs({
-            voir_psy: '1',
-            PJ_STATUS: 'PJ'
+            voir_psy: '1'
           });
-        } else if (values.fp == 'vaisseau' && values.PE_ONCE !== '') {
+        } else if (values.type_personnage == 'vaisseau' && values.PE_ONCE !== '') {
           var for_buff_desc = (values.FOR_BUFF1_DESC) || values.PE_ONCE;
           var dex_buff_desc = (values.DEX_BUFF1_DESC) || values.PE_ONCE;
           var int_buff_desc = (values.INT_BUFF1_DESC) || values.PE_ONCE;
@@ -353,15 +352,15 @@
             DEFVSEN_BUFF1_DESC: defvsen_buff1_desc,
             DEFVSEN_BUFF2_DESC: defvsen_buff2_desc,
             PE_ONCE: '',
-            PJ_STATUS: 'VAISSEAU'
+            type_personnage: 'vaisseau'
           });
         }
       }
     });
     // MAJ Version
-    getAttrs(['VERFDP'], function(values) {
+    getAttrs(['verfdp'], function(values) {
       setAttrs({
-        VERSION: values.VERFDP
+        VERSION: values.verfdp
       });
     });
   });
@@ -750,29 +749,16 @@
     });
   });
 
-  on('change:PJ_STATUS', function(eventinfo) {
-    getAttrs(['PJ_STATUS'], function(values) {
-      switch (values.PJ_STATUS) {
-        case 'PJ':
-          setAttrs({fp:'pj'});
-          return;
-        case 'PNJ':
-          setAttrs({fp:'pnj'});
-          return;
-        case 'VAISSEAU':
-          setAttrs({fp:'vaisseau'});
-          return;
-        default:
-          console.log('** CO sheetworker: unknown PJ status '+values.PJ_STATUS);
-          return;
-      }
+  on('change:type_personnage', function(eventinfo) {
+    getAttrs(['type_personnage'], function(values) {
+      setAttrs({type_fiche:values.type_personnage});
     });
   });
 </script>
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_VERFDP" value="3.3" />
+  <input type="hidden" name="attr_verfdp" value="3.3" />
   <input type="hidden" name="attr_VERSION" value="3.3" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
@@ -832,10 +818,10 @@
           <td style="text-align:left;"><input class="sheet-nobox" name="attr_NIVEAU" type="number" value="1" min="0" title="@{NIVEAU}" /></td>
           <td class="sheet-textfatleft">Type</td>
           <td class="sheet-boxinput">
-            <select class="sheet-pjstatus" name="attr_PJ_STATUS" size="1" title="@{PJ_STATUS}">
-              <option value="PJ" selected>PJ</option>
-              <option value="PNJ">PNJ</option>
-              <option value="VAISSEAU">Vaisseau</option>
+            <select class="sheet-pjstatus" name="attr_type_personnage" size="1" title="@{type_personnage}">
+              <option value="pj" selected>PJ</option>
+              <option value="pnj">PNJ</option>
+              <option value="vaisseau">Vaisseau</option>
             </select>
           </td>
         </tr>
@@ -862,9 +848,9 @@
       </table>
     </div>
   </div> <!-- FIN Identité -->
-  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp1" value="pj" checked="checked"><span title="Personnage"></span>
-  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp2" value="vaisseau"><span title="Vaisseau"></span>
-  <input type="radio" name="attr_fp" class="sheet-hidden-tab sheet-fp3" value="pnj"><span title="PNJ"></span>
+  <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp1" value="pj" checked="checked"><span title="Personnage"></span>
+  <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp2" value="vaisseau"><span title="Vaisseau"></span>
+  <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp3" value="pnj"><span title="PNJ"></span>
   <div class="sheet-tab-content sheet-fp1">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab1" value="caracs" checked="checked"><span title="Caractéristiques"></span>
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab2" value="voies"><span title="Capacités"></span>
