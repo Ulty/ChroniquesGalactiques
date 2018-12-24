@@ -9,9 +9,17 @@ Cette feuilles de personnage inclue quelques jets et r&egrave;gles optionnelles.
 Le jeu complet est paru dans le magazine [Casus Belli](http://www.black-book-editions.fr/catalogue.php?id=207) #17,18 et 19.
 
 # Version courante
-3.2 [Screenshot](cog_v3.png)
+3.3 [Screenshot](cog_v3.png)
 
 # Notes de version
+## v3.3 (2018-12-20)
+* Réorganisation de la fiche en 3 onglets principaux : 
+ * Personnage avec 4 sous-onglets : Caractéristiques (+attaques), Capacités (voies, et autres traits), Equipement, Configuration (et buffs)
+ * Vaisseau avec 2 sous-onglets : Caractéristiques (+attaques), Configuration (et buffs)
+ * PNJ avec 2 sous-onglets : Caractéristiques (+attaques), Configuration
+
+* L'onglet Configuration de la fiche de PNJ comporte un champ permettant de copier un statblock depuis un document PDF. Voir le Wiki pour plus d'information.
+
 ## v3.2 (2018-12-11)
 * Ajout de la section répétable des "Autres traits" avec un bouton d'affichage murmuré dans le chat
 * Corrections et ajustements divers (typo, erreurs de noms d'attributs, espaces surnuméraires dans les macros)
