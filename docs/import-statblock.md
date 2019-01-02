@@ -13,7 +13,7 @@ Cette fonction est capable de récupérer :
 ## Mode d'emploi ##
 Pour importer un statblock et récupérer ses données dans une fiche de PNJ :
 1. Copier le texte du statblock depuis un document PDF
-2. Sur l'onglet _PNJ_ et le sous-onglet _Configuration_, cliquer sur la flèche _Importer statblock_ pour afficher le champ d'import
+2. Sur l'onglet _Caractéristiques_ d'une fiche de _PNJ_, cliquer sur la flèche _Importer statblock_ pour afficher le champ d'import
 3. Coller le texte précédemment copié dans le champ approprié
 4. Cliquer en dehors de ce champ : la fonction d'import se déclenche
 

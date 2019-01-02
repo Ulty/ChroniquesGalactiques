@@ -383,17 +383,23 @@ display: block;
 
 /* TEMPLATES */
 .sheet-rolltemplate-co1 .sheet-imghr{
-    width: 176px;
+    width: 226px;
     height: 4px;
     padding: 0px;
     margin: 0px;
 }
 .sheet-rolltemplate-co1 table {
-    width: 189px;
+    width: 230px;
     padding: 2px;
-    border: 1px solid #2F5860;
-    border-radius: 6px;
+    /* border: 1px solid #2F5860; */
+    /* border-radius: 6px; */
     background-color: #ffffff;
+    border-collapse: collapse;
+}
+.sheet-rolltemplate-co1 .sheet-roundtable {
+  border: 1px solid #2F5860;
+  border-radius: 6px;
+  overflow: hidden;
 }
 .sheet-rolltemplate-co1 th {
     color: #2F5860;
@@ -433,7 +439,7 @@ display: block;
 .sheet-rolltemplate-co1 div.sheet-desc{
     padding-top: 6px;
     min-height: 25px;
-    max-height: 150px;
+    max-height: 250px;
     overflow-y: auto;
 }
 .sheet-rolltemplate-co1 div.sheet-text {

@@ -7,6 +7,15 @@
     console.log(l);
     console.log('** CO sheetworker' + m + ' >>>');
   }
+  
+  // C# String.Format() emulation
+  function stringFormat(s) {
+    var s = arguments[0];
+    for (a = 0; a < arguments.length - 1; a++) {
+      s = s.replace(new RegExp('\\{' + a + '\\}' ,'g'), arguments[a+1]);
+    }
+    return s;
+  }
 
   function importStatblock(text) {
     text = text.replace(/\r/g, '');
@@ -116,17 +125,20 @@
     for (var atk = 0; atk < pnjObj.Atks.length; atk++) {
       var atkItems = pnjObj.Atks[atk].split(' ');
       consoleLog(atkItems, 'attacks found');
+      if (atkItems[atkItems.length - 1] == 'DM') atkItems.push('-');
+      var atkAtt = '{{attaque=';
       var atkNom = '';
-      var atkBonus = 0;
+      var atkBonus = -1;
       var atkDM = '';
-      var atkNbDe = 0;
-      var atkDe = '';
-      var atkBonusDM = 0;
       var atkSpec = '';
       var parsed = '';
       for (var item = 0; item < atkItems.length; item++) {
-        if (atkItems[item].charAt(0) == '+' && atkItems[item] != '+' &&
-          atkNom === '') {
+        if (atkItems[item] == 'DM' && atkNom == '') {
+          atkNom = parsed;
+          parsed = 'DM';
+          continue;
+        }
+        if (atkItems[item].charAt(0) == '+' && atkItems[item] != '+' && atkNom == '') {
           atkBonus = parseInt(atkItems[item].replace('+', '')) || 0;
           atkNom = parsed;
           parsed = '';
@@ -138,31 +150,40 @@
           parsed = '';
           continue;
         }
-        parsed += parsed !== '' ? ' ' : '';
+        parsed += parsed != '' ? ' ' : '';
         parsed += atkItems[item];
       }
-      if (atkDM !== '') {
+      consoleLog(atkNom + ' ' + atkBonus + ' ' + atkDM + ' ' + atkSpec);
+      if (atkBonus == -1) atkAtt = ''; // No attack bonus found, damage only
+      var atkDmg = '{{degats=';
+      var atkNbDe = 0;
+      var atkDe = '';
+      var atkBonusDM = 0;
+      if (atkDM != '') {
         atkDM = atkDM.replace('d', '|');
         atkDM = atkDM.replace('+', '|+');
         atkDM = atkDM.replace('-', '|-');
         var dm = atkDM.split('|');
         atkNbDe = parseInt(dm[0]) || 0;
+        if (atkNbDe == 0) atkDmg = ''; // No damage dice, attack only
         atkDe = dm[1];
         if (universe == 'COC') atkDe += '!';
         atkBonusDM = parseInt(dm[2]) || 0;
       }
-      if (atkNom !== '' && atkNbDe !== 0 && atkDe !== '') {
-        var newRowID = generateRowID();
+      if (atkNom != '' && atkNbDe >= 0 && atkDe != '') {
+        newRowID = generateRowID();
         var atkRow = {};
+        atkRow['repeating_pnjatk_' + newRowID + '_atkatt'] = atkAtt;
         atkRow['repeating_pnjatk_' + newRowID + '_atknom'] = atkNom;
         atkRow['repeating_pnjatk_' + newRowID + '_atkjet'] = '1d20';
         atkRow['repeating_pnjatk_' + newRowID + '_atkbonus'] = atkBonus;
+        atkRow['repeating_pnjatk_' + newRowID + '_atkdmg'] = atkDmg;
         atkRow['repeating_pnjatk_' + newRowID + '_atkdmnbde'] = atkNbDe;
         atkRow['repeating_pnjatk_' + newRowID + '_atkdmde'] = atkDe;
         atkRow['repeating_pnjatk_' + newRowID + '_atkdmbonus'] = atkBonusDM;
         atkSpec += parsed;
         atkSpec = atkSpec.replace(/\d+d\d+/g, '[[$&]]'); // search for <numbers>d<numbers> and replace with in-line roll
-        if (atkSpec !== '') atkRow['repeating_pnjatk_' + newRowID + '_atkspec'] = atkSpec;
+        if (atkSpec != '') atkRow['repeating_pnjatk_' + newRowID + '_atkspec'] = atkSpec;
         consoleLog(atkRow, 'adding attack');
         setAttrs(atkRow);
       } else {
@@ -171,11 +192,11 @@
     }
     return result;
   }
-
+  
   on('sheet:opened', function() {
     // **** Gestion transition de version
     getAttrs(["VERSION"], function(values) {
-      var verfdp = parseInt(values.VERSION) || 0;
+      var verfdp = parseFloat(values.VERSION) || 0;
       if (verfdp === 0) {
         // Version 1.6 vers 1.7
         getAttrs(["FOR_SUP", "DEX_SUP", "CON_SUP", "INT_SUP", "PER_SUP", "CHA_SUP"], function(jets) {
@@ -319,6 +340,21 @@
           });
         });
       }
+      if (verfdp < 3.4) { // version 3.3 > 3.4
+        getAttrs(['TRAITS'], function(values) {
+          var traits = values.TRAITS.split(':');
+          if (traits.length >= 2) {
+            newRowID = generateRowID();
+            var traitRow = {};
+            traitRow['repeating_traits_' + newRowID + '_traitnom'] = traits[0].trim();
+            traitRow['repeating_traits_' + newRowID + '_traittype'] = 'Race / Humain';
+            traits.splice(0,1);
+            traitRow['repeating_traits_' + newRowID + '_traitdesc'] = traits.join(':').trim();
+            setAttrs(traitRow);
+            setAttrs({ VERSION: '3.4' });
+          }
+        });
+      }
     });
     // Activer Buffs PSY ou de vaisseau
     getAttrs(['UNIVERS', 'type_personnage', 'PE_ONCE', 'FOR_BUFF1_DESC', 'DEX_BUFF1_DESC', 'INT_BUFF1_DESC', 'PER_BUFF1_DESC', 'CHA_BUFF1_DESC', 'ATKTIRV_BUFF1_DESC', 'INIT_BUFF1_DESC', 'DEFVPIL_BUFF1_DESC', 'DEFVPIL_BUFF2_DESC', 'DEFVSEN_BUFF1_DESC', 'DEFVSEN_BUFF2_DESC'], function(values) {
@@ -362,6 +398,19 @@
       setAttrs({
         VERSION: values.verfdp
       });
+    });
+    // LAST_PV
+    getAttrs(['PV'], function(values) {
+      setAttrs({ LAST_PV: values.PV })
+    });
+  });
+
+  on('change:character_name', function(eventInfo) {
+    getAttrs(['character_name'], function(values) {
+      var charName = values.character_name;
+      charName = charName.replace(/ "/g, ' «');
+      charName = charName.replace(/" /g, '» ');
+      setAttrs({ character_name: charName })
     });
   });
 
@@ -749,17 +798,85 @@
     });
   });
 
-  on('change:type_personnage', function(eventinfo) {
+  on('change:type_personnage', function(eventInfo) {
     getAttrs(['type_personnage'], function(values) {
-      setAttrs({type_fiche:values.type_personnage});
+      setAttrs({type_fiche: values.type_personnage});
     });
   });
+  
+  on('change:pv', function(eventInfo) {
+    getAttrs(['PV', 'PV_max', 'LAST_PV', 'SEUILBG', 'BLESSURE'], function(values) {
+      var seuilbg = parseInt(values.SEUILBG) || 0;
+      var max_pv = parseInt(values.PV_max) || 0;
+      var last_pv = parseInt(values.LAST_PV) || max_pv;
+      var curr_pv = parseInt(values.PV) || 0;
+      var blessure = values.BLESSURE;
+      if (seuilbg > 0) {
+        if (last_pv - curr_pv >= seuilbg || curr_pv === 0) blessure = '1';
+      }
+      setAttrs({
+        LAST_PV: values.PV,
+        BLESSURE: blessure
+      });
+    });
+  });
+
+  on('change:poste_pil_nom change:poste_pil_bonus', function(eventInfo) {
+    getAttrs(['POSTE_PIL_NOM', 'POSTE_PIL_BONUS'], function(values) {
+      var poste_nom = values.POSTE_PIL_NOM || '';
+      poste_nom = poste_nom != '' ? stringFormat('@{{0}|DEX}', poste_nom) : '0'
+      var poste_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
+      var poste = stringFormat('[[{0}]][DEX pilote] + {1}[Pilotage]', poste_nom, poste_bonus);
+      setAttrs({ POSTE_PIL: poste });
+    });
+  });
+
+  on('change:poste_mot_nom change:poste_mot_bonus', function(eventInfo) {
+    getAttrs(['POSTE_MOT_NOM', 'POSTE_MOT_BONUS'], function(values) {
+      var poste_nom = values.POSTE_MOT_NOM || '';
+      poste_nom = poste_nom != '' ? stringFormat('@{{0}|INT}', poste_nom) : '0'
+      var poste_bonus = parseInt(values.POSTE_MOT_BONUS) || 0;
+      var poste = stringFormat('[[{0}]][INT mécano] + {1}[Moteurs]', poste_nom, poste_bonus);
+      setAttrs({ POSTE_MOT: poste });
+    });
+  });
+
+  on('change:poste_sen_nom change:poste_sen_bonus', function(eventInfo) {
+    getAttrs(['POSTE_SEN_NOM', 'POSTE_SEN_BONUS'], function(values) {
+      var poste_nom = values.POSTE_SEN_NOM || '';
+      poste_nom = poste_nom != '' ? stringFormat('@{{0}|INT}', poste_nom) : '0'
+      var poste_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
+      var poste = stringFormat('[[{0}]][INT scan] + {1}[Electronique/Investigation]', poste_nom, poste_bonus);
+      setAttrs({ POSTE_SEN: poste });
+    });
+  });
+
+  on('change:poste_ord_nom change:poste_ord_bonus', function(eventInfo) {
+    getAttrs(['POSTE_ORD_NOM', 'POSTE_ORD_BONUS'], function(values) {
+      var poste_nom = values.POSTE_ORD_NOM || '';
+      poste_nom = poste_nom != '' ? stringFormat('@{{0}|INT}', poste_nom) : '0'
+      var poste_bonus = parseInt(values.POSTE_ORD_BONUS) || 0;
+      var poste = stringFormat('[[{0}]][INT info] + {1}[Electronique]', poste_nom, poste_bonus);
+      setAttrs({ POSTE_ORD: poste });
+    });
+  });
+  
+  on('change:repeating_armesv:armecan_nom change:repeating_armesv:armecan_bonus', function(eventInfo) {
+    getAttrs(['repeating_armesv_armecan_nom', 'repeating_armesv_armecan_bonus'], function(values) {
+      var poste_nom = values.repeating_armesv_armecan_nom || '';
+      poste_nom = poste_nom != '' ? stringFormat('@{{0}|DEX}', poste_nom) : '0'
+      var poste_bonus = parseInt(values.repeating_armesv_armecan_bonus) || 0;
+      var poste = stringFormat('[[{0}]][DEX canonnier] + {1}[Armes lourdes]', poste_nom, poste_bonus);
+      setAttrs({ repeating_armesv_armecan: poste });
+    });
+  });
+
 </script>
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="3.3" />
-  <input type="hidden" name="attr_VERSION" value="3.3" />
+  <input type="hidden" name="attr_verfdp" value="3.4" />
+  <input type="hidden" name="attr_VERSION" value="3.4" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
   <!-- INPUT HIDDEN Type de jets -->
@@ -793,11 +910,21 @@
   <input type="hidden" name="attr_PCONDITION" value="" />
   <!-- INPUT HIDDEN PE -->
   <input type="hidden" name="attr_PE_ONCE" value="Points énergie" />
+  <!-- INPUT HIDDEN Précédent nombre de PV -->
+  <input type="hidden" name="attr_LAST_PV" value="" />
+  <!-- INPUT HIDDEN Choix carac jets capacités -->
+  <input type="hidden" name="attr_QRYMOD" value="?{Carac. ?|Force,@{FOR}|Dextérité,@{DEX}|Constitution,@{CON}|Intelligence,@{INT}|Perception,@{PER}|Charisme,@{CHA}}" />
+  <input type="hidden" name="attr_QRYMODT" value="?{Carac. ?|Force,@{FOR_TEST}|Dextérité,@{DEX_TEST}|Constitution,@{CON_TEST}|Intelligence,@{INT_TEST}|Perception,@{PER_TEST}|Charisme,@{CHA_TEST}}" />
+  <!-- INPUT HIDDEN Postes de combat vaisseaux -->
+  <input type="hidden" name="attr_POSTE_PIL" value="" />
+  <input type="hidden" name="attr_POSTE_MOT" value="" />
+  <input type="hidden" name="attr_POSTE_SEN" value="" />
+  <input type="hidden" name="attr_POSTE_ORD" value="" />
   <!-- FIN Hidden -->
   <div class="sheet-container">
     <!-- Identité -->
     <div style="width: 420px; vertical-align: middle; text-align: center;">
-      <img width="340" title="Version 3.3 - 18/12/2018" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_logo.png" />
+      <img width="340" title="Version 3.4 - 01/01/2019" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_logo.png" />
     </div>
     <div style="width: 250px;">
       <table>
@@ -1188,30 +1315,6 @@
               </table>
             </td> <!-- FIN Combat + PV + défense -->
           </tr>
-          <tr>
-            <td style="vertical-align:top;">
-              <!-- Capa Race -->
-              <table class="sheet-tabsep">
-                <tr>
-                  <td class="sheet-boxinputleft">
-                    <span class="sheet-textbasesmall">TRAITS</span><br />
-                    <textarea name="attr_TRAITS" title="@{TRAITS}" style="height:5em;"></textarea>
-                  </td>
-                </tr>
-              </table>
-            </td> <!-- FIN Capa Race -->
-            <td style="vertical-align:top;">
-              <!-- Divers -->
-              <table class="sheet-tabsep">
-                <tr>
-                  <td class="sheet-boxinputleft">
-                    <span class="sheet-textbasesmall">DIVERS</span><br />
-                    <textarea name="attr_DIVERS" title="@{DIVERS}" style="height:5em;"></textarea>
-                  </td>
-                </tr>
-              </table>
-            </td> <!-- FIN Divers -->
-          </tr>
         </table>
       </div> <!-- FIN Caracs + combat + PV + défense  -->
       <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
@@ -1220,11 +1323,11 @@
         <table class="sheet-tabsep" title="repeating_armes">
           <tr>
             <td class="sheet-textfatleft" style="width:155px;">ARMES / ATTAQUES</td>
-            <td class="sheet-textbase" style="width:150px;">ATTAQUE</td>
-            <td class="sheet-textbase" style="width:20px;">CRIT.</td>
-            <td class="sheet-textbase" style="width:185px;">DM</td>
-            <td class="sheet-textbase" style="width:50px;">PORTÉE</td>
-            <td class="sheet-textbase" style="widht:100%;">SPÉCIAL</td>
+            <td class="sheet-textbase" style="width: 150px;">ATTAQUE</td>
+            <td class="sheet-textbase" style="width: 20px;">CRIT.</td>
+            <td class="sheet-textbase" style="width: 200px;">DM</td>
+            <td class="sheet-textbase" style="width: 40px;">PORTÉE</td>
+            <td class="sheet-textbase" style="widht: 100%;">SPÉCIAL</td>
           </tr>
           <tr>
             <td class="sheet-textbase" colspan="2">Bonus tir visé (L) :&nbsp;
@@ -1244,12 +1347,13 @@
               <table class="sheet-tabsep">
                 <tr>
                   <td>
-                    <button type="roll" class="sheet-neutre" name="attr_jet" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=@{armenom}}} {{subtags=Attaque}} {{desc=@{armejetn}}} {{attaque=[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + [[@{visee_att}]][Tir visé] + @{armeatkdiv}[Bonus] ]]}} {{degats=[[(@{armedmnbde}+1*@{tir_hc})d@{armedmde}@{armedmrel}@{armedmvrel}[Dé DM] + [[@{armedmcar}]][Mod.DM] + [[@{visee_dm}]][Tir visé] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
+                    <button type="roll" class="sheet-neutre" name="attr_jet" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=@{armenom}}} {{subtags=Attaque}} {{portee=@{armeportee}}} {{desc=@{armejetn}}} @{armeatt}[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + [[@{visee_att}]][Tir visé] + @{armeatkdiv}[Bonus] ]]}} @{armedmg}[[(@{armedmnbde}+1*@{tir_hc})d@{armedmde}@{armedmrel}@{armedmvrel}[Dé DM] + [[@{armedmcar}]][Mod.DM] + [[@{visee_dm}]][Tir visé] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 130px;">
                     <input type="text" name="attr_armenom" title="@{armenom}" style="font-weight: bold;" placeholder="Arme/attaque" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 150px;">
+                    <input type="checkbox" name="attr_armeatt" title="@{armeatt} Faire un jet d'attaque pour toucher" value="{{attaque=" checked="checked" />
                     <select class="sheet-carac" style="width: 87px;" name="attr_armeatk" title="@{armeatk}" size="1">
                       <option value="@{ATKCAC}" selected>CONTACT</option>
                       <option value="@{ATKTIR}">DISTANCE</option>
@@ -1261,6 +1365,7 @@
                     <input type="number" name="attr_armecrit" style="width:32px;" min="2" max="20" value="20" title="@{armecrit} Seuil de Critique (par défaut 20)" />
                   </td>
                   <td class="sheet-boxinputleft">
+                    <input type="checkbox" name="attr_armedmg" title="@{armedmg} Faire un jet de dommages" value="{{degats=" checked="checked" />
                     <input type="number" style="width:32px;" name="attr_armedmnbde" value="1" title="@{armedmnbde} Nombre de dés de dommage" />
                     <select class="sheet-carac" style="width: 47px;" name="attr_armedmde" size="1" title="@{armedmde} Dé de dommage">
                       <optgroup label="Normaux">
@@ -1312,28 +1417,25 @@
               <table class="sheet-tabsep">
                 <tr>
                   <td style="width: 18px;">&nbsp;</td>
-                  <td class="sheet-boxinputleft" style="width: 130px;">
-                    <input type="text" name="attr_armejetn" style="font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
-                  </td>
-                  <td class="sheet-boxinputleft" style="width: 150px;">&nbsp;Type de jet
-                    <select class="sheet-carac" style="width: 65px;" name="attr_armejetd" size="1" title="@{armejetd} Jet d'attaque : 'Risque' = avec d12, 'Expert' = meilleur de deux d20">
-                      <option value="@{JETNORMAL}" selected>Normal</option>
-                      <option value="@{JETRISQUE}">Risque (d12)</option>
-                      <option value="@{JETSUP}">Expert (2 d20)</option>
+                  <td class="sheet-boxinputleft" style="width: 275px;">
+                    <input type="text" name="attr_armejetn" style="width: 247px; font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
+                    <select class="sheet-carac" style="width: 30px;" name="attr_armejetd" size="1" title="@{armejetd} Jet d'attaque : Normal, 'Risque' = avec d12, 'Expert' = meilleur de deux d20">
+                      <option value="@{JETNORMAL}" selected>N - Normal</option>
+                      <option value="@{JETRISQUE}">R - Risque (d12)</option>
+                      <option value="@{JETSUP}">E - Expert (2 d20)</option>
                     </select>
                   </td>
                   <td class="sheet-boxinputleft" style="width: 32px;">
                     <input type="number" style="width: 32px;" name="attr_armeinct" min="1" max="19" value="1" title="@{armeinct} Seuil d'incident de tir (par défaut 1)" />
                   </td>
-                  <td class="sheet-boxinputleft" style="width: 188px;">
-                    <select class="sheet-carac" style="width: 110px;" name="attr_armedmrel" size="1" title="@{armedmrel} Relance dés de DM = (r)eroll -- 1 fois = (r)eroll (o)nce">
-                      <option value="" selected>-</option>
+                  <td class="sheet-boxinputleft" style="width: 200px;">
+                    <select class="sheet-carac" style="width: 145px;" name="attr_armedmrel" size="1" title="@{armedmrel} Relance dés de DM = (r)eroll -- 1 fois = (r)eroll (o)nce">
+                      <option value="" selected>Pas de relance DM</option>
                       <option value="r">Relance DM</option>
                       <option value="ro">Relance DM (1 fois)</option>
                     </select>
-                    <input type="text" style="width: 70px;" name="attr_armedmvrel" title="@{armedmvrel} Seuil de relance (relance les 1 si non indiqué)" />
+                    <input type="text" style="width: 55px;" name="attr_armedmvrel" title="@{armedmvrel} Seuil de relance (relance les 1 si non indiqué)" />
                   </td>
-                  <td>&nbsp;</td>
                   <td>&nbsp;</td>
                 </tr>
               </table>
@@ -1522,7 +1624,7 @@
                   <option value="kl1">I - Garder le moins bon dé</option>
                   <option value="!">E - Explosif (jet sans limite)</option>
                 </select>)
-                +<select class="sheet-carac" style="width:50px;" name="attr_jetcapacarac" size="1" title="@{jetcapacarac} Modificateur du jet">
+                +<select class="sheet-carac" style="width:60px;" name="attr_jetcapacarac" size="1" title="@{jetcapacarac} Modificateur du jet">
                   <option value="0">-</option>
                   <optgroup label="Mod. de base">
                     <option value="@{FOR}" selected>FOR</option>
@@ -1531,6 +1633,7 @@
                     <option value="@{INT}">INT</option>
                     <option value="@{PER}">PER</option>
                     <option value="@{CHA}">CHA</option>
+                    <option value="@{QRYMOD}">Choix</option>
                   </optgroup>
                   <optgroup label="Mod. de test">
                     <option value="@{FOR_TEST}">FOR</option>
@@ -1539,6 +1642,7 @@
                     <option value="@{INT_TEST}">INT</option>
                     <option value="@{PER_TEST}">PER</option>
                     <option value="@{CHA_TEST}">CHA</option>
+                    <option value="@{QRYMODT}">Choix</option>
                   </optgroup>
                   <optgroup label="Attaques">
                     <option value="@{ATKCAC}">ATC</option>
@@ -1547,9 +1651,6 @@
                     <option value="@{ATKPSYINTUI}">Intui. Psy</option>
                   </optgroup>
                 </select>+<input type="number" style="width:32px;" name="attr_jetcapadiv" value="0" title="@{jetcapadiv} Bonus divers" />
-              </td>
-              <td class="sheet-textbase" style="text-align: right;">
-                Desc.
               </td>
               <td class="sheet-boxinputleft" style="width:100%;">
                 <textarea name="attr_jetcapadesc" placeholder="Description" title="@{jetcapadesc}"></textarea>
@@ -1560,24 +1661,21 @@
       </div> <!-- FIN Voies -->
       <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
       <div>
-        <input type="checkbox" class="sheet-block-switch" name="attr_voir_traits"><span class="sheet-textbase">Autres traits</span>
-        <div class="sheet-block-hidden"></div>
-        <div class="sheet-block-show">
-          <fieldset class="repeating_traits">
-            <table class="sheet-tabsep">
-              <tr>
-                <td style="width: 15px;">
-                  <button type="roll" name="attr_chat" class="sheet-output" value='/w "@{character_name}" &{template:co1} {{perso=@{character_name}}} {{name=@{traitnom}}} {{subtags=@{traittype}}} {{text=@{traitdesc}}}'>w</button>
-                </td>
-                <td class="sheet-boxinputleft" style="width: 200px;"><input type="text" style="font-weight: bold;" name="attr_traitnom" placeholder="Nom du trait" title="@{traitnom}" /></td>
-                <td class="sheet-boxinputleft" style="width: 150px;"><input type="text" name="attr_traittype" placeholder="Origine/Type de trait" title="@{traittype}" /></td>
-                <td class="sheet-boxinputleft"><textarea name="attr_traitdesc" placeholder="Description" title="@{traitdesc}"></textarea></td>
-              </tr>
-            </table>
-          </fieldset>
-          <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesOublieesContemporain/coc_hr.jpg" />
-        </div>
+        <span class="sheet-textfatleft">Traits</span>
+        <fieldset class="repeating_traits">
+          <table class="sheet-tabsep">
+            <tr>
+              <td style="width: 15px;">
+                <button type="roll" name="attr_chat" class="sheet-output" value="/w &quot;@{character_name}&quot; &{template:co1} {{perso=@{character_name}}} {{name=@{traitnom}}} {{subtags=@{traittype}}} {{text=@{traitdesc}}}">w</button>
+              </td>
+              <td class="sheet-boxinputleft" style="width: 200px;"><input type="text" style="font-weight: bold;" name="attr_traitnom" placeholder="Nom du trait" title="@{traitnom}" /></td>
+              <td class="sheet-boxinputleft" style="width: 150px;"><input type="text" name="attr_traittype" placeholder="Origine/Type de trait" title="@{traittype}" /></td>
+              <td class="sheet-boxinputleft"><textarea name="attr_traitdesc" placeholder="Description" title="@{traitdesc}"></textarea></td>
+            </tr>
+          </table>
+        </fieldset>
       </div>
+      <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
     </div>
     <div class="sheet-tab-content sheet-tab3">
       <div>
@@ -2048,26 +2146,38 @@
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" title="Poste de pilotage (PIL)">Pilotage</td>
-                        <td class="sheet-boxinput" colspan="4"><input type="text" name="attr_POSTE_PIL" title="@{POSTE_PIL}" placeholder="[[@{Nom du pilote|DEX}]][DEX pilote] +Bonus/Rang[Pilotage]" /></td>
+                        <td class="sheet-boxinput" colspan="4">
+                          <input type="text" style="width: 220px;" name="attr_POSTE_PIL_NOM" title="@{POSTE_PIL_NOM}" placeholder="Nom du pilote" />
+                          <input type="number" name="attr_POSTE_PIL_BONUS" title="@{POSTE_PIL_BONUS} Rangs dans la Voie du Pilotage" />
+                        </td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" title="Salle des machines (MOT)">Machines</td>
-                        <td class="sheet-boxinput" colspan="4"><input type="text" name="attr_POSTE_MOT" title="@{POSTE_MOT}" placeholder="[[@{Nom du mécanicien|INT}]][INT mécano] +Bonus/Rang[Moteurs]" /></td>
+                        <td class="sheet-boxinput" colspan="4">
+                          <input type="text" style="width: 220px;" name="attr_POSTE_MOT_NOM" title="@{POSTE_MOT_NOM}" placeholder="Nom du mécanicien" />
+                          <input type="number" name="attr_POSTE_MOT_BONUS" title="@{POSTE_MOT_BONUS} Rangs dans la Voie des Moteurs" />
+                        </td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" title="Console des senseurs (SEN)">Senseurs</td>
-                        <td class="sheet-boxinput" colspan="4"><input type="text" name="attr_POSTE_SEN" title="@{POSTE_SEN}" placeholder="[[@{Nom du scantech|INT}]][INT scantech] +Bonus/Rang[Electronique]" /></td>
+                        <td class="sheet-boxinput" colspan="4">
+                          <input type="text" style="width: 220px;" name="attr_POSTE_SEN_NOM" title="@{POSTE_SEN_NOM}" placeholder="Nom du scantech" />
+                          <input type="number" name="attr_POSTE_SEN_BONUS" title="@{POSTE_SEN_BONUS} Rangs dans la Voie de l'Electronique" />
+                        </td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" title="Console du système (ORD)">Ordinateurs</td>
-                        <td class="sheet-boxinput" colspan="4"><input type="text" name="attr_POSTE_ORD" title="@{POSTE_ORD}" placeholder="[[@{Nom de l'infotech|INT}]][INT infotech] +Bonus/Rang[Electronique]" /></td>
+                        <td class="sheet-boxinput" colspan="4">
+                          <input type="text" style="width: 220px;" name="attr_POSTE_ORD_NOM" title="@{POSTE_ORD_NOM}" placeholder="Nom de l'infotech" />
+                          <input type="number" name="attr_POSTE_ORD_BONUS" title="@{POSTE_ORD_BONUS} Rangs dans la Voie de l'Electronique" />
+                        </td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="JET_INIT" title="Initiative" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{INITV}[Initiative] + @{INIT_VAR}[Dé(s)] &{tracker}]]}}"> INITIATIVE</button></td>
+                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="JET_INIT" title="Initiative" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{INITV} + @{INIT_VAR}[Dé(s)] &{tracker}]]}}"> INITIATIVE</button></td>
                         <td>&nbsp;</td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_INITV_CARAC" title="@{INITV_CARAC}" value="@{DEX}" disabled /></td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_INITV_PIL" title="@{INITV_PIL} Valeur de DEX du pilote" value="@{INIT_BUFF}" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INITV" title="@{INITV}" value="@{INITV_CARAC}+@{INITV_PIL}" disabled /></td>
+                        <td class="sheet-boxinputlight"><input type="number" name="attr_INITV" title="@{INITV}" value="[[@{INITV_CARAC}]][Manoeuvrabilité]+[[@{INITV_PIL}]][DEX pilote]" disabled /></td>
                       </tr>
                     </table>
                   </td> <!-- FIN Combat -->
@@ -2171,6 +2281,7 @@
           <div class="attack">
             <input class="options-flag" name="attr_armeoptflag" type="checkbox" title="Montrer/cacher les options"><span>y</span>
             <div>
+              <input type="hidden" name="attr_armecan" value="" />
               <table class="sheet-tabsep">
                 <tr>
                   <td>
@@ -2225,11 +2336,9 @@
               <table class="sheet-tabsep">
                 <tr>
                   <td style="width: 18px;">&nbsp;</td>
-                  <td class="sheet-boxinputleft" style="width: 130px;">
-                    <input type="text" name="attr_armejetn" style="font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
-                  </td>
-                  <td class="sheet-boxinputleft" style="width: 145px;">&nbsp;Type de jet
-                    <select class="sheet-carac" style="width: 65px;" name="attr_armejetd" size="1" title="@{armejetd} Jet d'attaque : 'Risque' = avec d12, 'Expert' = meilleur de deux d20">
+                  <td class="sheet-boxinputleft" style="width: 272px;">
+                    <input type="text" name="attr_armejetn" style="width: 242px; font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
+                    <select class="sheet-carac" style="width: 30px;" name="attr_armejetd" size="1" title="@{armejetd} Jet d'attaque : 'Risque' = avec d12, 'Expert' = meilleur de deux d20">
                       <option value="1d20" selected>Normal</option>
                       <option value="1d12">Risque (d12)</option>
                       <option value="2d20kh1">Expert (2 d20)</option>
@@ -2238,9 +2347,11 @@
                   <td class="sheet-boxinputleft" style="width: 32px;">
                     <input type="number" style="width: 32px;" name="attr_armeinct" min="1" max="19" value="1" title="@{armeinct} Seuil d'incident de tir (par défaut 1)" />
                   </td>
-                  <td class="sheet-boxinputleft">
-                    <input type="text" name="attr_armecan" placeholder="[[@{Nom du canonnier|DEX}]][DEX canonnier] +Bonus/Rang[Armes lourdes]" title="@{armecan} Canonnier (CAN)" />
+                  <td class="sheet-boxinputleft" style="width: 250px;">
+                    <input type="text" style="width: 220px;" name="attr_armecan_nom" title="@{armecan_nom} Nom du canonnier (CAN)" />
+                    <input type="number" name="attr_armecan_bonus" title="@{armecan_bonus} Rang armes lourdes (CAN)" value="0" />
                   </td>
+                  <td>&nbsp;</td>
                 </tr>
               </table>
             </div>
@@ -2493,9 +2604,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_for" title="Jet de Force" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Force}} {{subtags=Test}} {{carac=[[@{pnj_jetfor}cs20cf1[Dé] + [[@{pnj_for}]][FOR] ]] }}"> FOR</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_for" type="number" title="@{pnj_for}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetfor" title="@{pnj_jetfor}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetfor" title="@{pnj_jetfor}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2503,9 +2614,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_dex" title="Jet de Dextérité" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Dextérité}} {{subtags=Test}} {{carac=[[@{pnj_jetdex}cs20cf1[Dé] + [[@{pnj_dex}]][DEX] ]] }}"> DEX</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_dex" type="number" title="@{pnj_dex}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetdex" title="@{pnj_jetdex}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetdex" title="@{pnj_jetdex}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2513,9 +2624,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_con" title="Jet de Constitution" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Constitution}} {{subtags=Test}} {{carac=[[@{pnj_jetcon}cs20cf1[Dé] + [[@{pnj_con}]][CON] ]] }}"> CON</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_con" type="number" title="@{pnj_con}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetcon" title="@{pnj_jetcon}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetcon" title="@{pnj_jetcon}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2526,9 +2637,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_int" title="Jet d'Intelligence" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Intelligence}} {{subtags=Test}} {{carac=[[@{pnj_jetint}cs20cf1[Dé] + [[@{pnj_int}]][INT] ]] }}"> INT</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_int" type="number" title="@{pnj_int}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetint" title="@{pnj_jetint}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetint" title="@{pnj_jetint}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2536,9 +2647,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_per" title="Jet de Perception" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Perception}} {{subtags=Test}} {{carac=[[@{pnj_jetper}cs20cf1[Dé] + [[@{pnj_per}]][PER] ]] }}"> PER</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_per" type="number" title="@{pnj_per}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetper" title="@{pnj_jetper}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetper" title="@{pnj_jetper}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2546,9 +2657,9 @@
                 <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="jet_pnj_cha" title="Jet de Charisme" value="@(pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=Charisme}} {{subtags=Test}} {{carac=[[@{pnj_jetcha}cs20cf1[Dé] + [[@{pnj_cha}]][CHA] ]] }}"> CHA</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_cha" type="number" title="@{pnj_cha}" />
-                  <select class="sheet-selectmin" name="attr_pnj_jetcha" title="@{pnj_jetcha}">
-                    <option value="1d20" selected>N Normale</option>
-                    <option value="2d20kh1">S Supérieure</option>
+                  <select class="sheet-carac" style="width: 30px;" name="attr_pnj_jetcha" title="@{pnj_jetcha}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
                   </select>
                 </div>
               </div>
@@ -2582,19 +2693,21 @@
                 <table class="sheet-tabsep">
                   <tr>
                     <td>
-                      <button type="roll" class="sheet-neutre" style="width: 25px;" name="attr_jet" value="@{pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=@{atknom}}} {{subtags=Attaque}} {{attaque=[[@{atkjet}[Dé] + [[@{atkbonus}]][Attaque] ]]}} {{degats=[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}}" />
+                      <button type="roll" class="sheet-neutre" style="width: 25px;" name="attr_jet" value="@{pnj_togm}&{template:co1} {{perso=@{character_name}}} {{name=@{atknom}}} {{subtags=Attaque}} @{atkatt}[[@{atkjet}[Dé] + [[@{atkbonus}]][Attaque] ]]}} @{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}}" />
                     </td>
-                    <td class="sheet-boxinputleft" style="min-width: 200px;">
-                      <input type="text" class="sheet-carac" style="width: 150px;" name="attr_atknom" title="@{atknom} Nom de l'arme / attaque" />
-                      <select class="sheet-selectmin" name="attr_atkjet" title="@{atkjet} Jet d'attaque normal (d20) ou expert (meilleur de de">
+                    <td class="sheet-boxinputleft" style="min-width: 170px;">
+                      <input type="text" class="sheet-carac" style="width: 120px;" name="attr_atknom" title="@{atknom} Nom de l'arme / attaque" />
+                      <input type="checkbox" name="attr_atkatt" title="@{atkatt} Faire un jet d'attaque pour toucher" value="{{attaque=" checked="checked" />
+                      <select class="sheet-selectmin" name="attr_atkjet" title="@{atkjet} Jet d'attaque normal (d20) ou expert (meilleur de deux d20)">
                         <option value="1d20" selected>N Normal</option>
                         <option value="2d20kh1">E Expert</option>
                       </select>
-                      <input type="number" class="sheet-carac" name="attr_atkbonus" title="@{atkbonus} Bonus d'attaque" />
+                      <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkbonus" title="@{atkbonus} Bonus d'attaque" value="0" />
                     </td>
                     <td class="sheet-boxinput">
-                      <input type="number" name="attr_atkdmnbde" title="@{atkdmnbde} Nombre de dés de DM" />
-                      <select class="sheet-carac" style="width: 40px;" name="attr_atkdmde" title="@{atkdmde} Dé de DM">
+                      <input type="checkbox" name="attr_atkdmg" title="@{atkdmg} Faire un jet de dommages" value="{{degats=" checked="checked" />
+                      <input type="number" name="attr_atkdmnbde" style="width: 35px;" title="@{atkdmnbde} Nombre de dés de DM" />
+                      <select class="sheet-carac" style="width: 45px;" name="attr_atkdmde" title="@{atkdmde} Dé de DM">
                         <optgroup label="Normaux">
                           <option value="3">d3</option>
                           <option value="4">d4</option>
@@ -2612,7 +2725,7 @@
                           <option value="12!">d12</option>
                         </optgroup>
                       </select>
-                      + <input type="number" name="attr_atkdmbonus" title="@{atkdmbonus} Bonus aux DM" />
+                      + <input type="number" name="attr_atkdmbonus" style="width: 35px;" title="@{atkdmbonus} Bonus aux DM" value="0" />
                     </td>
                   </tr>
                   <tr>
@@ -2631,6 +2744,15 @@
             <div class="sheet-row">
               <textarea name="attr_pnj_divers" style="height: 15em;"></textarea>
             </div>
+            <div class="sheet-row">
+			  <input type="checkbox" class="sheet-block-switch"><span>Importer statblock</span>
+			  <div class="sheet-block-hidden"></div>
+			  <div class="sheet-block-show">
+	            <textarea class="sheet-boxinputleft" name="attr_statblock" style="height: 10em;" placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
+	            &nbsp;
+	            <textarea name="attr_sbresult" style="border: 1px solid; height: 5em;"></textarea>
+	          </div>
+            </div>
           </div>
         </div>
       </diV>
@@ -2648,131 +2770,136 @@
           <span class="textbase">Initiative variable</span>&nbsp;<input type="checkbox" name="attr_pnj_init_var" title="@{pnj_init_var}" value="[[1d6!]]" />
         </div>
       </div>
-      <div class="sheet-col" style="width: 50%;">
-        <div class="sheet-row">
-          <input type="checkbox" class="sheet-block-switch"><span>Importer statblock</span>
-          <div class="sheet-block-hidden"></div>
-          <div class="sheet-block-show">
-            <textarea name="attr_statblock" style="height: 10em;" placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
-            &nbsp;
-            <textarea name="attr_sbresult" style="height: 5em;"></textarea>
-          </div>
-        </div>
-      </div>
+      <div class="sheet-col"></div>
     </div>
   </div>
 </div> <!-- FIN FDP -->
 <!-- TEMPLATES -->
 <rolltemplate class="sheet-rolltemplate-co1">
-  <table>
-    <tr>
-      <th colspan="2" style="text-align: center;">{{perso}}</th>
-    </tr>
-    <tr>
-      <td class="subheader">{{subtags}}</td>
-      <th>{{name}}</th>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
-      </td>
-    </tr>
-    {{#desc}}
+  <div class="sheet-roundtable">
+    <table>
       <tr>
-        <td colspan="2" style="white-space:normal;">
-          <div class="desc">{{desc}}</div>
+        <th colspan="2" style="text-align: center;">{{perso}}</th>
+      </tr>
+      <tr>
+        <td class="subheader">{{subtags}}</td>
+        <th>{{name}}</th>
+      </tr>
+      {{#portee}}
+        <tr>
+          <td style="font-size: smaller; text-align: center;" colspan="2">Portée : {{portee}}</td>
+        </tr>
+      {{/portee}}
+      <tr>
+        <td colspan="2">
+          <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
         </td>
       </tr>
-    {{/desc}}
-    {{#DV}}
-      <tr>
-        <td class="tcat">PV gagnés</td>
-        <td>{{DV}}</td>
-      </tr>
-    {{/DV}}
-    {{#RECUP}}
-      <tr>
-        <td class="tcat">PV récupérés</td>
-        <td>{{RECUP}}</td>
-      </tr>
-    {{/RECUP}}
-    {{#carac}}
-      <tr>
-        <td class="tcat">Jet </td>
-        <td>{{carac}}</td>
-      </tr>
-    {{/carac}}
-    {{#test}}
-      <tr>
-        <td colspan="2">{{test}}</td>
-      </tr>
-      {{#rollWasCrit() test}}
+      {{#desc}}
         <tr>
-          <td colspan="2" style="color:green;">
-            <div class="desc"><b>{{test_crit}}</b></div>
+          <td colspan="2" style="white-space:normal;">
+            <div class="desc">{{desc}}</div>
           </td>
         </tr>
-      {{/rollWasCrit() test}}
-      {{#rollWasFumble() test}}
+      {{/desc}}
+      {{#DV}}
         <tr>
-          <td colspan="2" style="color:red;">
-            <div class="desc"><b>{{test_fumble}}</b></div>
+          <td class="tcat">PV gagnés</td>
+          <td>{{DV}}</td>
+        </tr>
+      {{/DV}}
+      {{#RECUP}}
+        <tr>
+          <td class="tcat">PV récupérés</td>
+          <td>{{RECUP}}</td>
+        </tr>
+      {{/RECUP}}
+      {{#carac}}
+        <tr>
+          <td class="tcat">Jet </td>
+          <td>{{carac}}</td>
+        </tr>
+      {{/carac}}
+      {{#test}}
+        <tr>
+          <td colspan="2">{{test}}</td>
+        </tr>
+        {{#rollWasCrit() test}}
+          <tr>
+            <td colspan="2" style="color:green;">
+              <div class="desc"><b>{{test_crit}}</b></div>
+            </td>
+          </tr>
+        {{/rollWasCrit() test}}
+        {{#rollWasFumble() test}}
+          <tr>
+            <td colspan="2" style="color:red;">
+              <div class="desc"><b>{{test_fumble}}</b></div>
+            </td>
+          </tr>
+        {{/rollWasFumble() test}}
+      {{/test}}
+      {{#attaque}}
+        {{#rollWasCrit() attaque}}
+          <tr>
+            <td colspan="2" style="color:green;"><b>Critique !</b></td>
+          </tr>
+        {{/rollWasCrit() attaque}}
+        {{#rollWasFumble() attaque}}
+          <tr>
+            <td colspan="2" style="color:red;"><b>Fumble !</b></td>
+          </tr>
+        {{/rollWasFumble() attaque}}
+        <tr>
+          <td class="tcat">Jet </td>
+          <td>{{attaque}}</td>
+        </tr>
+        {{#degats}}
+          <tr>
+            <td colspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="tcat">Dégâts </td>
+            <td>
+              {{degats}}
+              {{#rollWasCrit() attaque}}
+                <span style="color:green;font-weight:bold;"> + {{degats}}</span>
+              {{/rollWasCrit() attaque}}
+            </td>
+          </tr>
+        {{/degats}}
+      {{/attaque}}
+      {{^attaque}}
+          {{#degats}}
+              <tr>
+                  <td class="tcat">Dégâts </td>
+                  <td>{{degats}}</td>
+              </tr>
+          {{/degats}}
+      {{/attaque}}
+      {{#special}}
+        <tr>
+          <td colspan="2" class="subheader" style="text-align:left;">Spécial</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="white-space:normal;">
+            <div class="desc">{{special}}</div>
           </td>
         </tr>
-      {{/rollWasFumble() test}}
-    {{/test}}
-    {{#attaque}}
-      {{#rollWasCrit() attaque}}
+      {{/special}}
+      {{#text}}
         <tr>
-          <td colspan="2" style="color:green;"><b>Critique !</b></td>
-        </tr>
-      {{/rollWasCrit() attaque}}
-      {{#rollWasFumble() attaque}}
-        <tr>
-          <td colspan="2" style="color:red;"><b>Fumble !</b></td>
-        </tr>
-      {{/rollWasFumble() attaque}}
-      <tr>
-        <td class="tcat">Jet </td>
-        <td>{{attaque}}</td>
-      </tr>
-      {{#degats}}
-        <tr>
-          <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-          <td class="tcat">Dégâts </td>
-          <td>
-            {{degats}}
-            {{#rollWasCrit() attaque}}
-              <span style="color:green;font-weight:bold;"> + {{degats}}</span>
-            {{/rollWasCrit() attaque}}
+          <td colspan="2" style="white-space:normal; margin: 1px;">
+            <div class="text">{{text}}</div>
           </td>
         </tr>
-      {{/degats}}
-    {{/attaque}}
-    {{#special}}
+      {{/text}}
       <tr>
-        <td colspan="2" class="subheader" style="text-align:left;">Spécial</td>
-      </tr>
-      <tr>
-        <td colspan="2" style="white-space:normal;">
-          <div class="desc">{{special}}</div>
+        <td colspan="2">
+          <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
         </td>
       </tr>
-    {{/special}}
-    {{#text}}
-      <tr>
-        <td colspan="2" style="white-space:normal; margin: 1px;">
-          <div class="text">{{text}}</div>
-        </td>
-      </tr>
-    {{/text}}
-    <tr>
-      <td colspan="2">
-        <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
-      </td>
-    </tr>
-  </table>
+    </table>
+  </div>
 </rolltemplate>
 <!-- FIN TEMPLATES -->
