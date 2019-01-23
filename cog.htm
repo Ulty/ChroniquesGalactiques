@@ -382,19 +382,19 @@
                         <td class="sheet-boxinput"><input type="number" name="attr_PV_max" title="@{PV|max} Points de Vie maximum" value="0" /></td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxinput" COLSPAN="2">
+                        <td class="sheet-boxinput" colspan="2">
                           <span class="textbase">PV restants</span>&nbsp;
                           <input type="number" name="attr_PV" title="@{PV} Points de Vie restants" value="0" />
                         </td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxinput" COLSPAN="2">
+                        <td class="sheet-boxinput" colspan="2">
                           <span class="textbase">DM temp.</span>&nbsp;
                           <input type="number" name="attr_DMTEMP" title="@{DMTEMP} Dommages Temporaires" value="0" />
                         </td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxinput" COLSPAN="2">
+                        <td class="sheet-boxinput" colspan="2">
                           &nbsp;<input type="checkbox" name="attr_BLESSURE" title="@{BLESSURE} Gravement blessé" value="1" />
                           <span class="textbase">Blessure grave</span>&nbsp;
                           <input type="number" name="attr_SEUILBG" title="@{SEUILBG} Seuil de blessure grave" value="0" />
@@ -480,16 +480,6 @@
             <td class="sheet-textbase" style="width: 40px;">PORTÉE</td>
             <td class="sheet-textbase" style="widht: 100%;">SPÉCIAL</td>
           </tr>
-          <tr>
-            <td class="sheet-textbase" colspan="2">Bonus tir visé (L) :&nbsp;
-              <input type="checkbox" name="attr_visee_att" title="@{visee_att} Bonus de visée à l'attaque" value="@{PER}" />&nbsp;Attaque&nbsp;
-              <input type="checkbox" name="attr_visee_dm" title="@{visee_att} Bonus de visée aux DM" value="@{PER}" />&nbsp;DM&nbsp;
-            </td>
-            <td>&nbsp;</td>
-            <td class="sheet-textbase">
-              <input type="checkbox" name="attr_tir_hc" title="@{tir_hc} Tir haute-capacité (+1d DM)" value="1" />&nbsp;Tir Haute-capacité (L)&nbsp;
-            </td>
-          </tr>
         </table>
         <fieldset class="repeating_armes">
           <div class="attack">
@@ -498,13 +488,13 @@
               <table class="sheet-tabsep">
                 <tr>
                   <td>
-                    <button type="roll" class="sheet-neutre" name="attr_jet" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=@{armenom}}} {{subtags=Attaque}} {{portee=@{armeportee}}} {{desc=@{armejetn}}} @{armeatt}[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + [[@{visee_att}]][Tir visé] + @{armeatkdiv}[Bonus] ]]}} @{armedmg}[[(@{armedmnbde}+1*@{tir_hc})d@{armedmde}@{armedmrel}@{armedmvrel}[Dé DM] + [[@{armedmcar}]][Mod.DM] + [[@{visee_dm}]][Tir visé] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
+                    <button type="roll" class="sheet-neutre" name="attr_jet" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=@{armenom}}} {{subtags=Attaque}} {{portee=@{armeportee}}} {{desc=@{armejetn}}} {{@{armeatt}[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + [[@{visee_att}]][Tir visé] + @{armeatkdiv}[Bonus] ]] }} {{@{armedmg}[[(@{armedmnbde}+1*@{tir_hc})d@{armedmde}@{armedmrel}@{armedmvrel}[Dé DM] + [[@{armedmcar}]][Mod.DM] + [[@{visee_dm}]][Tir visé] + @{armedmdiv}[Bonus DM] ]]}} {{degats2=@{armedmg2}}} {{special=@{armespec}}}" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 130px;">
                     <input type="text" name="attr_armenom" title="@{armenom}" style="font-weight: bold;" placeholder="Arme/attaque" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 150px;">
-                    <input type="checkbox" name="attr_armeatt" title="@{armeatt} Faire un jet d'attaque pour toucher" value="{{attaque=" checked="checked" />
+                    <input type="checkbox" name="attr_armeatt" title="@{armeatt} Faire un jet d'attaque pour toucher" value="attaque=" checked="checked" />
                     <select class="sheet-carac" style="width: 87px;" name="attr_armeatk" title="@{armeatk}" size="1">
                       <option value="@{ATKCAC}" selected>CONTACT</option>
                       <option value="@{ATKTIR}">DISTANCE</option>
@@ -516,7 +506,7 @@
                     <input type="number" name="attr_armecrit" style="width:32px;" min="2" max="20" value="20" title="@{armecrit} Seuil de Critique (par défaut 20)" />
                   </td>
                   <td class="sheet-boxinputleft">
-                    <input type="checkbox" name="attr_armedmg" title="@{armedmg} Faire un jet de dommages" value="{{degats=" checked="checked" />
+                    <input type="checkbox" name="attr_armedmg" title="@{armedmg} Faire un jet de dommages" value="degats=" checked="checked" />
                     <input type="number" style="width:32px;" name="attr_armedmnbde" value="1" title="@{armedmnbde} Nombre de dés de dommage" />
                     <select class="sheet-carac" style="width: 47px;" name="attr_armedmde" size="1" title="@{armedmde} Dé de dommage">
                       <optgroup label="Normaux">
@@ -580,6 +570,11 @@
                     <input type="number" style="width: 32px;" name="attr_armeinct" min="1" max="19" value="1" title="@{armeinct} Seuil d'incident de tir (par défaut 1)" />
                   </td>
                   <td class="sheet-boxinputleft" style="width: 200px;">
+                    <input type="text" style="width: 40px;" name="attr_armedm2_de" placeholder="1d6" title="@{armedm2_de}" />
+                    <input type="text" style="width: 160px;" name="attr_armedm2_desc" placeholder="Type de dommages supp." title="@{armedm2_desc}" />
+                    <input type="hidden" name="attr_armedmg2" value="" />
+                  </td>
+                  <td class="sheet-boxinputleft" style="width: 200px;">
                     <select class="sheet-carac" style="width: 145px;" name="attr_armedmrel" size="1" title="@{armedmrel} Relance dés de DM = (r)eroll -- 1 fois = (r)eroll (o)nce">
                       <option value="" selected>Pas de relance DM</option>
                       <option value="r">Relance DM</option>
@@ -593,6 +588,21 @@
             </div>
           </div>
         </fieldset>
+        <table>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="sheet-textbase" style="width: 30%;">Bonus visée (L) :&nbsp;
+              <input type="checkbox" name="attr_visee_att" title="@{visee_att} Bonus de visée à l'attaque" value="@{PER}" />&nbsp;Attaque&nbsp;
+              <input type="checkbox" name="attr_visee_dm" title="@{visee_att} Bonus de visée aux DM" value="@{PER}" />&nbsp;DM&nbsp;
+            </td>
+            <td class="sheet-textbase" style="width: 25%;">
+              Tir Haute-capacité (L) :&nbsp;<input type="checkbox" name="attr_tir_hc" title="@{tir_hc} Tir haute-capacité (+1d DM)" value="1" />
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
       </div>
       <img class="sheet-imghr" src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
     </div>
@@ -2016,6 +2026,9 @@
               {{#rollWasCrit() attaque}}
                 <span style="color:green;font-weight:bold;"> + {{degats}}</span>
               {{/rollWasCrit() attaque}}
+              {{#degats2}}
+                + <span style="color: steelblue;">{{degats2}}</span>
+              {{/degats2}}
             </td>
           </tr>
         {{/degats}}
@@ -2024,7 +2037,12 @@
           {{#degats}}
               <tr>
                   <td class="tcat">Dégâts </td>
-                  <td>{{degats}}</td>
+                  <td>
+                    {{degats}}
+                    {{#degats2}}
+                      + <span style="color: steelblue;">{{degats2}}</span>
+                    {{/degats2}}
+                  </td>
               </tr>
           {{/degats}}
       {{/attaque}}
@@ -2851,6 +2869,17 @@
   
   on('change:defarmureon change:defarmuremalus', function(eventInfo) {
     setArmorMalus();
+  });
+
+on('change:repeating_armes:armedm2_de change:repeating_armes:armedm2_desc', function(eventInfo) {
+    getAttrs(['repeating_armes_armedm2_de', 'repeating_armes_armedm2_desc'], function(values) {
+      let dm2_de = values.repeating_armes_armedm2_de || '';
+      let dm2_desc = values.repeating_armes_armedm2_desc || '';
+      let dmg2 = '';
+      if (dm2_desc !== '') dm2_desc = `[${dm2_desc}] `;
+      if (dm2_de !== '') dmg2 = `[[${dm2_de}${dm2_desc}]]`;
+      setAttrs({ repeating_armes_armedmg2: dmg2 });
+    });
   });
 
 </script>
