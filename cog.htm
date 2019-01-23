@@ -27,6 +27,8 @@
   <input type="hidden" name="attr_INIT_BUFF" value="0" />
   <input type="hidden" name="attr_DEF_BUFF" value="0" />
   <input type="hidden" name="attr_DEP_BUFF" value="0" />
+  <!-- INPUT HIDDEN Malus Armure -->
+  <input type="hidden" name="attr_ARMURE_MALUS" value="0" />
   <!-- INPUT HIDDEN Buffs vaisseau -->
   <input type="hidden" name="attr_ATKTIRV_BUFF" value="0" />
   <input type="hidden" name="attr_DEFVPIL_BUFF" value="0" />
@@ -349,7 +351,7 @@
                         <td>&nbsp;</td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_INIT_CARAC" title="@{INIT_CARAC}" value="@{DEXTERITE}" disabled /></td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_INIT_DIV" title="@{INIT_DIV} Bonus divers" value="@{INIT_BUFF}" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INIT" title="@{INIT}" value="@{INIT_CARAC}+@{INIT_DIV}" disabled /></td>
+                        <td class="sheet-boxinputlight"><input type="number" name="attr_INIT" title="@{INIT}" value="@{INIT_CARAC}+@{INIT_DIV}-@{ARMURE_MALUS}" disabled /></td>
                       </tr>
                       <tr>
                         <td>&nbsp;</td>
@@ -414,8 +416,14 @@
                     <table class="sheet-tabsep">
                       <tr>
                         <td colspan="2" class="sheet-textfat">D&Eacute;FENSES</td>
-                        <td class="sheet-textbase">Armure</td>
-                        <td class="sheet-textbase">Bouclier</td>
+                        <td class="sheet-textbase">
+                            Armure
+                            <input type="checkbox" name="attr_DEFARMUREON" value="1" checked title="@{DEFARMUREON} Armure portée" />
+                        </td>
+                        <td class="sheet-textbase">
+                            Bouclier
+                            <input type="checkbox" name="attr_DEFBOUCLIERON" value="1" checked title="@{DEFBOUCLIERON} Champ de force activé" />
+                        </td>
                         <td class="sheet-textbase">Mod.</td>
                         <td class="sheet-textbase">Div.</td>
                         <td class="sheet-textbase">Action défensive</td>
@@ -435,7 +443,12 @@
                             <option value="4">Totale (L)</option>
                           </select>
                         </td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEF" value="10+@{DEFARMURE}+@{DEFBOUCLIER}+@{DEFCAR}+@{DEFDIV}+@{DEFACT}" title="@{DEF} D&eacute;fense Physique" disabled /></td>
+                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEF" value="10+(@{DEFARMURE}*@{DEFARMUREON})+(@{DEFBOUCLIER}*@{DEFBOUCLIERON})+@{DEFCAR}+@{DEFDIV}+@{DEFACT}" title="@{DEF} D&eacute;fense Physique" disabled /></td>
+                      </tr>
+                      <tr>
+                        <td class="sheet-textfat" colspan="2" style="text-align: right;">Malus</td>
+                        <td class="sheet-boxinput"><input type="number" name="attr_DEFARMUREMALUS" title="@{DEFARMUREMALUS} Malus à toutes les actions et à l'Init. quand l'armure est portée." min="0" value="0" /></td>
+                        <td class="sheet-textbase" colspan="3">&nbsp;</td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre">DEP</td>
@@ -2449,6 +2462,10 @@
     getAttrs(['PV'], function(values) {
       setAttrs({ LAST_PV: values.PV })
     });
+    // ARMURE_MALUS
+    getAttrs(['ARMURE_MALUS'], function(value) {
+      if (!value.ARMURE_MALUS) setArmorMalus();
+    });
   });
 
   on('change:character_name', function(eventInfo) {
@@ -2720,42 +2737,42 @@
     });
   });
 
-  function setStation(v, attr, sfx, tpl) {
+  function setStation(v, attr, sfx, fill) {
     let station_name = v[attr + '_' + sfx[0]] || '';
-    station_name = station_name != '' ? stringFormat(tpl[0], station_name) : '0';
+    station_name = station_name != '' ? `@{${station_name}|${fill[0]}}` : '0';
     let station_bonus = parseInt(v[attr + '_' + sfx[1]]) || 0;
     let station = {};
-    station[attr] = stringFormat(tpl[1], station_name, station_bonus);
+    station[attr] = `[[${station_name}]][${fill[1]}] + ${station_bonus}[${fill[2]}]`
     setAttrs(station);
   }
   
   on('change:poste_pil_nom change:poste_pil_bonus', function(eventInfo) {
     getAttrs(['POSTE_PIL_NOM', 'POSTE_PIL_BONUS'], function(values) {
-      setStation(values, 'POSTE_PIL', ['NOM', 'BONUS'], ['@{{0}|DEX}', '[[{0}]][DEX pilote] + {1}[Pilotage]']);
+      setStation(values, 'POSTE_PIL', ['NOM', 'BONUS'], ['DEX', 'DEX pilote', 'Pilotage']);
     });
   });
 
   on('change:poste_mot_nom change:poste_mot_bonus', function(eventInfo) {
     getAttrs(['POSTE_MOT_NOM', 'POSTE_MOT_BONUS'], function(values) {
-      setStation(values, 'POSTE_MOT', ['NOM', 'BONUS'], ['@{{0}|INT}', '[[{0}]][INT mécano] + {1}[Moteurs]']);
+      setStation(values, 'POSTE_MOT', ['NOM', 'BONUS'], ['INT', 'INT mécano', 'Moteurs']);
     }); 
   });
 
   on('change:poste_sen_nom change:poste_sen_bonus', function(eventInfo) {
     getAttrs(['POSTE_SEN_NOM', 'POSTE_SEN_BONUS'], function(values) {
-      setStation(values, 'POSTE_SEN', ['NOM', 'BONUS'], ['@{{0}|INT}', '[[{0}]][INT scan] + {1}[Electronique/Investigation]']);
+      setStation(values, 'POSTE_SEN', ['NOM', 'BONUS'], ['INT', 'INT scan', 'Electronique/Investigation']);
     });
   });
 
   on('change:poste_ord_nom change:poste_ord_bonus', function(eventInfo) {
     getAttrs(['POSTE_ORD_NOM', 'POSTE_ORD_BONUS'], function(values) {
-      setStation(values, 'POSTE_ORD', ['NOM', 'BONUS'], ['@{{0}|INT}', '[[{0}]][INT info] + {1}[Electronique]']);
+      setStation(values, 'POSTE_ORD', ['NOM', 'BONUS'], ['INT', 'INT info', 'Electronique']);
     });
   });
   
   on('change:repeating_armesv:armecan_nom change:repeating_armesv:armecan_bonus', function(eventInfo) {
     getAttrs(['repeating_armesv_armecan_nom', 'repeating_armesv_armecan_bonus'], function(values) {
-      setStation(values, 'repeating_armesv_armecan', ['nom', 'bonus'], ['@{{0}|DEX}', '[[{0}]][DEX canonnier] + {1}[Armes lourdes]']);
+      setStation(values, 'repeating_armesv_armecan', ['nom', 'bonus'], ['DEX', 'DEX canonnier', 'Armes lourdes']);
     });
   });
  
@@ -2822,6 +2839,18 @@
     getAttrs(['voie9-1', 'voie9-2', 'voie9-3', 'voie9-4', 'voie9-5'], function(values) {
       setRank(values, '9');
     });
+  });
+  
+  function setArmorMalus() {
+    getAttrs(['DEFARMUREON', 'DEFARMUREMALUS'], function(values) {
+      let armure_on = values.DEFARMUREON || 0;
+      let armure_malus = values.DEFARMUREMALUS || 0;
+      setAttrs({ ARMURE_MALUS: armure_on * armure_malus });
+    }); 
+  }
+  
+  on('change:defarmureon change:defarmuremalus', function(eventInfo) {
+    setArmorMalus();
   });
 
 </script>
