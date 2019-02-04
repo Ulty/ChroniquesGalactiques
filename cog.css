@@ -353,15 +353,16 @@ input[type="checkbox"].sheet-block-switch:checked + span::before {
 
 .sheet-options-flag {
 opacity: 0;
-top: 0px;
-right: 16px;
+top: -8px;
+right: 0px;
 position: absolute;
 width: 16px;
 min-height: 16px;
 z-index: 2;
 }
 .sheet-options-flag + span {
-right: 16px;
+top: -8px;
+right: 0px;
 position: absolute;
 white-space: nowrap;
 width: 16px;
