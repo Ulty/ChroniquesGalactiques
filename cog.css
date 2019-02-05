@@ -165,7 +165,7 @@ button[type="roll"].sheet-boxtitre{
 button[type="roll"].sheet-boxtitre:hover{
     font-weight: bold;
     background-color:#7F989D;
-    border: 1px solide white;
+    border: 1px none white;
 }
 button[type="roll"].sheet-neutre,
 button[type="roll"].sheet-output{
@@ -190,6 +190,10 @@ button[type="roll"].sheet-output{
 }
 button[type="roll"].sheet-output:before {
     content: "";
+}
+button[type="action"].sheet-boxtitre:hover {
+    border-radius: 2px;
+    background-color:#7F989D;
 }
 input, select{
     border: none;
