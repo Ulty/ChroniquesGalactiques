@@ -578,11 +578,11 @@
                     <input type="number" style="width: 32px;" name="attr_armeinct" min="1" max="19" value="1" title="@{armeinct} Seuil d'incident de tir (par défaut 1)" />
                   </td>
                   <td class="sheet-boxinputleft" style="width: 200px">
-                    <input type="text" class="sheet-carac" style="width: 105px;" name="attr_armedmtype" title="@{armedmtype}" placeholder="Type DM">
-                    <select class="sheet-carac" style="width: 42px;" name="attr_armedmrel" size="1" title="@{armedmrel} Relance dés de DM = (r)eroll -- 1 fois = (r)eroll (o)nce">
-                      <option value="" selected>N - Pas de relance DM</option>
-                      <option value="r">r  - Relance DM</option>
-                      <option value="ro">ro - Relance DM (1 fois)</option>
+                    <input type="text" class="sheet-carac" style="width: 106px;" name="attr_armedmtype" title="@{armedmtype}" placeholder="Type DM">
+                    <select class="sheet-carac" style="width: 40px;" name="attr_armedmrel" size="1" title="@{armedmrel} Relance dés de DM = (r)eroll -- 1 fois = (r)eroll (o)nce">
+            		  <option value="" selected>-x- Pas de relance DM</option>
+            		  <option value="r">-r- Relance DM (r)</option>
+            		  <option value="ro">-o- Relance DM 1 seule fois (ro)</option>
                     </select>
                     <input type="text" style="width: 50px;" name="attr_armedmvrel" title="@{armedmvrel} Seuil de relance (relance les 1 si non indiqué)" />
                   </td>
