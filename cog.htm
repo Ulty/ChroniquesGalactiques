@@ -1859,17 +1859,18 @@
         {{/degats}}
       {{/attaque}}
       {{^attaque}}
-          {{#degats}}
-              <tr>
-                  <td class="tcat">Dégâts </td>
-                  <td>
-                    {{degats}}
-                    {{#degats2}}
-                      + <span style="color: steelblue;">{{degats2}} {{dm2type}}</span>
-                    {{/degats2}}
-                  </td>
-              </tr>
-          {{/degats}}
+        {{#degats}}
+          <tr>
+            <td class="tcat">Dégâts </td>
+            <td>{{degats}} {{dmtype}}</td>
+          </tr>
+          {{#degats2}}
+            <tr>
+              <td style="text-align: right;">+</td>
+              <td><span style="color: steelblue;">{{degats2}} {{dm2type}}</span></td>
+            </tr>
+          {{/degats2}}
+        {{/degats}}
       {{/attaque}}
       {{#special}}
         <tr>
