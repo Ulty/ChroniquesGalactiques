@@ -258,16 +258,16 @@
               <table class="sheet-tabsep" style="margin-top: 20px;">
                 <!-- Chance -->
                 <tr>
-                  <td class="sheet-boxtitre" title="Points de Chance"><button type="action" class="sheet-boxtitre" name="act_use_PC">PC</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_PC" value="0" title="@{PC} Points de Chance utilisés ou courants" /></td>
+                  <td class="sheet-boxtitre" title="Points de Chance"><button type="roll" class="sheet-boxtitre" name="attr_JET_PC" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Bonus}} {{name=Point de Chance}} {{desc=@{character_name} utilise un Point de Chance et obtient un bonus de +10}} {{text=@{character_name} peut aussi utiliser un Point de Chance pour annuler une blessure grave (1 / combat), annuler un incident de tir (1 / combat), ou pour la durée d'un combat spatial, prendre un poste à bord d'un vaisseau que ces capacités ne lui permettent pas d'occuper en tant normal.}}" />PC</td>
+                  <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PC" value="0" title="@{PC} Points de Chance utilisés ou courants" /></td>
                   <td>/</td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_PCRACE" title="@{PCRACE}Points de Chance de Race" value="0" /></td>
+                  <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PCRACE" title="@{PCRACE}Points de Chance de Race" value="0" /></td>
                   <td>+</td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_PCDIV" title="@{PCDIV} Points de Chance additionnels" value="0" /></td>
+                  <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PCDIV" title="@{PCDIV} Points de Chance additionnels" value="0" /></td>
                   <td>+</td>
-                  <td class="sheet-boxinputlight"><INPUT type="number" name="attr_PCCAR" value="@{CHA}" title="@{PCCAR} Modificateur de Charisme" disabled /></td>
+                  <td class="sheet-boxinputlight"><INPUT type="number" style="width: 35px;" name="attr_PCCAR" value="@{CHA}" title="@{PCCAR} Modificateur de Charisme" disabled /></td>
                   <td>=</td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PC_max" value="@{PCRACE}+@{PCDIV}+@{PCCAR}" title="@{PC|max} Points de Chance maximums" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" style="width: 35px;" name="attr_PC_max" value="@{PCRACE}+@{PCDIV}+@{PCCAR}" title="@{PC|max} Points de Chance maximums" disabled /></td>
                 </tr>
               </table> <!-- FIN Chance -->
             </td> <!-- FIN Caracs + Chance -->
@@ -481,7 +481,7 @@
             <td class="sheet-textfatleft" style="width:155px;">ARMES / ATTAQUES</td>
             <td class="sheet-textbase" style="width: 150px;">ATTAQUE</td>
             <td class="sheet-textbase" style="width: 20px;">CRIT.</td>
-            <td class="sheet-textbase" style="width: 200px;">DM</td>
+            <td class="sheet-textbase" style="width: 210px;">DM</td>
             <td class="sheet-textbase" style="width: 40px;">PORTÉE</td>
             <td class="sheet-textbase" style="widht: 100%;">SPÉCIAL</td>
           </tr>
@@ -587,8 +587,8 @@
                     <input type="text" style="width: 50px;" name="attr_armedmvrel" title="@{armedmvrel} Seuil de relance (relance les 1 si non indiqué)" />
                   </td>
                   <td class="sheet-boxinputleft" style="width: 200px;" colspan="2">
-                    <input type="text" style="width: 40px;" name="attr_armedm2_de" placeholder="1d6" title="@{armedm2_de}" />
-                    <input type="text" style="width: 160px;" name="attr_armedm2_desc" placeholder="Electro-impact" title="@{armedm2_desc}" />
+                    <input type="text" style="width: 50px;" name="attr_armedm2_de" placeholder="1d6" title="@{armedm2_de}" />
+                    <input type="text" style="width: 150px;" name="attr_armedm2_desc" placeholder="Electro-impact" title="@{armedm2_desc}" />
                     <input type="hidden" name="attr_armedmg2" value="" />
                   </td>
                 </tr>
@@ -2823,22 +2823,5 @@
     });
   });
   
-  on('clicked:use_pc', function() {
-    getAttrs(['pc_count', 'PC', 'PC_max'], function(values) {
-      let pc = parseInt(values.PC) || 0;
-      let pc_max = parseInt(values.PC_max) || 0;
-      let mod = 0;
-      switch (values.pc_count) {
-        case 'R':
-          if (pc > 0) mod = -1;
-          break;
-        case 'U':
-          if (pc < pc_max) mod = 1;
-          break;
-      }
-      if (mod !== 0) setAttrs({ PC: pc + mod });
-    }); 
-  });
-
 </script>
 <!-- FIN SCRIPTS / SHEET WORKERS -->
