@@ -2854,6 +2854,7 @@
       let rank = {};
       rank[`RANG_VOIE${voie}`] = vr;
       setAttrs(rank);
+      buildCaracs();
     });
   }
 
@@ -2918,11 +2919,19 @@
   
   on('change:repeating_armes:armeportee', function() {
     getAttrs(['repeating_armes_armeportee'], function(value) {
-      let um = 'm';
-      if (value.repeating_armes_armeportee.indexOf(' m') !== -1) um = ' m';
-      let portee = parseInt(value.repeating_armes_armeportee.replace(um,'')) || 0;
-      if (portee !== 0) {
-        setAttrs({ repeating_armes_armeportees: `${portee}${um} / ${portee*2}${um} / ${portee*3}${um}` });
+      let um = '';
+      if (value.repeating_armes_armeportee.indexOf(' m') !== -1) {
+        um = ' m';
+      } else if (value.repeating_armes_armeportee.indexOf('m') !== -1) {
+        um = 'm';
+      }
+      let portee = value.repeating_armes_armeportee;
+      if (um !== '') portee = portee.replace(um,'');
+      let portees = parseInt(portee) || 0;
+      if (portees !== 0) {
+        setAttrs({ 
+          repeating_armes_armeportees: `${portees}${um} / ${portees*2}${um} / ${portees*3}${um}` 
+        });
       }
     });
   });
