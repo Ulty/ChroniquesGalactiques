@@ -485,7 +485,7 @@
             <td class="sheet-textbase" style="width: 20px;">CRIT.</td>
             <td class="sheet-textbase" style="width: 210px;">DM</td>
             <td class="sheet-textbase" style="width: 40px;">PORTÉE</td>
-            <td class="sheet-textbase" style="widht: 100%;">SPÉCIAL</td>
+            <td class="sheet-textbase" style="width: 100%;">SPÉCIAL</td>
           </tr>
         </table>
         <fieldset class="repeating_armes">
@@ -1251,7 +1251,7 @@
             <td class="sheet-textbase" style="width:140px;">ATTAQUE</td>
             <td class="sheet-textbase" style="width:20px;">CRIT.</td>
             <td class="sheet-textbase" style="width:185px;">DM</td>
-            <td class="sheet-textbase" style="widht:100%;">SPÉCIAL</td>
+            <td class="sheet-textbase">SPÉCIAL</td>
           </tr>
         </table>
         <fieldset class="repeating_armesv">
@@ -1264,10 +1264,10 @@
                   <td>
                     <button type="roll" class="sheet-neutre" name="attr_jet" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Tir}} {{name=@{armenom}}} {{desc=@{armejetn}@{armecan_nom}}} {{attaque=[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + @{armecan} + @{armeatkdiv}[Bonus] ]]}} {{degats=[[@{armedmnbde}d@{armedmde}[Dé DM] + [[@{armedmcar}]][Mod.DM] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
                   </td>
-                  <td class="sheet-boxinputleft" style="min-width: 130px;">
+                  <td class="sheet-boxinputleft" style="min-width: 140px;">
                     <input type="text" name="attr_armenom" title="@{armenom}" style="font-weight: bold;" placeholder="Arme/attaque" />
                   </td>
-                  <td class="sheet-boxinputleft" style="min-width: 145px;">
+                  <td class="sheet-boxinputleft" style="min-width: 135px;">
                     <select class="sheet-carac" style="width: 87px;" name="attr_armeatk" title="@{armeatk}" size="1">
                       <option value="@{ATKTIRV}" selected>DISTANCE</option>
                     </select>+<input type="number" style="width:32px;" name="attr_armeatkdiv" value="0" title="@{armeatkdiv} Bonus d'attaque divers" />
@@ -1326,7 +1326,7 @@
                   </td>
                   <td class="sheet-boxinputleft" style="width: 250px;">
                     <input type="text" style="width: 220px;" name="attr_armecan_nom" title="@{armecan_nom} Nom du canonnier (CAN)" />
-                    <input type="number" name="attr_armecan_bonus" title="@{armecan_bonus} Rang armes lourdes (CAN)" value="0" />
+                    <input type="number" style="width: 32px;" name="attr_armecan_bonus" title="@{armecan_bonus} Rang armes lourdes (CAN)" value="0" />
                   </td>
                   <td>&nbsp;</td>
                 </tr>
