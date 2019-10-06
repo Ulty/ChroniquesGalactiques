@@ -1316,12 +1316,13 @@
               <table class="sheet-tabsep">
                 <tr>
                   <td>
-                    <button type="roll" class="sheet-neutre" name="roll_vatk" title="%{repeating_armesv_$N_vatk}" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Tir}} {{name=@{armenom}}} {{desc=@{armejetn}@{armecan_nom}}} {{attaque=[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + @{armecan} + @{armeatkdiv}[Bonus] ]]}} {{degats=[[@{armedmnbde}d@{armedmde}[Dé DM] + [[@{armedmcar}]][Mod.DM] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
+                    <button type="roll" class="sheet-neutre" name="roll_vatk" title="%{repeating_armesv_$N_vatk}" value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Tir}} {{name=@{armenom}}} {{desc=@{armecan_nom}}} {{text=@{armejetn}}} {{@{armeatt}[[@{armejetd}cs>@{armecrit}cf<@{armeinct}[Dé] + [[@{armeatk}]][Attaque] + @{armecan} + @{armeatkdiv}[Bonus] ]]}} {{@{armedmg}[[@{armedmnbde}d@{armedmde}[Dé DM] + [[@{armedmcar}]][Mod.DM] + @{armedmdiv}[Bonus DM] ]]}} {{special=@{armespec}}}" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 140px;">
                     <input type="text" name="attr_armenom" title="@{armenom}" style="font-weight: bold;" placeholder="Arme/attaque" />
                   </td>
                   <td class="sheet-boxinputleft" style="min-width: 135px;">
+                    <input type="checkbox" name="attr_armeatt" title="@{armeatt}" value="attaque=" checked="checked" />
                     <select class="sheet-carac" style="width: 87px;" name="attr_armeatk" title="@{armeatk}" size="1">
                       <option value="@{ATKTIRV}" selected>DISTANCE</option>
                     </select>+<input type="number" style="width:32px;" name="attr_armeatkdiv" value="0" title="@{armeatkdiv} Bonus d'attaque divers" />
@@ -1330,6 +1331,7 @@
                     <input type="number" name="attr_armecrit" style="width:32px;" min="2" max="20" value="20" title="@{armecrit} Seuil de Critique (par défaut 20)" />
                   </td>
                   <td class="sheet-boxinputleft">
+                    <input type="checkbox" name="attr_armedmg" title="@{armedmg}" value="degats=" checked="checked" />
                     <input type="number" style="width:32px;" name="attr_armedmnbde" value="1" title="@{armedmnbde} Nombre de dés de dommage" />
                     <select class="sheet-carac" style="width:47px;" name="attr_armedmde" size="1" title="@{armedmde} Dé de dommage">
                       <option value="4">d4</option>
@@ -1368,7 +1370,7 @@
                 <tr>
                   <td style="width: 18px;">&nbsp;</td>
                   <td class="sheet-boxinputleft" style="width: 272px;">
-                    <input type="text" name="attr_armejetn" style="width: 242px; font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
+                    <input type="text" name="attr_armejetn" style="width: 255px; font-weight: bold;" placeholder="Nom de l'attaque" title="@{armejetn}" />
                     <select class="sheet-carac" style="width: 30px;" name="attr_armejetd" size="1" title="@{armejetd} Jet d'attaque : 'Risque' = avec d12, 'Expert' = meilleur de deux d20">
                       <option value="1d20" selected>Normal</option>
                       <option value="1d12">Risque (d12)</option>
