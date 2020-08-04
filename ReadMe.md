@@ -21,7 +21,6 @@ V3.10 [Screenshot](cog_v3.png)
 * Nouveau fichier .html pour la fiche
 * Nouveau schema de versionning : AAAA.MMJJ
 
-# Notes de version
 ## V3.8 (2019-10-10)
 * Ajout buff et calcul auto des PV
 * Modification du sheetworker pour éviter erreurs dans la console API
