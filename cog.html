@@ -1,8 +1,13 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
+<<<<<<< HEAD
   <input type="hidden" name="attr_verfdp" value="3.11.0" />
   <input type="hidden" name="attr_VERSION" value="3.11.0" />
+=======
+  <input type="hidden" name="attr_verfdp" value="3.10.0" />
+  <input type="hidden" name="attr_VERSION" value="3.10.0" />
+>>>>>>> 46a50392f4e6761c98c2816bac07fda4768cc5d4
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
   <!-- INPUT HIDDEN Type de jets -->
@@ -3448,12 +3453,12 @@ function migrateSheet(verfdp) {
         let attr = Object.keys(values)[0];
         let buffList = [];
         for (let b = 1; b < 6; b++) {
-          let desc = values[`${attr}_BUFF${b}_DESC`] || '';
+          let desc = values[`${attr}_BUFF${b}_DESC`] || "";
           let buff = values[`${attr}_BUFF${b}`] || 0;
-          if (desc !== '') buffList.push(`${desc} : ${buff}`);
+          if (desc !== "") buffList.push(`${desc} : ${buff}`);
         }
         let buffAttr = {};
-        buffAttr[`${attr}_BUFF_LIST`] = buffList.join(';');
+        buffAttr[`${attr}_BUFF_LIST`] = buffList.join(";");
         setAttrs(buffAttr);
       });
     }
@@ -3569,7 +3574,7 @@ function migrateSheet(verfdp) {
         if (values[name] !== '') {
           vrFlags[flag] = '1';
         } else {
-          vrFlags[flag] = '0';
+          vrFlags[flag] = "0";
         }
       });
       setAttrs(vrFlags);
