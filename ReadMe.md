@@ -10,9 +10,26 @@ Le jeu complet est paru dans le magazine [Casus Belli](http://www.black-book-edi
 
 # Version courante
 
-V3.110 [Screenshot](cog_v3.png)
+V3.111 [Screenshot](cog_v3.png)
 
 # Notes de version
+
+## V3.111 (2021.02.22)
+
+- Déplacement de l'initiative sur la 1ère ligne de la section combat
+- Réorganisation des champs PV et PV max, RD
+- Ajout des Points de Récupération avec PR max et courants
+- Cases à cocher "Space Fantasy" sur l'onglet Configuration pour faire apparaître optionnellement :
+  - l'Attaque Magique, avec score de base, bonus de caractéristique, bonus divers et total.
+  - les Points de Mana, avec PM max et courants.
+- Amélioration de la reconnaissance des propriétés d'équipement
+  - **DEF : x** pour indiquer le bonus de DEFense d'une armure
+  - **DEF- : x** pour indiquer le malus d'encombrement d'une armure
+  - **RD : x** pour indiquer la réduction des DM d'une armure
+  - **DM : dm type** pour indiquer les dés et le type de DM
+    - Où _dm_ est {nombre}d{faces}
+    - Suffixer _dm_ avec + ou ! pour des DM explosifs
+  - **DM2 : dm2 type2** pour indiquer un second type et dés de DM
 
 ## V3.110 (2020.12.21)
 
@@ -53,10 +70,10 @@ V3.110 [Screenshot](cog_v3.png)
 
 Modification de tous les roll-buttons :
 
-- name="roll\_<nomdujet>"
+- name="roll\_{nomdujet}"
 - ajout/maj des title=""
 
-Permet de lancer tous les jets de dés de la fiche via %{<nomdujet>} dans le chat
+Permet de lancer tous les jets de dés de la fiche via %{nomdujet} dans le chat
 
 ## V3.6 (2019-04-17)
 
