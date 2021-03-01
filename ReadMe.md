@@ -14,6 +14,19 @@ V3.111 [Screenshot](cog_v3.png)
 
 # Notes de version
 
+## V3.112 (2021.03.01)
+
+_Fiche de PJ_
+
+- Ajout de l'attaque magique dans la liste des armes/attaques
+- Correction mise en page PV et PR : restants / max et non l'inverse
+- Suppression du code de remise en forme des textes de capacités par élimination des retours à la ligne
+
+_Fiche de vaisseau_
+
+- Correction du calcul des DEFenses
+- Ajout de deux attributs @{DEFRAP} (DEF Rapidité) et @{DEFSOL} (DEF Solidité) calculés pouvant être liés à un token
+
 ## V3.111 (2021.02.22)
 
 - Déplacement de l'initiative sur la 1ère ligne de la section combat
