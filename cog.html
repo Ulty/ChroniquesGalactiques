@@ -3567,11 +3567,11 @@ function removeRepeating(sectionName) {
  * @param {object} traitObj
  */
 function addTrait(npcObj, traitObj) {
-  if (traitObj['nom'] !== '' && traitObj['desc'] !== '') {
-    if (!npcObj['Capas']) npcObj['Capas'] = [];
-    npcObj['Capas'].push(`${traitObj['nom']}~${traitObj['desc']}`);
-    traitObj['nom'] = '';
-    traitObj['desc'] = '';
+  if (traitObj.nom !== '' && traitObj.desc !== '') {
+    if (!npcObj.Capas) npcObj.Capas = [];
+    npcObj.Capas.push(`${traitObj.nom}~${traitObj.desc}`);
+    traitObj.nom = '';
+    traitObj.desc = '';
   }
 }
 
@@ -3613,7 +3613,7 @@ function importStatblock(text) {
     console.log(dataRow);
     if (rownr === 0 && dataRow.toUpperCase().indexOf('NC') === -1) {
       // assume first line is name
-      npc['character_name'] = dataRow;
+      npc.character_name = dataRow;
       return;
     }
     // reading attacks list
@@ -3623,13 +3623,13 @@ function importStatblock(text) {
         // this is an attack line, handle CG statblocks
         dataRow = dataRow.replace(/ \(DM/g, ' DM');
         dataRow = dataRow.replace(/\)$/g, '');
-        npc['Atks'].push(dataRow);
+        npc.Atks.push(dataRow);
         return;
       }
     }
     // reading paths & ranks
     if (dataRow.toUpperCase().startsWith('VOIE ')) {
-      npc['Extras'].push(dataRow);
+      npc.Extras.push(dataRow);
       return;
     }
     if (capacites) {
@@ -3637,13 +3637,13 @@ function importStatblock(text) {
       let s = dataRow.indexOf(':');
       if (s !== -1) {
         addTrait(npc, capacite);
-        capacite['nom'] = dataRow.substring(0, s - 1).trim();
-        if (capacite['nom'].indexOf(' RD') !== -1) {
-          capacite['nom'] = capacite['nom'].replace(' RD', ' (RD');
+        capacite.nom = dataRow.substring(0, s - 1).trim();
+        if (capacite.nom.indexOf(' RD') !== -1) {
+          capacite.nom = capacite.nom.replace(' RD', ' (RD');
         }
-        capacite['desc'] = dataRow.substring(s + 1).trim();
+        capacite.desc = dataRow.substring(s + 1).trim();
       } else {
-        capacite['desc'] += ' ' + dataRow.trim();
+        capacite.desc += ' ' + dataRow.trim();
       }
       return;
     }
@@ -3680,8 +3680,8 @@ function importStatblock(text) {
         if (v.trim() !== '') {
           v = v.replace(/~/g, ' ');
           npc[k] = v;
-          if (k === 'SAG') delete npc['PER'];
-          if (k === 'PER') delete npc['SAG'];
+          if (k === 'SAG') delete npc.PER;
+          if (k === 'PER') delete npc.SAG;
         }
       }
     }
@@ -3730,57 +3730,57 @@ function processBaseAttributes(universe, pnjObj) {
   var jsup = '2d20kh1';
   var pnjAttrs = {};
   if (pnjObj.character_name != '') {
-    pnjAttrs['character_name'] = pnjObj.character_name;
+    pnjAttrs.character_name = pnjObj.character_name;
   }
-  delete pnjObj['character_name'];
-  pnjAttrs['NIVEAU'] = parseInt(pnjObj.NC) || 0;
-  delete pnjObj['NC'];
-  pnjAttrs['TAILLE'] = pnjObj.TAILLE || '';
-  delete pnjObj['TAILLE'];
+  delete pnjObj.character_name;
+  pnjAttrs.NIVEAU = parseInt(pnjObj.NC) || 0;
+  delete pnjObj.NC;
+  pnjAttrs.TAILLE = pnjObj.TAILLE || '';
+  delete pnjObj.TAILLE;
   if (pnjObj.PROFIL !== '') {
-    pnjAttrs['PROFIL'] = pnjObj.PROFIL;
+    pnjAttrs.PROFIL = pnjObj.PROFIL;
   }
-  delete pnjObj['PROFIL'];
-  pnjAttrs['pnj_for'] = parseInt(pnjObj['FOR'].replace('*', ''));
-  pnjAttrs['pnj_jetfor'] =
-    pnjObj['FOR'].charAt(pnjObj['FOR'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['FOR'];
-  pnjAttrs['pnj_dex'] = parseInt(pnjObj['DEX'].replace('*', ''));
-  pnjAttrs['pnj_jetdex'] =
-    pnjObj['DEX'].charAt(pnjObj['DEX'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['DEX'];
-  pnjAttrs['pnj_con'] = parseInt(pnjObj['CON'].replace('*', ''));
-  pnjAttrs['pnj_jetcon'] =
-    pnjObj['CON'].charAt(pnjObj['CON'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['CON'];
-  pnjAttrs['pnj_int'] = parseInt(pnjObj['INT'].replace('*', ''));
-  pnjAttrs['pnj_jetint'] =
-    pnjObj['INT'].charAt(pnjObj['INT'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['INT'];
+  delete pnjObj.PROFIL;
+  pnjAttrs.pnj_for = parseInt(pnjObj.FOR.replace('*', ''));
+  pnjAttrs.pnj_jetfor =
+    pnjObj.FOR.charAt(pnjObj.FOR.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.FOR;
+  pnjAttrs.pnj_dex = parseInt(pnjObj.DEX.replace('*', ''));
+  pnjAttrs.pnj_jetdex =
+    pnjObj.DEX.charAt(pnjObj.DEX.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.DEX;
+  pnjAttrs.pnj_con = parseInt(pnjObj.CON.replace('*', ''));
+  pnjAttrs.pnj_jetcon =
+    pnjObj.CON.charAt(pnjObj.CON.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.CON;
+  pnjAttrs.pnj_int = parseInt(pnjObj.INT.replace('*', ''));
+  pnjAttrs.pnj_jetint =
+    pnjObj.INT.charAt(pnjObj.INT.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.INT;
   pnjAttrs[pnj_sagper] = parseInt(sagOrPer.replace('*', ''));
   pnjAttrs[pnj_jetsagper] =
     sagOrPer.charAt(sagOrPer.length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['SAG'];
-  delete pnjObj['PER'];
-  pnjAttrs['pnj_cha'] = parseInt(pnjObj['CHA'].replace('*', ''));
-  pnjAttrs['pnj_jetcha'] =
-    pnjObj['CHA'].charAt(pnjObj['CHA'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['CHA'];
-  pnjAttrs['pnj_init'] = parseInt(pnjObj.INIT);
-  delete pnjObj['INIT'];
-  pnjAttrs['pnj_def'] = parseInt(pnjObj.DEF);
-  delete pnjObj['DEF'];
+  delete pnjObj.SAG;
+  delete pnjObj.PER;
+  pnjAttrs.pnj_cha = parseInt(pnjObj.CHA.replace('*', ''));
+  pnjAttrs.pnj_jetcha =
+    pnjObj.CHA.charAt(pnjObj.CHA.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.CHA;
+  pnjAttrs.pnj_init = parseInt(pnjObj.INIT);
+  delete pnjObj.INIT;
+  pnjAttrs.pnj_def = parseInt(pnjObj.DEF);
+  delete pnjObj.DEF;
   if (universe === 'CG') {
     pnjAttrs.pnj_dep = parseInt(pnjObj.DEP);
   }
   delete pnjObj.DEP;
-  pnjAttrs['pnj_pv'] = parseInt(pnjObj.PV);
-  pnjAttrs['pnj_pv_max'] = parseInt(pnjObj.PV);
-  delete pnjObj['PV'];
-  pnjAttrs['pnj_rd'] = parseInt(pnjObj.RD) || 0;
-  delete pnjObj['RD'];
+  pnjAttrs.pnj_pv = parseInt(pnjObj.PV);
+  pnjAttrs.pnj_pv_max = parseInt(pnjObj.PV);
+  delete pnjObj.PV;
+  pnjAttrs.pnj_rd = parseInt(pnjObj.RD) || 0;
+  delete pnjObj.RD;
   consoleLog(pnjAttrs, 'setting attributes');
-  pnjAttrs['statblock'] = '';
+  pnjAttrs.statblock = '';
   setAttrs(pnjAttrs);
 
   return result;
@@ -3796,7 +3796,7 @@ function processAttacks(universe, pnjObj) {
   removeRepeating('pnjatk');
   let result = '';
 
-  for (const atk of pnjObj['Atks']) {
+  for (const atk of pnjObj.Atks) {
     const atkItems = atk.split(' ');
     consoleLog(atkItems, 'attacks found');
     if (atkItems[atkItems.length - 1] === 'DM') {
@@ -3924,7 +3924,7 @@ function processTraits(universe, pnjObj) {
   removeRepeating('pnjcapas');
   let result = '';
 
-  for (const capa of pnjObj['Capas']) {
+  for (const capa of pnjObj.Capas) {
     const capacite = capa.split('~');
     if (capacite.length == 2) {
       let name = capacite[0] || '';
@@ -4307,7 +4307,7 @@ function migrateSheet(verfdp) {
             }
           }
         }
-        for (buffItem of buffRepeat) {
+        for (const buffItem of buffRepeat) {
           const rowId = 'repeating_buffs_' + generateRowID();
           let newRow = {};
           newRow[`${rowId}_buffon`] = buffItem.enabled ? '1' : '0';
@@ -5294,29 +5294,29 @@ on('clicked:sb_import', function () {
       // process characteristics & combat attributes
       messages = processBaseAttributes(values.UNIVERS, pnjObj);
       // process attack lines
-      if (pnjObj['Atks'].length > 0) {
+      if (pnjObj.Atks.length > 0) {
         result = processAttacks(values.UNIVERS, pnjObj);
         if (result != '' && messages != '') {
           result = '\n' + result;
         }
         messages += result;
       }
-      delete pnjObj['Atks'];
+      delete pnjObj.Atks;
       // process trait/ability lines
-      if (pnjObj['Capas'].length > 0) {
+      if (pnjObj.Capas.length > 0) {
         result = processTraits(values.UNIVERS, pnjObj);
         if (result != '' && messages != '') {
           result = '\n' + result;
         }
         messages += result;
       }
-      delete pnjObj['Capas'];
+      delete pnjObj.Capas;
       // Other attributes go to DIVERS field
       let divers = '';
-      if (pnjObj['Extras'].length > 0) {
-        divers = pnjObj['Extras'].join('\n');
+      if (pnjObj.Extras.length > 0) {
+        divers = pnjObj.Extras.join('\n');
       }
-      delete pnjObj['Extras'];
+      delete pnjObj.Extras;
       let otherAttrs = Object.keys(pnjObj);
       consoleLog(otherAttrs, 'additional data');
       for (const other in otherAttrs) {
@@ -5377,23 +5377,23 @@ function convertToPC() {
           if (init === attrv + 1) {
             attrs[attr]++;
           } else {
-            attrs['INIT_BUFF_LIST'] = 'Bonus Init.';
-            attrs['INIT_BUFF'] = init - attrs[attr];
+            attrs.INIT_BUFF_LIST = 'Bonus Init.';
+            attrs.INIT_BUFF = init - attrs[attr];
           }
           let defb = 10 + attrv;
           let def = parseInt(values.pnj_def) || 0;
           if (def !== defb) {
-            attrs['DEF_BUFF_LIST'] = 'Bonus DEF';
-            attrs['DEF_BUFF'] = def - defb;
+            attrs.DEF_BUFF_LIST = 'Bonus DEF';
+            attrs.DEF_BUFF = def - defb;
           }
-          attrs['DEX_SUP'] =
-            values['pnj_jetdex'] === '2d20kh1' ? '@{JDEXSUP}' : '@{JDEX}';
+          attrs.DEX_SUP =
+            values.pnj_jetdex === '2d20kh1' ? '@{JDEXSUP}' : '@{JDEX}';
         } else if (attr === 'CHA') {
           let depb = 10 + attrv;
           let dep = parseInt(values.pnj_dep) || 0;
           if (dep !== depb) {
-            attrs['DEP_BUFF_LIST'] = 'Bonus DEP';
-            attrs['DEP_BUFF'] = dep - depb;
+            attrs.DEP_BUFF_LIST = 'Bonus DEP';
+            attrs.DEP_BUFF = dep - depb;
           }
         } else {
           attrs[`${attr.substring(0, 3)}_SUP`] =
@@ -5402,8 +5402,8 @@ function convertToPC() {
               : '@{JETNORMAL}';
         }
       }
-      attrs['PV'] = parseInt(values.pnj_pv) || 0;
-      attrs['PV_max'] = parseInt(values.pnj_pv_max) || 0;
+      attrs.PV = parseInt(values.pnj_pv) || 0;
+      attrs.PV_max = parseInt(values.pnj_pv_max) || 0;
       getSectionIDs('repeating_armes', function (ids) {
         for (let id of ids) {
           removeRepeatingRow(`repeating_armes_${id}`);
@@ -5426,14 +5426,14 @@ function convertToPC() {
               }
               newRowID = generateRowID();
               let atkRow = {};
-              atkRow[`repeating_armes_${newRowID}_armeatt`] = v['atkatt'];
-              atkRow[`repeating_armes_${newRowID}_armenom`] = v['atknom'];
-              let psyint = v['atknom'].toLowerCase().includes('psy intuition');
-              let psyinf = v['atknom'].toLowerCase().includes('psy influence');
-              let tohit = parseInt(v['atkbonus']) || 0;
+              atkRow[`repeating_armes_${newRowID}_armeatt`] = v.atkatt;
+              atkRow[`repeating_armes_${newRowID}_armenom`] = v.atknom;
+              let psyint = v.atknom.toLowerCase().includes('psy intuition');
+              let psyinf = v.atknom.toLowerCase().includes('psy influence');
+              let tohit = parseInt(v.atkbonus) || 0;
               let atk = 0;
               let bdm = 0;
-              if (v['atkportee'] && v['atkportee'] !== '') {
+              if (v.atkportee && v.atkportee !== '') {
                 atk = values.pnj_dex || 0;
                 if (psyint) atk = values.pnj_int || 0;
                 if (psyinf) atk = values.pnj_cha || 0;
@@ -5462,16 +5462,16 @@ function convertToPC() {
               }
               if (tohit !== atk)
                 atkRow[`repeating_armes_${newRowID}_armeatkdiv`] = tohit - atk;
-              atkRow[`repeating_armes_${newRowID}_armejetd`] = v['atkjet'];
-              atkRow[`repeating_armes_${newRowID}_armecrit`] = v['atkcrit'];
-              atkRow[`repeating_armes_${newRowID}_armedmg`] = v['atkdmg'];
-              atkRow[`repeating_armes_${newRowID}_armedmnbde`] = v['atkdmnbde'];
-              atkRow[`repeating_armes_${newRowID}_armedmde`] = v['atkdmde'];
-              let dmdiv = parseInt(v['atkdmbonus']) || 0;
+              atkRow[`repeating_armes_${newRowID}_armejetd`] = v.atkjet;
+              atkRow[`repeating_armes_${newRowID}_armecrit`] = v.atkcrit;
+              atkRow[`repeating_armes_${newRowID}_armedmg`] = v.atkdmg;
+              atkRow[`repeating_armes_${newRowID}_armedmnbde`] = v.atkdmnbde;
+              atkRow[`repeating_armes_${newRowID}_armedmde`] = v.atkdmde;
+              let dmdiv = parseInt(v.atkdmbonus) || 0;
               if (dmdiv !== bdm)
                 atkRow[`repeating_armes_${newRowID}_armedmdiv`] = dmdiv - bdm;
-              atkRow[`repeating_armes_${newRowID}_armeportee`] = v['atkportee'];
-              atkRow[`repeating_armes_${newRowID}_armespec`] = v['atkspec'];
+              atkRow[`repeating_armes_${newRowID}_armeportee`] = v.atkportee;
+              atkRow[`repeating_armes_${newRowID}_armespec`] = v.atkspec;
               setAttrs(atkRow);
             }
           );
@@ -6235,11 +6235,11 @@ on(
         if (rang.startsWith('@{') && rang.endsWith('}')) {
           vn = parseInt(rang.slice(rang.length - 2, rang.length - 1)) || -1;
           if (vn >= 0) {
-            voie = caracs['voies'][vn - 1] || '';
+            voie = caracs.voies[vn - 1] || '';
             if (voie !== '') {
               voie = voie.slice(0, 1) + voie.slice(1).toLowerCase();
             }
-            rang = caracs['rangs'][vn - 1] || 0;
+            rang = caracs.rangs[vn - 1] || 0;
           }
         }
         let skill = voierang;
@@ -6413,24 +6413,24 @@ on(
           }
           // Armor malus
           if (propName === 'DEF-') {
-            const defmalus = parseInt(values['DEFARMUREMALUS']) || 0;
+            const defmalus = parseInt(values.DEFARMUREMALUS) || 0;
             if (propVal !== defmalus) {
-              attrs['DEFARMUREMALUS'] = propVal;
+              attrs.DEFARMUREMALUS = propVal;
             }
           }
           // Damage reduction
           if (propName === 'RD') {
-            const rd = values['RD'];
+            const rd = values.RD;
             const propVal = parseInt(parsed.value) || 0;
             if (eqpon === 1) {
               if (propVal !== rd) {
-                attrs['RD'] = propVal;
+                attrs.RD = propVal;
               }
             }
           }
           // Damage dice 1 & 2
           if (propName === 'DM') {
-            atkInfo['dm'] = [];
+            atkInfo.dm = [];
             if (parsed.value) {
               if (parsed.value.indexOf(' ') !== -1) {
                 atkInfo.dmtype = parsed.value.split(' ')[1];
@@ -6804,7 +6804,7 @@ on(
         //
         let displayConditions = '';
         if (condition !== '') {
-          for (cond of Object.keys(conditions)) {
+          for (const cond of Object.keys(conditions)) {
             if (condition.includes(conditions[cond])) {
               displayConditions +=
                 (displayConditions === '' ? '' : ', ') +
