@@ -10,9 +10,13 @@ Le jeu complet est paru dans le magazine [Casus Belli](http://www.black-book-edi
 
 # Version courante
 
-V3.114.1 [Screenshot](cog_v3.png)
+V4.0.0 [Screenshot](cog_v4.png)
 
 # Notes de version
+
+## V4.0.0 (2021.??.??)
+
+Révision de la fiche pour CG 2E
 
 ## V3.114.1 (2021.04.28)
 

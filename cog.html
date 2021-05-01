@@ -40,8 +40,6 @@
   <input type="hidden" name="attr_ARMURE_MALUS" value="0" />
   <!-- INPUT HIDDEN Buffs vaisseau -->
   <input type="hidden" name="attr_ATKTIRV_BUFF" value="0" />
-  <input type="hidden" name="attr_DEFVPIL_BUFF" value="0" />
-  <input type="hidden" name="attr_DEFVSEN_BUFF" value="0" />
   <input type="hidden" name="attr_PEV_BUFF" value="0" />
   <!-- INPUT HIDDEN Etats préjudiciable précédent -->
   <input type="hidden" name="attr_CONDITION" value="" />
@@ -56,11 +54,16 @@
   <input type="hidden" name="attr_QRYMODT"
     value="?{Carac. ?|Force,@{FOR_TEST}|Dextérité,@{DEX_TEST}|Constitution,@{CON_TEST}|Intelligence,@{INT_TEST}|Perception,@{PER_TEST}|Charisme,@{CHA_TEST}}" />
   <!-- INPUT HIDDEN Postes de combat vaisseaux -->
-  <input type="hidden" name="attr_POSTES_VS" value="" />
   <input type="hidden" name="attr_POSTE_PIL" value="" />
   <input type="hidden" name="attr_POSTE_MOT" value="" />
   <input type="hidden" name="attr_POSTE_SEN" value="" />
   <input type="hidden" name="attr_POSTE_ORD" value="" />
+  <input type="hidden" name="attr_POSTES_EQ" value="" />
+  <input type="hidden" name="attr_EQUIP_PIL" value="" />
+  <input type="hidden" name="attr_EQUIP_MOT" value="" />
+  <input type="hidden" name="attr_EQUIP_SEN" value="" />
+  <input type="hidden" name="attr_EQUIP_ORD" value="" />
+  
   <!-- INPUT HIDDEN DEFs vaisseau -->
   <input type="hidden" name="attr_DEFRAP" value="0" />
   <input type="hidden" name="attr_DEFSOL" value="0" />
@@ -2277,7 +2280,7 @@
                 <tr>
                   <td class="sheet-boxtitre">
                     <button class="sheet-boxtitre" type="roll" name="roll_jet_forv" title="%{jet_forv} Jet de Puissance"
-                      value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Salle des Machines (MOT)}} {{carac=[[1d20cs20cf1[Dé] +[[@{FOR_TEST}]][Puissance] +@{POSTE_MOT} ]] }} {{jet=Puissance}} {{desc=Mécano : @{POSTE_MOT_NOM}}}">
+                      value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Salle Machines (MOT)}} {{carac=[[1d20cs20cf1[Dé] +[[@{FOR_TEST}]][Puissance] +@{POSTE_MOT} ]] }} {{jet=Puissance}} {{desc=Mécano : @{EQUIP_MOT}}}">
                       FOR
                     </button>
                   </td>
@@ -2299,7 +2302,7 @@
                 <tr>
                   <td class="sheet-boxtitre">
                     <button class="sheet-boxtitre" type="roll" name="roll_jet_dexv" title="%{jet_dexv} Jet de Manoeuvrabilit&eacute;"
-                      value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name= Poste de Pilotage (PIL)}} {{carac=[[1d20cs20cf1[Dé] +[[@{DEX_TEST}]][Manoeuvrabilit&eacute;] +@{POSTE_PIL} ]] }} {{jet=Manoeuvrabilit&eacute;}} {{desc=Pilote : @{POSTE_PIL_NOM}}}">
+                      value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Poste de Pilotage (PIL)}} {{carac=[[1d20cs20cf1[Dé] +[[@{DEX_TEST}]][Manoeuvrabilit&eacute;] +@{POSTE_PIL} ]] }} {{jet=Manoeuvrabilit&eacute;}} {{desc=Pilote : @{EQUIP_PIL}}}">
                       DEX
                     </button>
                   </td>
@@ -2340,7 +2343,7 @@
                 <tr>
                   <td class="sheet-boxtitre">
                     <button class="sheet-boxtitre" type="roll" name="roll_jet_intv" title="%{jet_intv} Jet d'Ordinateurs de Vis&eacute;e"
-                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Ordinateur de Visée}} {{carac=[[1d20cs20cf1[Dé] +[[@{INT_TEST}]][Bonus] ]] }}">
+                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Ordinateurs de Tir}} {{carac=[[1d20cs20cf1[Dé] +[[@{INT_TEST}]][Bonus] ]] }}">
                       INT
                     </button>
                   </td>
@@ -2362,7 +2365,7 @@
                 <tr>
                   <td class="sheet-boxtitre">
                     <button class="sheet-boxtitre" type="roll" name="roll_jet_perv" title="%{jet_perv} Jet de Senseurs"
-                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Senseurs (SEN)}} {{carac=[[1d20cs20cf1[Dé] +[[@{PER_TEST}]][Senseurs] +@{POSTE_SEN} ]] }} {{jet=Détection}} {{desc=Opérateur : @{POSTE_SEN_NOM}}}">
+                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Senseurs (SEN)}} {{carac=[[1d20cs20cf1[Dé] +[[@{PER_TEST}]][Senseurs] +@{POSTE_SEN} ]] }} {{jet=Détection}} {{desc=Opérateur : @{EQUIP_SEN}}}">
                       PER
                     </button>
                   </td>
@@ -2384,7 +2387,7 @@
                 <tr>
                   <td class="sheet-boxtitre">
                     <button class="sheet-boxtitre" type="roll" name="roll_jet_chav" title="%{jet_chav} Jet de Communications"
-                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Communications (CHA)}} {{carac=[[1d20cs20cf1[Dé] + [[@{CHA_TEST}]][Comm.Systèmes] +@{POSTE_ORD} ]] }} {{jet=Ordinateur}} {{desc=Opérateur : @{POSTE_ORD_NOM}}}">
+                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Communications (CHA)}} {{carac=[[1d20cs20cf1[Dé] + [[@{CHA_TEST}]][Comm.Systèmes] +@{POSTE_ORD} ]] }} {{jet=Ordinateur}} {{desc=Opérateur : @{EQUIP_ORD}}}">
                       CHA
                     </button>
                   </td>
@@ -2735,8 +2738,10 @@
                     <input type="checkbox" name="attr_armecan_oqp" title="@{armecan_oqp} Poste CAN occupé" value="1" />
                     <input type="text" style="width: 220px;" name="attr_armecan_nom"
                       title="@{armecan_nom} Nom du canonnier (CAN)" />
+                    <input type="number" style="width: 32px;" name="attr_armecan_dex"
+                      title="@{armecan_dex} DEX canonnier" value="0" />
                     <input type="number" style="width: 32px;" name="attr_armecan_bonus"
-                      title="@{armecan_bonus} Rangs Armes lourdes (CAN)" value="0" />
+                      title="@{armecan_bonus} Rangs Armes lourdes" value="0" />
                   </td>
                   <td>&nbsp;</td>
                 </tr>
@@ -2956,75 +2961,6 @@
             <td style="width: 19%;">
               <input class="sheet-buff" style="width: 70%;" type="text" name="attr_ATKTIRV_BUFF5_DESC" /><input
                 class="sheet-buff" type="number" name="attr_ATKTIRV_BUFF5" />
-            </td>
-          </tr>
-          <tr>
-            <td style="width: 5%;">INIT:</td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_INIT_BUFF1_DESC" /><input
-                class="sheet-buff" type="number" name="attr_INIT_BUFF1" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_INIT_BUFF2_DESC" /><input
-                class="sheet-buff" type="number" name="attr_INIT_BUFF2" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_INIT_BUFF3_DESC" /><input
-                class="sheet-buff" type="number" name="attr_INIT_BUFF3" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_INIT_BUFF4_DESC" /><input
-                class="sheet-buff" type="number" name="attr_INIT_BUFF4" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_INIT_BUFF5_DESC" /><input
-                class="sheet-buff" type="number" name="attr_INIT_BUFF5" />
-            </td>
-          </tr>
-          <tr>
-            <td style="width: 5%;">PIL:</td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVPIL_BUFF1_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVPIL_BUFF1" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVPIL_BUFF2_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVPIL_BUFF2" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVPIL_BUFF3_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVPIL_BUFF3" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVPIL_BUFF4_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVPIL_BUFF4" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVPIL_BUFF5_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVPIL_BUFF5" />
-            </td>
-          </tr>
-          <tr>
-            <td style="width: 5%;">SEN:</td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVSEN_BUFF1_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVSEN_BUFF1" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVSEN_BUFF2_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVSEN_BUFF2" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVSEN_BUFF3_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVSEN_BUFF3" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVSEN_BUFF4_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVSEN_BUFF4" />
-            </td>
-            <td style="width: 19%;">
-              <input class="sheet-buff" style="width: 70%;" type="text" name="attr_DEFVSEN_BUFF5_DESC" /><input
-                class="sheet-buff" type="number" name="attr_DEFVSEN_BUFF5" />
             </td>
           </tr>
           <tr>
@@ -4462,11 +4398,6 @@ on('sheet:opened', function () {
       'PER_BUFF1_DESC',
       'CHA_BUFF1_DESC',
       'ATKTIRV_BUFF1_DESC',
-      'INIT_BUFF1_DESC',
-      'DEFVPIL_BUFF1_DESC',
-      'DEFVPIL_BUFF2_DESC',
-      'DEFVSEN_BUFF1_DESC',
-      'DEFVSEN_BUFF2_DESC',
     ],
     function (values) {
       if (values.UNIVERS == 'CG') {
@@ -4477,10 +4408,6 @@ on('sheet:opened', function () {
           const per_buff_desc = values.PER_BUFF1_DESC || values.PE_ONCE;
           const cha_buff_desc = values.CHA_BUFF1_DESC || values.PE_ONCE;
           const atktirv_buff_desc = values.ATKTIRV_BUFF1_DESC || values.PE_ONCE;
-          const init_buff_desc = values.INIT_BUFF1_DESC || 'DEX Pilote';
-          const defvpil_buff1_desc = values.DEFVPIL_BUFF1_DESC || 'DEX Pilote';
-          const defvsen_buff1_desc =
-            values.DEFVSEN_BUFF1_DESC || 'INT Scantech';
           setAttrs({
             FOR_BUFF1_DESC: for_buff_desc,
             DEX_BUFF1_DESC: dex_buff_desc,
@@ -4488,16 +4415,13 @@ on('sheet:opened', function () {
             PER_BUFF1_DESC: per_buff_desc,
             CHA_BUFF1_DESC: cha_buff_desc,
             ATKTIRV_BUFF1_DESC: atktirv_buff_desc,
-            INIT_BUFF1_DESC: init_buff_desc,
-            DEFVPIL_BUFF1_DESC: defvpil_buff1_desc,
-            DEFVSEN_BUFF1_DESC: defvsen_buff1_desc,
             PE_ONCE: '',
             type_personnage: 'vaisseau',
           });
         }
         const physical = values.type_personnage === 'vaisseau' ? '0' : '1';
-        const update = values.type_personnage === 'vaisseau' ? '1' : '';
-        setAttrs({ physical: physical, POSTES_VS: update });
+        const update = values.type_personnage === 'vaisseau' ? 'update' : '';
+        setAttrs({ physical: physical, POSTES_EQ: update });
       }
     }
   );
@@ -5159,51 +5083,6 @@ on(
 
 on(
   [
-    'change:init_buff1',
-    'change:init_buff2',
-    'change:init_buff3',
-    'change:init_buff4',
-    'change:init_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('INIT'), function (values) {
-      setBuff(values, 'INIT');
-    });
-  }
-);
-
-on(
-  [
-    'change:defvpil_buff1',
-    'change:defvpil_buff2',
-    'change:defvpil_buff3',
-    'change:defvpil_buff4',
-    'change:defvpil_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('DEFVPIL'), function (values) {
-      setBuff(values, 'DEFVPIL');
-    });
-  }
-);
-
-on(
-  [
-    'change:defvsen_buff1',
-    'change:defvsen_buff2',
-    'change:defvsen_buff3',
-    'change:defvsen_buff4',
-    'change:defvsen_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('DEFVSEN'), function (values) {
-      setBuff(values, 'DEFVSEN');
-    });
-  }
-);
-
-on(
-  [
     'change:pev_buff1',
     'change:pev_buff2',
     'change:pev_buff3',
@@ -5506,10 +5385,16 @@ on('change:type_personnage', function (eventInfo) {
 
 /**
  * Return attributes array for a starship station
- * @param {string} attr Spaceship station shortname
+ * @param {string} ship_attr Spaceship station shortname
+ * @param {string} crew_attr Crew station ability
  */
-function attrStation(attr) {
-  return [`POSTE_${attr}_OQP`, `POSTE_${attr}_NOM`, `POSTE_${attr}_BONUS`];
+function attrStation(ship_attr, crew_attr) {
+  return [
+    `POSTE_${ship_attr}_OQP`,
+    `POSTE_${ship_attr}_NOM`,
+    `POSTE_${ship_attr}_BONUS`,
+    `POSTE_${ship_attr}_${crew_attr}`,
+  ];
 }
 
 /**
@@ -5523,18 +5408,21 @@ function setStation(v, attr, fill) {
   let attrx = '';
   let attrn = '';
   let attrb = '';
+  let attrc = '';
   if (attr === 'CAN') {
     attrx = 'repeating_armesv_armecan_oqp';
     attrn = 'repeating_armesv_armecan_nom';
     attrb = 'repeating_armesv_armecan_bonus';
+    attrb = 'repeating_armesv_armecan_dex';
   } else {
     attrx = `POSTE_${attr}_OQP`;
     attrn = `POSTE_${attr}_NOM`;
     attrb = `POSTE_${attr}_BONUS`;
+    attrc = fill[fill.length - 1];
   }
   let station_held = parseInt(v[attrx]) || 0;
-  let station_name = v[attrn] || '';
-  station_name = station_name != '' ? `@{${station_name}|${fill[0]}}` : '0';
+  let crew_name = v[attrn] || '';
+  let station_name = crew_name != '' ? `@{${crew_name}|${fill[0]}}` : '0';
   let station_bonus = parseInt(v[attrb]) || 0;
   let station_attr = '';
   if (attr === 'CAN') {
@@ -5545,6 +5433,7 @@ function setStation(v, attr, fill) {
   station[
     station_attr
   ] = `[[${station_name}*${station_held}]][${fill[1]}] + [[${station_bonus}*${station_held}]][${fill[2]}]`;
+  station[`EQUIP_${attr}`] = station_held === 1 ? crew_name : 'aucun';
   setAttrs(station);
 }
 
@@ -5557,9 +5446,10 @@ on(
     'change:poste_pil_oqp',
     'change:poste_pil_nom',
     'change:poste_pil_bonus',
+    'change:poste_pil_dex',
   ].join(' '),
   function () {
-    getAttrs(attrStation('PIL'), function (values) {
+    getAttrs(attrStation('PIL', 'DEX'), function (values) {
       setStation(values, 'PIL', ['DEX', 'DEX pilote', 'Pilotage']);
     });
   }
@@ -5570,9 +5460,10 @@ on(
     'change:poste_mot_oqp',
     'change:poste_mot_nom',
     'change:poste_mot_bonus',
+    'change:poste_pil_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('MOT'), function (values) {
+    getAttrs(attrStation('MOT', 'INT'), function (values) {
       setStation(values, 'MOT', ['INT', 'INT mécano', 'Moteurs']);
     });
   }
@@ -5583,9 +5474,10 @@ on(
     'change:poste_sen_oqp',
     'change:poste_sen_nom',
     'change:poste_sen_bonus',
+    'change:poste_sen_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('SEN'), function (values) {
+    getAttrs(attrStation('SEN', 'INT'), function (values) {
       setStation(values, 'SEN', ['INT', 'INT scan', 'Electronique']);
     });
   }
@@ -5596,9 +5488,10 @@ on(
     'change:poste_ord_oqp',
     'change:poste_ord_nom',
     'change:poste_ord_bonus',
+    'change:poste_ord_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('ORD'), function (values) {
+    getAttrs(attrStation('ORD', 'INT'), function (values) {
       setStation(values, 'ORD', ['INT', 'INT info', 'Electronique']);
     });
   }
@@ -5609,6 +5502,7 @@ on(
     'change:repeating_armesv:armecan_oqp',
     'change:repeating_armesv:armecan_nom',
     'change:repeating_armesv:armecan_bonus',
+    'change:repeating_armesv:armecan_dex',
   ].join(' '),
   function () {
     getAttrs(
@@ -5616,6 +5510,7 @@ on(
         'repeating_armesv_armecan_oqp',
         'repeating_armesv_armecan_nom',
         'repeating_armesv_armecan_bonus',
+        'repeating_armesv_armecan_dex',
       ],
       function (values) {
         setStation(values, 'CAN', ['DEX', 'DEX canonnier', 'Armes lourdes']);
