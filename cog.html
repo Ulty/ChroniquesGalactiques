@@ -1,8 +1,8 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="3.114.1" />
-  <input type="hidden" name="attr_VERSION" value="3.114.1" />
+  <input type="hidden" name="attr_verfdp" value="4.0.0" />
+  <input type="hidden" name="attr_VERSION" value="4.0.0" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Libellés -->
@@ -56,6 +56,7 @@
   <input type="hidden" name="attr_QRYMODT"
     value="?{Carac. ?|Force,@{FOR_TEST}|Dextérité,@{DEX_TEST}|Constitution,@{CON_TEST}|Intelligence,@{INT_TEST}|Perception,@{PER_TEST}|Charisme,@{CHA_TEST}}" />
   <!-- INPUT HIDDEN Postes de combat vaisseaux -->
+  <input type="hidden" name="attr_POSTES_VS" value="" />
   <input type="hidden" name="attr_POSTE_PIL" value="" />
   <input type="hidden" name="attr_POSTE_MOT" value="" />
   <input type="hidden" name="attr_POSTE_SEN" value="" />
@@ -84,7 +85,7 @@
   <div class="sheet-container">
     <!-- Identité -->
     <div style="width: 420px; vertical-align: middle; text-align: center;">
-      <img width="340" title="Version 3.114.1 - 28/04/2021"
+      <img width="340" title="Version 4.0.0 - ??/??/2021"
         src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_logo.png" />
     </div>
     <div style="width: 270px;">
@@ -163,23 +164,24 @@
         <!-- Caracs + combat + PV + défense -->
         <table>
           <tr>
-            <td style="width:250px; vertical-align: top;">
+            <td style="min-width:280px; vertical-align: top;">
               <!-- Caracs + Chance -->
               <table class="sheet-tabsep">
                 <!-- Caracs -->
                 <tr>
                   <td class="sheet-textfat">CARAC.</td>
                   <td></td>
-                  <td class="sheet-textbase">Valeur</td>
                   <td class="sheet-textfat">Mod.</td>
                   <td class="sheet-textbase">Bonus</td>
                   <td class="sheet-textfat">Test</td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_for"
-                      title="%{jet_for} Jet de Force"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_for" title="%{jet_for} Jet de Force"
                       value="@(togm}&{template:co1} {{perso=@{character_name}}} {{name=Force}} {{subtags=Test}} {{carac=[[@{FOR_SUP}[Dé] + [[@{FOR_TEST}]][Bonus] ]] }}">
-                      FOR</button></td>
+                      FOR
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_FOR_SUP"
                       title="@{FOR_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
@@ -188,20 +190,24 @@
                       <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_FORCE" title="@{FORCE}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR" title="@{FOR}"
-                      value="floor((@{FORCE}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR_BONUS"
-                      title="@{FOR_BONUS} Bonus au Test" value="@{FOR_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR_TEST" title="@{FOR_TEST}"
-                      value="@{FOR}+@{FOR_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="number" name="attr_FOR" title="@{FOR}" value="0" />
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_FOR_BUFF" title="@{FOR_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_FOR_TEST" value="0" />
+                    <span name="attr_FOR_TEST" title="@{FOR_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_dex"
-                      title="%{jet_dex} Jet de Dext&eacute;rit&eacute;"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_dex" title="%{jet_dex} Jet de Dext&eacute;rit&eacute;"
                       value="@(togm}&{template:co1} {{perso=@{character_name}}} {{name=Dext&eacute;rit&eacute;}} {{subtags=Test}} {{carac=[[@{DEX_SUP}[Dé] + [[@{DEX_TEST}]][Bonus] ]] }}">
-                      DEX</button></td>
+                      DEX
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_DEX_SUP"
                       title="@{DEX_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
@@ -210,20 +216,20 @@
                       <option value="@{JDEXSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_DEXTERITE" title="@{DEXTERITE}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX" title="@{DEX}"
-                      value="floor((@{DEXTERITE}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX_BONUS"
-                      title="@{DEX_BONUS} Bonus au Test" value="@{DEX_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX_TEST" title="@{DEX_TEST}"
-                      value="@{DEX}+@{DEX_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX" title="@{DEX}" value="0" /></td>
+                  <td class="sheet-boxinputlight"><span name="attr_DEX_BUFF" title="@{DEX_BUFF} Bonus au Test"></span></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_DEX_TEST" value="0" />
+                    <span name="attr_DEX_TEST" title="@{DEX_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_con"
-                      title="%{jet_con} Jet de Constitution"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_con" title="%{jet_con} Jet de Constitution"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Constitution}} {{subtags=Test}} {{carac=[[@{CON_SUP}[Dé] + [[@{CON_TEST}]][Bonus] ]] }}">
-                      CON</button></td>
+                      CON
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_CON_SUP"
                       title="@{CON_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
@@ -232,42 +238,42 @@
                       <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_CONSTITUTION" title="@{CONSTITUTION}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON" title="@{CON}"
-                      value="floor((@{CONSTITUTION}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON_BONUS"
-                      title="@{CON_BONUS} Bonus au Test" value="@{CON_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON_TEST" title="@{CON_TEST}"
-                      value="@{CON}+@{CON_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON" title="@{CON}" value="0" /></td>
+                  <td class="sheet-boxinputlight"><span name="attr_CON_BUFF" title="@{CON_BUFF} Bonus au Test"></span></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_CON_TEST" value="0" />
+                    <span name="attr_CON_TEST" title="@{CON_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_int"
-                      title="%{jet_int} Jet d'Intelligence"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_int" title="%{jet_int} Jet d'Intelligence"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Intelligence}} {{subtags=Test}} {{carac=[[@{INT_SUP}[Dé] + [[@{INT_TEST}]][Bonus] ]] }}">
-                      INT</button></td>
+                      INT
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_INT_SUP"
                       title="@{INT_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
-                      <<option value="@{JETNORMAL}" selected>N Normale</option>
-                        <option value="@{JETSUP}">S Supérieure OU Héroïque</option>
-                        <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
+                      <option value="@{JETNORMAL}" selected>N Normale</option>
+                      <option value="@{JETSUP}">S Supérieure OU Héroïque</option>
+                      <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_INTELLIGENCE" title="@{INTELLIGENCE}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT" title="@{INT}"
-                      value="floor((@{INTELLIGENCE}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT_BONUS"
-                      title="@{INT_BONUS} Bonus au Test" value="@{INT_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT_TEST" title="@{INT_TEST}"
-                      value="@{INT}+@{INT_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT" title="@{INT}" value="0" /></td>
+                  <td class="sheet-boxinputlight"><span name="attr_INT_BUFF" title="@{INT_BONUS} Bonus au Test"></span></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_INT_TEST" value="0" />
+                    <span name="attr_INT_TEST" title="@{INT_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_per"
-                      title="%{jet_per} Jet de Perception"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_per" title="%{jet_per} Jet de Perception"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Perception}} {{subtags=Test}} {{carac=[[@{PER_SUP}[Dé] + [[@{PER_TEST}]][Bonus] ]] }}">
-                      PER</button></td>
+                      PER
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_PER_SUP"
                       title="@{PER_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
@@ -276,20 +282,20 @@
                       <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_PERCEPTION" title="@{PERCEPTION}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER" title="@{PER}"
-                      value="floor((@{PERCEPTION}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER_BONUS"
-                      title="@{PER_BONUS} Bonus au Test" value="@{PER_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER_TEST" title="@{PER_TEST}"
-                      value="@{PER}+@{PER_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER" title="@{PER}" value="0" /></td>
+                  <td class="sheet-boxinputlight"><span name="attr_PER_BUFF" title="@{PER_BUFF} Bonus au Test"></span></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_PER_TEST" value="0" />
+                    <span name="attr_PER_TEST" title="@{PER_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_cha"
-                      title="%{jet_cha} Jet de Charisme"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_cha" title="%{jet_cha} Jet de Charisme"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Charisme}} {{subtags=Test}} {{carac=[[@{CHA_SUP}[Dé] + [[@{CHA_TEST}]][Bonus] ]] }}">
-                      CHA</button></td>
+                      CHA
+                    </button>
+                  </td>
                   <td class="sheet-boxinputlight">
                     <select class="sheet-selectmin" name="attr_CHA_SUP"
                       title="@{CHA_SUP} Caractéristique Normale ou Supérieure/Héroïque (règle p.138)">
@@ -298,14 +304,12 @@
                       <option value="@{JETSUPHERO}">H Supérieure ET Héroïque</option>
                     </select>
                   </td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_CHARISME" title="@{CHARISME}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA" title="@{CHA}"
-                      value="floor((@{CHARISME}-10)/2)" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA_BONUS"
-                      title="@{CHA_BONUS} Bonus au Test" value="@{CHA_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA_TEST" title="@{CHA_TEST}"
-                      value="@{CHA}+@{CHA_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA" title="@{CHA}" value="0" /></td>
+                  <td class="sheet-boxinputlight"><span name="attr_CHA_BUFF" title="@{CHA_BUFF} Bonus au Test"></span></td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_CHA_TEST" value="0" />
+                    <span name="attr_CHA_TEST" title="@{CHA_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="sheet-textfat" colspan="6">ÉTATS PRÉJUDICIABLES</td>
@@ -367,22 +371,21 @@
                   <td class="sheet-boxtitre" title="Points de Chance">
                     <button type="roll" class="sheet-boxtitre"
                       name="roll_jet_pc" title="%{jet_pc} Utilisation d'un PC"
-                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Bonus}} {{name=Point de Chance}} {{desc=@{character_name} utilise un Point de Chance et obtient un bonus de +10}}" />PC
+                      value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Bonus}} {{name=Point de Chance}} {{text=@{character_name} utilise un Point de Chance et obtient un bonus de +[[5]] }}" />PC
                   </td>
                   <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PC" value="0"
                       title="@{PC} Points de Chance utilisés ou courants" /></td>
                   <td>/</td>
-                  <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PCRACE"
-                      title="@{PCRACE}Points de Chance de Race" value="0" /></td>
-                  <td>+</td>
-                  <td class="sheet-boxinput"><input type="number" style="width: 35px;" name="attr_PCDIV"
-                      title="@{PCDIV} Points de Chance additionnels" value="0" /></td>
-                  <td>+</td>
-                  <td class="sheet-boxinputlight"><INPUT type="number" style="width: 35px;" name="attr_PCCAR"
-                      value="@{CHA}" title="@{PCCAR} Modificateur de Charisme" disabled /></td>
-                  <td>=</td>
-                  <td class="sheet-boxinputlight"><input type="number" style="width: 35px;" name="attr_PC_max"
-                      value="@{PCRACE}+@{PCDIV}+@{PCCAR}" title="@{PC|max} Points de Chance maximums" disabled /></td>
+                  <td class="sheet-boxinput" colspan="7">
+                    <input type="hidden" name="attr_PC_max" />
+                    <span style="width: 35px;" name="attr_PC_max" title="@{PC|max} Points de Chance maximums"></span>
+                    =
+                    <input type="number" style="width: 35px;" name="attr_PCBASE" title="@{PCBASE} Points de Chance de Base" value="2" />
+                    +
+                    <span style="width: 35px;" name="attr_CHA" title="@{CHA} Charisme"></span>
+                    +
+                    <input type="number" style="width: 35px;" name="attr_PCDIV" title="@{PCDIV} Points de Chance additionnels" value="0" />
+                  </td>
                 </tr>
               </table> <!-- FIN Chance -->
             </td> <!-- FIN Caracs + Chance -->
@@ -405,11 +408,16 @@
                           <button class="sheet-boxtitre" type="roll" name="roll_jet_init" title="%{jet_init} Jet d'initiative"
                             value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{INIT}[Init.] + @{INIT_VAR}[Dé(s)] &{tracker}]]}}">
                             INITIATIVE</button></td>
-                        <td>&nbsp;</td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INIT_CARAC"
-                            title="@{INIT_CARAC}" value="@{DEXTERITE}" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INIT_DIV"
-                            title="@{INIT_DIV} Bonus divers" value="@{INIT_BUFF}" disabled /></td>
+                        <td class="sheet-boxinputlight">10</td>
+                        <td class="sheet-boxinputlight">
+                          +
+                          <span name="attr_DEX" title="@{DEX}"></span>
+                          +
+                          <span name="attr_PER" title="@{PER}"></span>
+                        </td>
+                        <td class="sheet-boxinputlight">
+                          <span name="attr_INIT_BUFF" title="@{INIT_BUFF} Bonus divers"></span>
+                        </td>
                         <td class="sheet-boxinputlight">
                           <input type="number" name="attr_INIT" value="0" hidden />
                           <span name="attr_INIT" style="font-style: italic;" title="@{INIT}"></span>
@@ -597,8 +605,8 @@
                           &nbsp;<input type="checkbox" name="attr_BLESSURE" title="@{BLESSURE} Gravement blessé"
                             value="1" />
                           <span class="textbase">Blessure grave</span>&nbsp;
-                          <input type="number" name="attr_SEUILBG" style="float: right;" title="@{SEUILBG} Seuil de blessure grave"
-                            value="0" />
+                          <input type="hidden" name="attr_SEUILBG" />
+                          (<span name="attr_SEUILBG" title="@{SEUILBG} Seuil de blessure grave (10 + CON + FOR)"></span>)
                         </td>
                       </tr>
                     </table>
@@ -637,7 +645,7 @@
                           <input type="checkbox" name="attr_DEFBOUCLIERON" value="1" checked
                             title="@{DEFBOUCLIERON} Champ de force activé" />
                         </td>
-                        <td class="sheet-textbase">Mod.</td>
+                        <td class="sheet-textbase">DEX</td>
                         <td class="sheet-textbase">Div.</td>
                         <td class="sheet-textbase">Action défensive</td>
                         <td class="sheet-textfat">Total</td>
@@ -649,10 +657,8 @@
                             title="@{DEFARMURE} Armure" value="0" /></td>
                         <td class="sheet-boxinput"><input type="number" name="attr_DEFBOUCLIER"
                             title="@{DEFBOUCLIER} Champ de force" value="0" /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFCAR" value="@{DEX}"
-                            title="@{DEFCAR} Modificateur de Dext&eacute;rit&eacute;" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFDIV"
-                            title="@{DEFDIV} Bonus divers" value="@{DEF_BUFF}" disabled /></td>
+                        <td class="sheet-boxinputlight"><span name="attr_DEX" title="@{DEX} Dext&eacute;rit&eacute;"></span></td>
+                        <td class="sheet-boxinputlight"><span name="attr_DEF_BUFF" title="@{DEF_BUFF} Bonus divers"></span></td>
                         <td class="sheet-boxinput">
                           <select class="sheet-carac" style="width: 80px" name="attr_DEFACT" size="1"
                             title="@{DEFACT} Actions défensives">
@@ -671,20 +677,21 @@
                         <td class="sheet-boxinput"><input type="number" name="attr_DEFARMUREMALUS"
                             title="@{DEFARMUREMALUS} Malus à toutes les actions et à l'Init. quand l'armure est portée."
                             min="0" value="0" /></td>
-                        <td class="sheet-textbase" colspan="3">&nbsp;</td>
+                        <td class="sheet-textbase">&nbsp;</td>
+                        <td class="sheet-textbase">CHA</td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre">DEP</td>
                         <td class="sheet-boxinputlight">10+</td>
                         <td class="sheet-textbase">&nbsp;</td>
                         <td class="sheet-textbase">&nbsp;</td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEPCAR" value="@{CHA}"
-                            title="@{DEPCAR}Modificateur de Charisme" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEPDIV"
-                            title="@{DEPDIV} Bonus divers" value="@{DEP_BUFF}" disabled /></td>
+                        <td class="sheet-boxinputlight"><span name="attr_CHA" title="@{CHA} Charisme"></span></td>
+                        <td class="sheet-boxinputlight"><span name="attr_DEP_BUFF" title="@{DEP_BUFF} Bonus divers"></span></td>
                         <td class="sheet-textbase">&nbsp;</td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEP"
-                            value="10+@{DEPCAR}+@{DEPDIV}" title="@{DEP} Défense Psychique" disabled /></td>
+                        <td class="sheet-boxinputlight">
+                          <input type="number" name="attr_DEP" value="10" hidden />
+                          <span name="attr_DEP" style="font-style: italic;" title="@{DEp} Défense psychique"></span>
+                        </td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" style="width: 70px;" title="Réduction(s) des DM">RD</td>
@@ -1895,12 +1902,7 @@
                     <option value="@{ATKPIL}">PIL</option>
                   </optgroup>
                 </select>+&nbsp;(
-                <select class="sheet-carac" style="width:40px;" name="attr_jetcapacoeff" size="1"
-                  title="@{jetcapacoeff} Bonus par rang">
-                  <option value="0">-</option>
-                  <option value="1">+1</option>
-                  <option value="2">+2</option>
-                </select>&nbsp;x&nbsp;
+                <input type="hidden" name="attr_jetcapacoeff" value="1" />
                 <select class="sheet-carac" style="width:60px;" name="attr_jetcaparang" size="1"
                   title="@{jetcaparang} Rang dans la voie">
                   <option value="0" selected>-</option>
@@ -2101,7 +2103,7 @@
               </td>
             </tr>
             <tr>
-              <td style="width: 5%;">DEFPsy:</td>
+              <td style="width: 5%;">DEP:</td>
               <td style="width: 90%;"><input class="sheet-buff" type="text" name="attr_DEP_BUFF_LIST"
                   placeholder="<Type> : <Valeur>; <Type> <Valeur>..." /></td>
               <td style="width: 5%;"><input class="sheet-buff" type="number" name="attr_DEP_BUFFS" value="@{DEP_BUFF}"
@@ -2267,116 +2269,139 @@
                 <!-- Caracs -->
                 <tr>
                   <td class="sheet-textfat">CARAC.</td>
-                  <td class="sheet-textbase">Valeur</td>
                   <td class="sheet-textfat">Mod.</td>
                   <td class="sheet-textbase">PE</td>
                   <td class="sheet-textbase">Bonus</td>
                   <td class="sheet-textfat">Test</td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_forv"
-                      title="%{jet_forv} Jet de Puissance"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_forv" title="%{jet_forv} Jet de Puissance"
                       value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Salle des Machines (MOT)}} {{carac=[[1d20cs20cf1[Dé] +[[@{FOR_TEST}]][Puissance] +@{POSTE_MOT} ]] }} {{jet=Puissance}} {{desc=Mécano : @{POSTE_MOT_NOM}}}">
-                      FOR</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_FORCE" title="@{FORCE}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR" title="@{FOR}"
-                      value="floor((@{FORCE}-10)/2)" disabled /></td>
+                      FOR
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_FOR" title="@{FOR}" value="0" />
+                  </td>
                   <td style="width: 20px;">
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_for_1pe" title="@{for_1pe}" value="1" />
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_for_2pe" title="@{for_2pe}" value="1" />
                   </td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR_BONUS"
-                      title="@{FOR_BONUS} Bonus au Test" value="@{FOR_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_FOR_TEST" title="@{FOR_TEST}"
-                      value="@{FOR}+@{FOR_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_FOR_BUFF" title="@{FOR_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_FOR_TEST" value="0" />
+                    <span name="attr_FOR_TEST" title="@{FOR_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_dexv"
-                      title="%{jet_dexv} Jet de Manoeuvrabilit&eacute;"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_dexv" title="%{jet_dexv} Jet de Manoeuvrabilit&eacute;"
                       value="@(togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name= Poste de Pilotage (PIL)}} {{carac=[[1d20cs20cf1[Dé] +[[@{DEX_TEST}]][Manoeuvrabilit&eacute;] +@{POSTE_PIL} ]] }} {{jet=Manoeuvrabilit&eacute;}} {{desc=Pilote : @{POSTE_PIL_NOM}}}">
-                      DEX</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_DEXTERITE" title="@{DEXTERITE}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX" title="@{DEX}"
-                      value="floor((@{DEXTERITE}-10)/2)" disabled /></td>
+                      DEX
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_DEX" title="@{DEX}" value="0" />
+                  </td>
                   <td style="width: 20px;">
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_dex_1pe" title="@{dex_1pe}" value="1" />
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_dex_2pe" title="@{dex_2pe}" value="1" />
                   </td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX_BONUS"
-                      title="@{DEX_BONUS} Bonus au Test" value="@{DEX_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_DEX_TEST" title="@{DEX_TEST}"
-                      value="@{DEX}+@{DEX_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_DEX_BUFF" title="@{DEX_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_DEX_TEST" value="0" />
+                    <span name="attr_DEX_TEST" title="@{DEX_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_conv"
-                      title="%{jet_conv} Jet de Coque"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_conv" title="%{jet_conv} Jet de Coque"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Coque}} {{carac=[[1d20cs20cf1[Dé] + [[@{CON_TEST}]][Bonus] ]] }}">
-                      CON</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_CONSTITUTION" title="@{CONSTITUTION}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON" title="@{CON}"
-                      value="floor((@{CONSTITUTION}-10)/2)" disabled /></td>
+                      CON
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_CON" title="@{CON}" value="0" />
+                  </td>
                   <td>&nbsp;</td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON_BONUS"
-                      title="@{CON_BONS} Bonus au Test" value="@{CON_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CON_TEST" title="@{CON_TEST}"
-                      value="@{CON}+@{CON_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_CON_BUFF" title="@{CON_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_CON_TEST" value="0" />
+                    <span name="attr_CON_TEST" title="@{CON_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_intv"
-                      title="%{jet_intv} Jet d'Ordinateurs de Vis&eacute;e"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_intv" title="%{jet_intv} Jet d'Ordinateurs de Vis&eacute;e"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Ordinateur de Visée}} {{carac=[[1d20cs20cf1[Dé] +[[@{INT_TEST}]][Bonus] ]] }}">
-                      INT</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_INTELLIGENCE" title="@{INTELLIGENCE}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT" title="@{INT}"
-                      value="floor((@{INTELLIGENCE}-10)/2)" disabled /></td>
+                      INT
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_INT" title="@{INT}" value="0" />
+                  </td>
                   <td style="width: 20px;">
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_int_1pe" title="@{int_1pe}" value="1" />
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_int_2pe" title="@{int_2pe}" value="1" />
                   </td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT_BONUS"
-                      title="@{INT_BONUS} Bonus au Test" value="@{INT_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_INT_TEST" title="@{INT_TEST}"
-                      value="@{INT}+@{INT_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_INT_BUFF" title="@{INT_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_INT_TEST" value="0" />
+                    <span name="attr_INT_TEST" title="@{INT_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_perv"
-                      title="%{jet_perv} Jet de Senseurs"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_perv" title="%{jet_perv} Jet de Senseurs"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Senseurs (SEN)}} {{carac=[[1d20cs20cf1[Dé] +[[@{PER_TEST}]][Senseurs] +@{POSTE_SEN} ]] }} {{jet=Détection}} {{desc=Opérateur : @{POSTE_SEN_NOM}}}">
-                      PER</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_PERCEPTION" title="@{PERCEPTION}"
-                      value="10" min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER" title="@{PER}"
-                      value="floor((@{PERCEPTION}-10)/2)" disabled /></td>
+                      PER
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_PER" title="@{PER}" value="0" />
+                  </td>
                   <td style="width: 20px;">
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_per_1pe" title="@{per_1pe}" value="1" />
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_per_2pe" title="@{per_2pe}" value="1" />
                   </td>                      
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER_BONUS"
-                      title="@{PER_BONUS} Bonus au Test" value="@{PER_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_PER_TEST" title="@{PER_TEST}"
-                      value="@{PER}+@{PER_BONUS}" disabled /></td>
+                  <td class="sheet-boxinput">
+                    <span name="attr_PER_BUFF" title="@{PER_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_PER_TEST" value="0" />
+                    <span name="attr_PER_TEST" title="@{PER_TEST}"></span>
+                  </td>
                 </tr>
                 <tr>
-                  <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_chav"
-                      title="%{jet_chav} Jet de Communications"
+                  <td class="sheet-boxtitre">
+                    <button class="sheet-boxtitre" type="roll" name="roll_jet_chav" title="%{jet_chav} Jet de Communications"
                       value="@{togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Test}} {{name=Communications (CHA)}} {{carac=[[1d20cs20cf1[Dé] + [[@{CHA_TEST}]][Comm.Systèmes] +@{POSTE_ORD} ]] }} {{jet=Ordinateur}} {{desc=Opérateur : @{POSTE_ORD_NOM}}}">
-                      CHA</button></td>
-                  <td class="sheet-boxinput"><input type="number" name="attr_CHARISME" title="@{CHARISME}" value="10"
-                      min="0" /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA" title="@{CHA}"
-                      value="floor((@{CHARISME}-10)/2)" disabled /></td>
+                      CHA
+                    </button>
+                  </td>
+                  <td class="sheet-boxinput">
+                    <input type="number" name="attr_CHA" title="@{CHA}" value="0" />
+                  </td>
                   <td style="width: 20px;">
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_cha_1pe" title="@{cha_1pe}" value="1" />
                     <input type="checkbox" class="sheet-ship-epbox" name="attr_cha_2pe" title="@{cha_2pe}" value="1" />
                   </td>                      
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA_BONUS"
-                      title="@{CHA_BONUS} Bonus au Test" value="@{CHA_BUFF}" disabled /></td>
-                  <td class="sheet-boxinputlight"><input type="number" name="attr_CHA_TEST" title="@{CHA_TEST}"
-                      value="@{CHA}+@{CHA_BONUS}" disabled /></td>
+                  <td class="sheet-boxinputlight">
+                    <span name="attr_CHA_BUFF" title="@{CHA_BUFF} Bonus au Test"></span>
+                  </td>
+                  <td class="sheet-boxinputlight">
+                    <input type="hidden" name="attr_CHA_TEST" value="0" />
+                    <span name="attr_CHA_TEST" title="@{CHA_TEST}"></span>
+                  </td>
                 </tr>
               </table> <!-- FIN Caracs -->
               <table class="sheet-tabsep" style="margin-top: 20px;">
@@ -2396,14 +2421,11 @@
                     <span name="attr_PEV_max" title="@{PEV_max} Points d'énergie maximums"></span>
                   </td>
                   <td>=</td>
-                  <td class="sheet-boxinputlight">
+                  <td class="sheet-boxinputlight" colspan="5">
                     <input type="number" name="attr_PEVBASE" style="width: 30px;" title="@{PEVBASE} Points d'énergie de base" value="@{NIVEAU}" disabled />
-                  </td>
-                  <td>+</td>
-                  <td class="sheet-boxinputlight">
-                    <input type="number" name="attr_PEVDIV" style="width: 30px;" title="@{PEVDIV} Points d'énergie additionnels" value="@{PEV_BUFF}" disabled /></td>
-                  <td>+</td>
-                  <td class="sheet-boxinputlight">
+                    +
+                    <input type="number" name="attr_PEVDIV" style="width: 30px;" title="@{PEVDIV} Points d'énergie additionnels" value="@{PEV_BUFF}" disabled />
+                    +
                     <input type="number" name="attr_PEVCAR" style="width: 30px;" title="@{PEVCAR} Mod. de puissance (FOR)" value="@{FOR}" disabled />
                   </td>
                 </tr>
@@ -2436,6 +2458,23 @@
                         <td class="sheet-textfat">Total</td>
                       </tr>
                       <tr>
+                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_initv"
+                            title="%{jet_initv} Initiative"
+                            value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{POSTE_PIL_OQP}[Pilote]*(@{INITV} + @{INIT_VAR})[Dé(s)] &{tracker}]]}}">
+                            INITIATIVE</button></td>
+                        <td class="sheet-boxinputlight">10</td>
+                        <td class="sheet-boxinputlight" colspan="2">
+                          + <input type="number" name="attr_DEXV" value="@{DEX}+@{POSTE_PIL_DEX}+@{POSTE_PIL_BONUS}" 
+                          title="@{DEX} Manoeuvrabilit&eacute; + @{POSTE_PIL_DEX} DEX Pilote + @{POSTE_PIL_BONUS} Rangs de Pilotage" disabled />
+                          + <input type="number" name="attr_PERV" value="@{PER}+@{POSTE_SEN_INT}+@{POSTE_SEN_BONUS}" 
+                          title="@{PER} Senseurs + @{POSTE_SEN_INT} INT Scantech + @{POSTE_SEN_BONUS} Rangs d'Electronique" disabled />
+                        </td>
+                        <td class="sheet-boxinputlight">
+                          <input type="hidden" name="attr_INITV" value="0" />
+                          <span name="attr_INITV" title="@{INITV}"></span>
+                        </td>
+                      </tr>
+                      <tr>
                         <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_tirv"
                             title="%{jet_tirv} Jet d'attaque à distance"
                             value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=&Agrave; Distance}} {{subtags=Attaque}} {{attaque=[[1d20cs20cf1[Dé] + [[@{ATKTIRV}]][Bonus] ]] }}">
@@ -2457,10 +2496,12 @@
                           <input type="checkbox" style="float: right;" name="attr_POSTE_PIL_OQP" title="@{POSTE_PIL_OQP} Poste PIL occupé" value="1">
                         </td>
                         <td class="sheet-boxinput" colspan="4">
-                          <input type="text" style="width: 220px;" name="attr_POSTE_PIL_NOM" title="@{POSTE_PIL_NOM}"
+                          <input type="text" style="width: 200px;" name="attr_POSTE_PIL_NOM" title="@{POSTE_PIL_NOM}"
                             placeholder="Nom du pilote" />
-                          <input type="number" name="attr_POSTE_PIL_BONUS"
-                            title="@{POSTE_PIL_BONUS} Rangs dans la Voie du Pilotage" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_PIL_DEX"
+                            title="@{POSTE_PIL_DEX} DEX pilote" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_PIL_BONUS"
+                            title="@{POSTE_PIL_BONUS} Rangs de Pilotage" />
                         </td>
                       </tr>
                       <tr>
@@ -2468,10 +2509,12 @@
                           <input type="checkbox" style="float: right;" name="attr_POSTE_MOT_OQP" title="@{POSTE_MOT_OQP} Salle MOT occupée" value="1">
                         </td>
                         <td class="sheet-boxinput" colspan="4">
-                          <input type="text" style="width: 220px;" name="attr_POSTE_MOT_NOM" title="@{POSTE_MOT_NOM}"
+                          <input type="text" style="width: 200px;" name="attr_POSTE_MOT_NOM" title="@{POSTE_MOT_NOM}"
                             placeholder="Nom du mécanicien" />
-                          <input type="number" name="attr_POSTE_MOT_BONUS"
-                            title="@{POSTE_MOT_BONUS} Rangs dans la Voie des Moteurs" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_MOT_INT"
+                            title="@{POSTE_MOT_INT} INT mécanicien" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_MOT_BONUS"
+                            title="@{POSTE_MOT_BONUS} Rangs de Moteurs" />
                         </td>
                       </tr>
                       <tr>
@@ -2479,10 +2522,12 @@
                           <input type="checkbox" style="float: right;" name="attr_POSTE_SEN_OQP" title="@{POSTE_SEN_OQP} Poste SEN occupé" value="1">
                         </td>
                         <td class="sheet-boxinput" colspan="4">
-                          <input type="text" style="width: 220px;" name="attr_POSTE_SEN_NOM" title="@{POSTE_SEN_NOM}"
+                          <input type="text" style="width: 200px;" name="attr_POSTE_SEN_NOM" title="@{POSTE_SEN_NOM}"
                             placeholder="Nom du scantech" />
-                          <input type="number" name="attr_POSTE_SEN_BONUS"
-                            title="@{POSTE_SEN_BONUS} Rangs dans la Voie de l'Electronique" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_SEN_INT"
+                            title="@{POSTE_SEN_INT} INT scantech" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_SEN_BONUS"
+                            title="@{POSTE_SEN_BONUS} Rangs d'Electronique" />
                         </td>
                       </tr>
                       <tr>
@@ -2490,24 +2535,13 @@
                           <input type="checkbox" style="float: right;" name="attr_POSTE_ORD_OQP" title="@{POSTE_ORD_OQP} Poste ORD occupé" value="1">
                         </td>
                         <td class="sheet-boxinput" colspan="4">
-                          <input type="text" style="width: 220px;" name="attr_POSTE_ORD_NOM" title="@{POSTE_ORD_NOM}"
+                          <input type="text" style="width: 200px;" name="attr_POSTE_ORD_NOM" title="@{POSTE_ORD_NOM}"
                             placeholder="Nom de l'infotech" />
-                          <input type="number" name="attr_POSTE_ORD_BONUS"
-                            title="@{POSTE_ORD_BONUS} Rangs dans la Voie de l'Electronique" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_ORD_INT"
+                            title="@{POSTE_ORD_INT} INT infotech" />
+                          <input type="number" style="width: 30px;" name="attr_POSTE_ORD_BONUS"
+                            title="@{POSTE_ORD_BONUS} Rangs d'Electronique" />
                         </td>
-                      </tr>
-                      <tr>
-                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_initv"
-                            title="%{jet_initv} Initiative"
-                            value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{POSTE_PIL_OQP}[Pilote]*(@{INITV} + @{INIT_VAR})[Dé(s)] &{tracker}]]}}">
-                            INITIATIVE</button></td>
-                        <td>&nbsp;</td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INITV_CARAC"
-                            title="@{INITV_CARAC}" value="@{DEX_TEST}" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INITV_PIL"
-                            title="@{INITV_PIL} Valeur de DEX du pilote" value="@{INIT_BUFF}" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_INITV" title="@{INITV}"
-                            value="([[@{INITV_CARAC}]][Manoeuvrabilité]+[[@{INITV_PIL}]][DEX pilote])*[[@{POSTE_PIL_OQP}]][Poste de pilotage occupé]" disabled /></td>
                       </tr>
                     </table>
                   </td> <!-- FIN Combat -->
@@ -2581,12 +2615,16 @@
                         <td class="sheet-boxinputlight">10+</td>
                         <td class="sheet-boxinputlight">DEX : <input type="number" name="attr_DEFVDEX" value="@{DEX_TEST}"
                             title="@{DEFVDEX} Bonus de Manoeuvrabilit&eacute;" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVPIL" value="@{POSTE_PIL_OQP}*(@{DEFVPIL_BUFF}+@{POSTE_PIL_BONUS})"
-                            title="@{DEFVPIL} Bonus du Pilote" disabled /></td>
+                        <td class="sheet-boxinputlight">
+                          <input type="number" name="attr_DEFVPIL" value="@{POSTE_PIL_OQP}*(@{POSTE_PIL_DEX}+@{POSTE_PIL_BONUS})"
+                            title="@{DEFVPIL} Bonus du Pilote" disabled />
+                        </td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVPER" value="@{PER_TEST}"
                             title="@{DEFVPER} Bonus de Senseurs" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*(@{DEFVSEN_BUFF}+@{POSTE_SEN_BONUS})"
-                            title="@{DEFVSEN} Bonus du Scantech" disabled /></td>
+                        <td class="sheet-boxinputlight">
+                          <input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*(@{POSTE_SEN_INT}+@{POSTE_SEN_BONUS})"
+                            title="@{DEFVSEN} Bonus du Scantech" disabled />
+                        </td>
                         <td class="sheet-boxinputlight"><span name="attr_DEFRAP" title="@{DEFRAP} D&eacute;fense (rapidit&eacute;)" /></td>
                       </tr>
                       <tr>
@@ -2597,7 +2635,7 @@
                         <td class="sheet-textbase">&nbsp;</td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVPER" value="@{PER_TEST}"
                             title="@{DEFVPER} Bonus de Senseurs" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*(@{DEFVSEN_BUFF}+@{POSTE_SEN_BONUS})"
+                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*@{POSTE_SEN_BONUS}"
                             title="@{DEFVSEN} Bonus du Scantech" disabled /></td>
                         <td class="sheet-boxinputlight"><span name="attr_DEFSOL" title="@{DEFSOL} D&eacute;fense (solidit&eacute;)" /></td>
                       </tr>
@@ -2698,7 +2736,7 @@
                     <input type="text" style="width: 220px;" name="attr_armecan_nom"
                       title="@{armecan_nom} Nom du canonnier (CAN)" />
                     <input type="number" style="width: 32px;" name="attr_armecan_bonus"
-                      title="@{armecan_bonus} Rang armes lourdes (CAN)" value="0" />
+                      title="@{armecan_bonus} Rangs Armes lourdes (CAN)" value="0" />
                   </td>
                   <td>&nbsp;</td>
                 </tr>
@@ -3444,7 +3482,7 @@
 </rolltemplate>
 <!-- FIN TEMPLATES -->
 
-<!-- **** SCRIPTS / SHEET WORKERS -->
+<!-- **** SCRIPTS / SHEET ²ERS -->
 <script type="text/worker">
 
 /**
@@ -3929,12 +3967,12 @@ function processTraits(universe, pnjObj) {
 function buildCaracs() {
   getAttrs(
     [
-      'FORCE',
-      'DEXTERITE',
-      'CONSTITUTION',
-      'INTELLIGENCE',
-      'PERCEPTION',
-      'CHARISME',
+      'FOR',
+      'DEX',
+      'CON',
+      'INT',
+      'PER',
+      'CHA',
       'NIVEAU',
       'RANG_VOIE1',
       'RANG_VOIE2',
@@ -3956,20 +3994,10 @@ function buildCaracs() {
       'voie9nom',
     ],
     function (values) {
-      let caracs = {
-        FOR: 0,
-        DEX: 0,
-        CON: 0,
-        INT: 0,
-        PER: 0,
-        CHA: 0,
-      };
+      let caracs = {};
       for (let car in values) {
         let vcar = values[car];
         if (vcar && !isNaN(vcar)) vcar = parseInt(vcar) || 0;
-        let mod = car.substring(0, 3);
-        if (caracs.hasOwnProperty(mod))
-          caracs[mod] = Math.floor((vcar - 10) / 2);
         if (car.startsWith('RANG_')) {
           if (!caracs.hasOwnProperty('rangs'))
             caracs.rangs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -4365,6 +4393,23 @@ function migrateSheet(verfdp) {
       setAttrs(abilityAttrs);
     });
   }
+  if (verfdp.major < 4) {
+    // update to COG v2
+    updatePC();
+    updateINIT();
+    updateDEF();
+    updateDEP();
+    updateSEUILBG();
+    getAttrs(['UNIVERS', 'type_personnage'], function (values) {
+      if (values.UNIVERS == 'CG') {
+        if (values.type_personnage == 'vaisseau') {
+          setAttrs({
+            INIT_BUFF2_DESC: 'INT Scantech',
+          });
+        }
+      }
+    });
+  }
 }
 
 /**
@@ -4392,10 +4437,10 @@ function parseSemVer(version) {
 on('sheet:opened', function () {
   // **** Gestion transition de version
   getAttrs(['VERSION', 'VERFDP'], function (values) {
-    const verfdp = parseSemVer(values.VERSION);
+    let verfdp = parseSemVer(values.VERSION);
     const newver = parseSemVer(values.VERFDP);
     if (verfdp.major == 2020 && verfdp == 525) {
-      const verfdp = parseSemVer(values.VERFDP);
+      verfdp = parseSemVer(values.VERFDP);
     }
     if (
       verfdp.major < newver.major ||
@@ -4432,11 +4477,10 @@ on('sheet:opened', function () {
           const per_buff_desc = values.PER_BUFF1_DESC || values.PE_ONCE;
           const cha_buff_desc = values.CHA_BUFF1_DESC || values.PE_ONCE;
           const atktirv_buff_desc = values.ATKTIRV_BUFF1_DESC || values.PE_ONCE;
-          const init_buff_desc = values.INIT_BUFF1_DESC || 'Valeur DEX pilote';
-          const defvpil_buff1_desc =
-            values.DEFVPIL_BUFF1_DESC || 'Mod. DEX Pilote';
+          const init_buff_desc = values.INIT_BUFF1_DESC || 'DEX Pilote';
+          const defvpil_buff1_desc = values.DEFVPIL_BUFF1_DESC || 'DEX Pilote';
           const defvsen_buff1_desc =
-            values.DEFVSEN_BUFF1_DESC || 'Mod. INT Scantech';
+            values.DEFVSEN_BUFF1_DESC || 'INT Scantech';
           setAttrs({
             FOR_BUFF1_DESC: for_buff_desc,
             DEX_BUFF1_DESC: dex_buff_desc,
@@ -4451,6 +4495,9 @@ on('sheet:opened', function () {
             type_personnage: 'vaisseau',
           });
         }
+        const physical = values.type_personnage === 'vaisseau' ? '0' : '1';
+        const update = values.type_personnage === 'vaisseau' ? '1' : '';
+        setAttrs({ physical: physical, POSTES_VS: update });
       }
     }
   );
@@ -4472,11 +4519,11 @@ on('sheet:opened', function () {
     setRank(voie.toString());
   }
   // seuil_enc (if needed)
-  getAttrs(['seuil_enc', 'FORCE'], function (values) {
+  getAttrs(['seuil_enc', 'FOR'], function (values) {
     let seuil_enc = parseInt(values.seuil_enc) || 0;
     if (seuil_enc === 0) {
       setAttrs({
-        seuil_enc: parseInt(values.FORCE) || 0,
+        seuil_enc: 10 + (parseInt(values.FOR) || 0) * 2,
       });
     }
   });
@@ -4488,8 +4535,14 @@ on('sheet:opened', function () {
   updateINIT();
   // update DEF
   updateDEF();
+  // update DEP
+  updateDEP();
   // update ship EP
   updateShipEP();
+  // update ship DEFs
+  updateShipInit();
+  // update ship DEFs
+  updateShipDEF();
 });
 
 /**
@@ -4503,6 +4556,82 @@ on('change:character_name', function () {
     charName = charName.replace(/" /g, '» ');
     setAttrs({ character_name: charName });
   });
+});
+
+/**
+ * Update the xxx_TEST attributes
+ */
+function updateModTest(carac) {
+  getAttrs([`${carac}`, `${carac}_BUFF`], function (values) {
+    const attr = {};
+    let test = 0;
+    for (const value in values) {
+      test += parseInt(values[value]) || 0;
+    }
+    attr[`${carac}_TEST`] = test;
+    setAttrs(attr);
+  });
+}
+
+on('change:for change:for_buff', function () {
+  updateModTest('FOR');
+});
+
+on('change:dex change:dex_buff', function () {
+  updateModTest('DEX');
+});
+
+on('change:con change:con_buff', function () {
+  updateModTest('CON');
+});
+
+on('change:int change:int_buff', function () {
+  updateModTest('INT');
+});
+
+on('change:per change:per_buff', function () {
+  updateModTest('PER');
+});
+
+on('change:cha change:cha_buff', function () {
+  updateModTest('CHA');
+});
+
+/**
+ * On changing base PC, CHA or addtl PC :
+ * - update max PC
+ */
+
+function updatePC() {
+  getAttrs(['PCBASE', 'CHA', 'PCDIV'], function (values) {
+    let pc_max = 0;
+    for (const value in values) {
+      pc_max += parseInt(values[value]) || 0;
+    }
+    setAttrs({ PC_max: pc_max });
+  });
+}
+
+on('change:pcbase change:cha change:pcdiv', function () {
+  updatePC();
+});
+
+/**
+ * On changing CON or FOR :
+ * - update wounds threshold
+ */
+function updateSEUILBG() {
+  getAttrs(['CON', 'FOR'], function (values) {
+    let seuilbg = 10;
+    for (const value in values) {
+      seuilbg += parseInt(values[value]) || 0;
+    }
+    setAttrs({ SEUILBG: seuilbg });
+  });
+}
+
+on('change:con change:for', function () {
+  updateSEUILBG();
 });
 
 /**
@@ -4593,8 +4722,8 @@ function parseBuff(buffAttr) {
  */
 function updateBuffs(e) {
   const caracs = ['FOR', 'DEX', 'CON', 'INT', 'PER', 'CHA'];
-  let mod = e.sourceAttribute.substring(0, 3).toUpperCase();
-  if (!caracs.includes(mod)) return;
+  const changed = e.sourceAttribute.toUpperCase();
+  if (!caracs.includes(changed)) return;
   const attrs = [
     ...caracs,
     'ATKCAC',
@@ -4608,7 +4737,7 @@ function updateBuffs(e) {
   for (let a = 0; a < attrs.length; a++) {
     attrs[a] = `${attrs[a]}_BUFF_LIST`;
   }
-  attrs.unshift(mod);
+  attrs.unshift(changed);
   getAttrs(attrs, function (values) {
     let props = Object.keys(values);
     for (let p = 1; p < props.length; p++) {
@@ -4624,12 +4753,12 @@ function updateBuffs(e) {
  */
 on(
   [
-    'change:force',
-    'change:dexterite',
-    'change:constitution',
-    'change:intelligence',
-    'change:perception',
-    'change:charisme',
+    'change:for',
+    'change:dex',
+    'change:con',
+    'change:int',
+    'change:per',
+    'change:cha',
     'change:niveau',
     'change:defarmureon',
     'change:voie1nom',
@@ -4663,9 +4792,10 @@ on(
  * Update the INIT(iative) attribute
  */
 function updateINIT() {
-  getAttrs(['DEXTERITE', 'INIT_BUFF', 'ARMURE_MALUS'], function (values) {
-    let initVal = 0;
-    initVal += parseInt(values.DEXTERITE) || 0;
+  getAttrs(['DEX', 'PER', 'INIT_BUFF', 'ARMURE_MALUS'], function (values) {
+    let initVal = 10;
+    initVal += parseInt(values.DEX) || 0;
+    initVal += parseInt(values.PER) || 0;
     initVal += parseInt(values.INIT_BUFF) || 0;
     initVal -= parseInt(values.ARMURE_MALUS) || 0;
     setAttrs({ INIT: initVal });
@@ -4677,7 +4807,9 @@ function updateINIT() {
  * Update the INIT(iative) attribute
  */
 on(
-  ['change:dexterite', 'change:init_buff', 'change:armure_malus'].join(' '),
+  ['change:dex', 'change:per', 'change:init_buff', 'change:armure_malus'].join(
+    ' '
+  ),
   function () {
     updateINIT();
   }
@@ -4693,7 +4825,7 @@ function updateDEF() {
       'DEFARMUREON',
       'DEFBOUCLIER',
       'DEFBOUCLIERON',
-      'DEXTERITE',
+      'DEX',
       'DEF_BUFF',
       'DEFACT',
     ],
@@ -4704,7 +4836,7 @@ function updateDEF() {
       defVal +=
         (parseInt(values.DEFBOUCLIER) || 0) *
         (parseInt(values.DEFBOUCLIERON) || 0);
-      defVal += getMod(values.DEXTERITE);
+      defVal += parseInt(values.DEX) || 0;
       defVal += parseInt(values.DEF_BUFF) || 0;
       defVal += parseInt(values.DEFACT) || 0;
       setAttrs({ DEF: defVal });
@@ -4722,7 +4854,7 @@ on(
     'change:defarmureon',
     'change:defbouclier',
     'change:defbouclieron',
-    'change:dexterite',
+    'change:dex',
     'change:def_buff',
     'change:defact',
   ].join(' '),
@@ -4730,6 +4862,26 @@ on(
     updateDEF();
   }
 );
+
+/**
+ * Update the DE(fense) P(sychique) attribute
+ */
+function updateDEP() {
+  getAttrs(['CHA', 'DEP_BUFF'], function (values) {
+    let depVal = 10;
+    depVal += parseInt(values.CHA) || 0;
+    depVal += parseInt(values.DEP_BUFF) || 0;
+    setAttrs({ DEP: depVal });
+  });
+}
+
+/**
+ * On changing the relevant attributes
+ * Update the DE(fense) P(sychique) attribute
+ */
+on('change:cha change:dep_buff', function () {
+  updateDEP();
+});
 
 /**
  * On changing the buff lists
@@ -5217,18 +5369,10 @@ function convertToPC() {
     ],
     function (values) {
       let attrs = {};
-      for (let attr of [
-        'FORCE',
-        'DEXTERITE',
-        'CONSTITUTION',
-        'INTELLIGENCE',
-        'PERCEPTION',
-        'CHARISME',
-      ]) {
-        let attrv =
-          parseInt(values[`pnj_${attr.substring(0, 3).toLowerCase()}`]) || 0;
-        attrs[attr] = 10 + 2 * attrv;
-        if (attr === 'DEXTERITE') {
+      for (let attr of ['FOR', 'DEX', 'CON', 'INT', 'PER', 'CHA']) {
+        let attrv = parseInt(values[`pnj_${attr.toLowerCase()}`]) || 0;
+        attrs[attr] = attrv;
+        if (attr === 'DEX') {
           let init = parseInt(values.pnj_init) || 0;
           if (init === attrv + 1) {
             attrs[attr]++;
@@ -5244,7 +5388,7 @@ function convertToPC() {
           }
           attrs['DEX_SUP'] =
             values['pnj_jetdex'] === '2d20kh1' ? '@{JDEXSUP}' : '@{JDEX}';
-        } else if (attr === 'CHARISME') {
+        } else if (attr === 'CHA') {
           let depb = 10 + attrv;
           let dep = parseInt(values.pnj_dep) || 0;
           if (dep !== depb) {
@@ -5405,7 +5549,7 @@ function setStation(v, attr, fill) {
 }
 
 /**
- * On change of spaceship stations character names of bonus
+ * On change of spaceship stations character names or bonus
  * - Rebuild hidden macro formulas
  */
 on(
@@ -5442,11 +5586,7 @@ on(
   ].join(' '),
   function () {
     getAttrs(attrStation('SEN'), function (values) {
-      setStation(values, 'SEN', [
-        'INT',
-        'INT scan',
-        'Electronique/Investigation',
-      ]);
+      setStation(values, 'SEN', ['INT', 'INT scan', 'Electronique']);
     });
   }
 );
@@ -5485,54 +5625,103 @@ on(
 );
 
 /**
+ * Rebuild starship INITiative
+ */
+function updateShipInit() {
+  getAttrs(
+    [
+      'type_fiche',
+      'DEX',
+      'POSTE_PIL_OQP',
+      'POSTE_PIL_DEX',
+      'POSTE_PIL_BONUS',
+      'PER',
+      'POSTE_SEN_OQP',
+      'POSTE_SEN_INT',
+      'POSTE_SEN_BONUS',
+    ],
+    function (values) {
+      if (values.type_fiche !== 'vaisseau') return;
+      let initv = 0;
+      const dex = parseInt(values.DEX) || 0;
+      const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
+      const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
+      const poste_pil_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
+      const per = parseInt(values.PER) || 0;
+      const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
+      const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
+      const poste_sen_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
+      if (poste_pil_oqp !== 0) {
+        initv =
+          10 +
+          dex +
+          poste_pil_dex +
+          poste_pil_bonus +
+          per +
+          poste_sen_oqp * (poste_sen_int + poste_sen_bonus);
+      }
+      setAttrs({ INITV: initv });
+    }
+  );
+}
+
+on(
+  [
+    'change:dex',
+    'change:poste_pil_oqp',
+    'change:poste_pil_dex',
+    'change:poste_pil_bonus',
+    'change:per',
+    'change:poste_sen_oqp',
+    'change:poste_sen_int',
+    'change:poste_sen_bonus',
+  ].join(' '),
+  function () {
+    updateShipInit();
+  }
+);
+
+/**
  * Rebuild starship DEFenses
  */
 function updateShipDEF() {
   getAttrs(
     [
-      'DEXTERITE',
-      'DEX_BUFF',
+      'type_fiche',
+      'DEX_TEST',
       'POSTE_PIL_OQP',
-      'DEFVPIL_BUFF',
+      'POSTE_PIL_DEX',
       'POSTE_PIL_BONUS',
-      'PERCEPTION',
-      'PER_BUFF',
+      'PER_TEST',
       'POSTE_SEN_OQP',
-      'DEFVSEN_BUFF',
+      'POSTE_SEN_INT',
       'POSTE_SEN_BONUS',
-      'CONSTITUTION',
+      'CON',
     ],
     function (values) {
+      if (values.type_fiche !== 'vaisseau') return;
       let defrap = 0;
       let defsol = 0;
-      const mod_dex = getMod(values.DEXTERITE);
-      const dex_buff = parseInt(values.DEX_BUFF) || 0;
+      const dex_test = parseInt(values.DEX_TEST) || 0;
       const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
-      const defvpil_buff = parseInt(values.DEFVPIL_BUFF) || 0;
+      const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
       const poste_pil_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
-      const mod_per = getMod(values.PERCEPTION);
-      const per_buff = parseInt(values.PER_BUFF) || 0;
+      const per_test = parseInt(values.PER_TEST) || 0;
       const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
+      const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
       const poste_sen_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
-      const defvsen_buff = parseInt(values.DEFVSEN_BUFF) || 0;
-      const con = getMod(values.CONSTITUTION);
+      const con = parseInt(values.CON) || 0;
       if (poste_pil_oqp !== 0) {
         defrap =
           10 +
-          mod_dex +
-          dex_buff +
-          defvpil_buff +
+          dex_test +
+          poste_pil_dex +
           poste_pil_bonus +
-          mod_per +
-          per_buff +
-          poste_sen_oqp * (defvsen_buff + poste_sen_bonus);
+          per_test +
+          poste_sen_oqp * (poste_sen_int + poste_sen_bonus);
       }
       defsol =
-        10 +
-        con +
-        mod_per +
-        per_buff +
-        poste_sen_oqp * (defvsen_buff + poste_sen_bonus);
+        10 + con + per_test + poste_sen_oqp * (poste_sen_int * poste_sen_bonus);
       setAttrs({ DEFRAP: defrap, DEFSOL: defsol });
     }
   );
@@ -5540,17 +5729,13 @@ function updateShipDEF() {
 
 on(
   [
-    'change:dexterite',
-    'change:dex_buff',
+    'change:dex_test',
     'change:poste_pil_oqp',
-    'change:defvpil_buff',
     'change:poste_pil_bonus',
-    'change:perception',
-    'change:per_buff',
+    'change:per_test',
     'change:poste_sen_oqp',
-    'change:defvsen_buff',
     'change:poste_sen_bonus',
-    'change:constitution',
+    'change:con',
   ].join(' '),
   function () {
     updateShipDEF();
@@ -5562,14 +5747,14 @@ on(
  */
 function updateShipEP() {
   getAttrs(
-    ['type_fiche', 'NIVEAU', 'PEV_BUFF', 'FORCE', 'PEV_DMG', 'PEV'],
+    ['type_fiche', 'NIVEAU', 'PEV_BUFF', 'FOR', 'PEV_DMG', 'PEV'],
     function (values) {
       if (values.type_fiche !== 'vaisseau') return;
       const pev = parseInt(values.PEV) || 0;
       let pev_max = 0;
       pev_max += parseInt(values.NIVEAU) || 0;
       pev_max += parseInt(values.PEV_BUFF) || 0;
-      pev_max += getMod(values.FORCE) || 0;
+      pev_max += parseInt(values.FOR) || 0;
       pev_max -= parseInt(values.PEV_DMG) || 0;
       let chatmsg = '';
       if (pev > pev_max) {
@@ -5586,7 +5771,7 @@ function updateShipEP() {
 }
 
 on(
-  ['change:niveau', 'change:pev_buff', 'change:force', 'change:pev_dmg'].join(
+  ['change:niveau', 'change:pev_buff', 'change:for', 'change:pev_dmg'].join(
     ' '
   ),
   function () {
@@ -5666,6 +5851,7 @@ function attrRanks(voie) {
   let attrs = [];
   for (let r = 1; r < 6; r++) {
     attrs.push(`v${voie}r${r}`);
+    attrs.push(`voie${voie}-t${r}`);
     attrs.push(`voie${voie}-${r}`);
   }
   return attrs;
@@ -6648,38 +6834,28 @@ on(
  */
 function hitPoints(attr) {
   getAttrs(
-    [
-      'type_fiche',
-      'NIVEAU',
-      'DV',
-      'CONSTITUTION',
-      'PV_NIVEAU',
-      'PV_BUFF',
-      'prog_pv',
-    ],
+    ['type_fiche', 'NIVEAU', 'DV', 'CON', 'PV_NIVEAU', 'PV_BUFF', 'prog_pv'],
     function (values) {
       let niveau = parseInt(values.NIVEAU) || 0;
       if (niveau === 0) return;
       let dv = parseInt(values.DV) || 0;
       if (dv === 0) return;
-      let constitution = parseInt(values.CONSTITUTION) || 0;
-      let modcon = 0;
-      if (constitution > 0) modcon = Math.floor((constitution - 10) / 2);
+      let valCON = parseInt(values.CON) || 0;
       let pv_niveau = values.PV_NIVEAU || '';
       let pv = [];
-      if (attr === 'niveau' || attr === 'constitution' || attr === 'pv_buff') {
+      if (attr === 'niveau' || attr === 'con' || attr === 'pv_buff') {
         if (pv_niveau !== '') pv = JSON.parse(pv_niveau);
       }
       let average = parseInt(values.prog_pv) || 0 === 1 ? 1 + dv / 2 : 0;
       let pv_buff = parseInt(values.PV_BUFF) || 0;
       let pv_max = 0;
       if (values.type_fiche == 'vaisseau') {
-        pv_max = (dv + modcon) * niveau;
+        pv_max = (dv + valCON) * niveau;
       } else {
         for (let n = 1; n <= niveau; n++) {
           let pvie = 0;
           if (n === 1) {
-            pvie = dv + modcon; // niveau 1 : Max. DV + Mod. CON
+            pvie = dv + valCON; // niveau 1 : Max. DV + Mod. CON
           } else {
             if (n > 10) {
               // niveaux > 10 : 1 ou 2 PV selon DV
@@ -6696,7 +6872,7 @@ function hitPoints(attr) {
                   } else {
                     pvie = getRandom(dv); // ... soit tirage de DV
                   }
-                  if (modcon < 0) pvie += modcon; // ... + Mod. CON si négative
+                  if (valCON < 0) pvie += valCON; // ... + Mod. CON si négative
                   if (pvie < 0) pvie = 0; // ... mais on ne perd pas de PV
                 } else {
                   // niveau existant
@@ -6704,7 +6880,7 @@ function hitPoints(attr) {
                 }
               } else {
                 // niveau impair
-                if (modcon > 0) pvie = modcon; // Mod. CON si positif
+                if (valCON > 0) pvie = valCON; // Mod. CON si positif
               }
             }
           }
@@ -6731,7 +6907,7 @@ on(
   [
     'change:niveau',
     'change:dv',
-    'change:constitution',
+    'change:con',
     'change:pv_buff',
     'change:prog_pv',
   ].join(' '),
