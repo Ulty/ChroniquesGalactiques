@@ -1,8 +1,8 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="4.0.0" />
-  <input type="hidden" name="attr_VERSION" value="4.0.0" />
+  <input type="hidden" name="attr_verfdp" value="3.999.1" />
+  <input type="hidden" name="attr_VERSION" value="3.999.1" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Libellés -->
@@ -2830,6 +2830,9 @@
     </div>
     <div class="sheet-tab-content sheet-tab2">
       <div class="sheet-row">
+        <span class="sheet-align-right"><button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_reset_btn"
+            title="Re-calculer bonus équipage">r</button>
+        </span>
         <!-- Config -->
         <ul>
           <li><span class="textbase">Jets</span>&nbsp;
@@ -4375,36 +4378,40 @@ function migrateSheet(verfdp) {
       setAttrs(abilityAttrs);
     });
   }
-  if (verfdp.major < 4) {
-    // update to COG v2
+  // update to COG v2
+  // WILL NEED TO BE CHANGED TO MAJOR < 4
+  if (verfdp.major == 3 && verfdp.minor <= 999 && verfdp.patch < 999) {
     updatePC();
     updateINIT();
     updateDEF();
     updateDEP();
     updateSEUILBG();
-    getAttrs(['UNIVERS', 'type_personnage'], function (values) {
-      if (values.UNIVERS !== 'CG') return;
-      if (values.type_personnage === 'pj') {
-        getAttrs(
-          ['FOR_SUP', 'CON_SUP', 'INT_SUP', 'PER_SUP', 'CHA_SUP'],
-          function (values) {
-            setAttrs({
-              FOR_SUP: values.FOR_SUP.replace('JET', 'JP'),
-              CON_SUP: values.CON_SUP.replace('JET', 'JP'),
-              INT_SUP: values.INT_SUP.replace('JET', 'JM'),
-              PER_SUP: values.PER_SUP.replace('JET', 'JM'),
-              CHA_SUP: values.CHA_SUP.replace('JET', 'JM'),
-            });
-          }
-        );
-      }
-    });
+    if (verfdp.patch < 1) {
+      getAttrs(['UNIVERS', 'type_personnage'], function (values) {
+        if (values.UNIVERS !== 'CG') return;
+        if (values.type_personnage === 'pj') {
+          getAttrs(
+            ['FOR_SUP', 'CON_SUP', 'INT_SUP', 'PER_SUP', 'CHA_SUP'],
+            function (values) {
+              setAttrs({
+                FOR_SUP: values.FOR_SUP.replace('JET', 'JP'),
+                CON_SUP: values.CON_SUP.replace('JET', 'JP'),
+                INT_SUP: values.INT_SUP.replace('JET', 'JM'),
+                PER_SUP: values.PER_SUP.replace('JET', 'JM'),
+                CHA_SUP: values.CHA_SUP.replace('JET', 'JM'),
+              });
+            }
+          );
+        }
+      });
+    }
   }
 }
 
 /**
  * Parse semantic version label
  * @param {string} version
+ * @returns version object
  */
 function parseSemVer(version) {
   version += '.0.0';
@@ -4473,9 +4480,6 @@ on('sheet:opened', function () {
             type_personnage: 'vaisseau',
           });
         }
-        const physical = values.type_personnage === 'vaisseau' ? '0' : '1';
-        const update = values.type_personnage === 'vaisseau' ? 'update' : '';
-        setAttrs({ physical: physical, POSTES_EQ: update });
       }
     }
   );
@@ -4492,10 +4496,6 @@ on('sheet:opened', function () {
       setArmorMalus();
     }
   });
-  // RANG_VOIE#
-  for (let voie = 1; voie <= 9; voie++) {
-    setRank(voie.toString());
-  }
   // seuil_enc (if needed)
   getAttrs(['seuil_enc', 'FOR'], function (values) {
     let seuil_enc = parseInt(values.seuil_enc) || 0;
@@ -4505,22 +4505,8 @@ on('sheet:opened', function () {
       });
     }
   });
-  // encombrement (refresh)
-  encumbrance();
-  // CARACS
-  buildCaracs();
-  // update INIT
-  updateINIT();
-  // update DEF
-  updateDEF();
-  // update DEP
-  updateDEP();
-  // update ship EP
-  updateShipEP();
-  // update ship DEFs
-  updateShipInit();
-  // update ship DEFs
-  updateShipDEF();
+  // rebuild all
+  rebuildAll();
 });
 
 /**
@@ -6482,20 +6468,52 @@ on('change:total_enc', function () {
 
 /**
  * Rebuild derived attributes
- * - Reset the CARACS attribute
- * - Reset characters encumbrance
- * - Rebuild the general buffs
- * - Rebuild the attack and DM modifiers
+ * - ranks in skill branches
+ * - encumbrance
+ * - CARACS attribute
+ * - INITiative value
+ * - DEFense value
+ * - Psy Defense value
+ * - General buffs
+ * - Attack and DM mods
  */
-function rebuildAll() {
-  for (let v = 1; v <= 9; v++) {
+function rebuildAllPC() {
+  for (const v of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
     setRank(v.toString());
   }
-  buildCaracs();
   encumbrance();
+  buildCaracs();
+  updateINIT();
+  updateDEF();
+  updateDEP();
   rebuildBuffs();
   rebuildModAtkDM('repeating_modatk', 'armebuff');
   rebuildModAtkDM('repeating_moddm', 'armebuffdm');
+}
+
+/**
+ * Rebuild Ship derived attributes
+ * - Energy Points
+ * - INITiative value
+ * - DEFense values
+ */
+function rebuildAllShip() {
+  updateShipEP();
+  updateShipInit();
+  updateShipDEF();
+}
+
+/**
+ * Rebuild derived attributes
+ */
+function rebuildAll() {
+  getAttrs(['type_personnage'], function (v) {
+    if (v.type_personnage === 'pj') rebuildAllPC();
+    if (v.type_personnage === 'vaisseau') rebuildAllShip();
+    const physical = v.type_personnage === 'vaisseau' ? '0' : '1';
+    const update = v.type_personnage === 'vaisseau' ? 'update' : '';
+    setAttrs({ physical: physical, POSTES_EQ: update });
+  });
 }
 
 /**
