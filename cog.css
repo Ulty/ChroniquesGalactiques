@@ -141,6 +141,30 @@ table.sheet-tabsep {
   padding: 2px;
 }
 
+.sheet-align-right {
+  float: right;
+}
+
+.sheet-txt-left {
+  text-align: left;
+}
+
+.sheet-txt-center {
+  text-align: center;
+}
+
+.sheet-txt-right {
+  text-align: right;
+}
+
+.sheet-txt-bold {
+  font-weight: bold;
+}
+
+.sheet-txt-italic {
+  font-style: italic;
+}
+
 span.sheet-label {
   padding: 0;
 }
@@ -450,6 +474,11 @@ input.sheet-hidden-tab {
 
 .sheet-optional-block,
 .sheet-optional-block-switch:checked {
+  display: none;
+}
+
+input.sheet-toggle-show:not(:checked) ~ div.sheet-toggle-body,
+input.sheet-toggle-hide:checked ~ div.sheet-toggle-body {
   display: none;
 }
 
