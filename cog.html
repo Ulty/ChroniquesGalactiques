@@ -135,6 +135,7 @@
               <option value="pj" selected>PJ</option>
               <option value="pnj">PNJ</option>
               <option value="vaisseau">Vaisseau</option>
+              <option value="mecha">Mécha</option>
             </select>
           </td>
         </tr>
@@ -169,6 +170,7 @@
   <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp2" value="vaisseau"><span
     title="Vaisseau"></span>
   <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp3" value="pnj"><span title="PNJ"></span>
+  <input type="radio" name="attr_type_fiche" class="sheet-hidden-tab sheet-fp4" value="mecha"><span title="Mécha"></span>
   <div class="sheet-tab-content sheet-fp1">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab1" value="caracs" checked="checked"><span
       title="Caractéristiques"></span>
@@ -3312,6 +3314,347 @@
         <div class="sheet-col">
           <span class="textbase">Initiative variable</span>&nbsp;<input type="checkbox" name="attr_pnj_init_var"
             title="@{pnj_init_var}" value="[[1d6!]]" />
+        </div>
+      </div>
+      <div class="sheet-col"></div>
+    </div>
+  </div>
+  <div class="sheet-tab-content sheet-fp4">
+    <input type="radio" name="attr_tab_mecha" class="sheet-tab sheet-tab1" value="caracs" checked="checked"><span
+      title="Caractéristiques"></span>
+    <input type="radio" name="attr_tab_mecha" class="sheet-tab sheet-tab2" value="config"><span
+      title="Configuration"></span>
+    <img class="sheet-imghr-up"
+      src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
+    <div class="sheet-tab-content sheet-tab1">
+      <div>
+        <div class="sheet-2colrow">
+          <div class="sheet-col">
+            <div class="sheet-row">
+              <span class="textfatleft">Attributs</span>
+            </div>
+            <div class="sheet-3colrow">
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_for"
+                    title="%{mec_for} Jet de Puissance"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Puissance (FOR)}} {{subtags=Test}} {{carac=[[@{mec_jetfor}cs20cf1[Dé] + [[@{mec_for}]][FOR] ]] }}">
+                    FOR</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_for" type="number" title="@{mec_for}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetfor" title="@{mec_jetfor}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_dex"
+                    title="%{mec_dex} Jet de Mobilité"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Mobilité (DEX)}} {{subtags=Test}} {{carac=[[@{mec_jetdex}cs20cf1[Dé] + [[@{mec_dex}]][DEX] ]] }}">
+                    DEX</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_dex" type="number" title="@{mec_dex}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetdex" title="@{mec_jetdex}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_con"
+                    title="%{mec_con} Jet de Châssis"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Châssis (CON)}} {{subtags=Test}} {{carac=[[@{mec_jetcon}cs20cf1[Dé] + [[@{mec_con}]][CON] ]] }}">
+                    CON</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_con" type="number" title="@{mec_con}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetcon" title="@{mec_jetcon}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">&nbsp;</div>
+            <div class="sheet-3colrow">
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_int"
+                    title="%{mec_int} Jet d'Ordinateur de Visée"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Ord. Visée (INT)}} {{subtags=Test}} {{carac=[[@{mec_jetint}cs20cf1[Dé] + [[@{mec_int}]][INT] ]] }}">
+                    INT</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_int" type="number" title="@{mec_int}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetint" title="@{mec_jetint}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_per"
+                    title="%{mec_per} Jet de Senseurs"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Senseurs (PER)}} {{subtags=Test}} {{carac=[[@{mec_jetper}cs20cf1[Dé] + [[@{mec_per}]][PER] ]] }}">
+                    PER</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_per" type="number" title="@{mec_per}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetper" title="@{mec_jetper}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_cha"
+                    title="%{mec_cha} Jet de Gestion de Chaleur"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Gest. Chaleur (CHA)}} {{subtags=Test}} {{carac=[[@{mec_jetcha}cs20cf1[Dé] + [[@{mec_cha}]][CHA] ]] }}">
+                    CHA</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_cha" type="number" title="@{mec_cha}" value="0" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_mec_jetcha" title="@{mec_jetcha}">
+                    <option value="1d20" selected>N - Normale</option>
+                    <option value="2d20kh1">S - Supérieure</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">&nbsp;</div>
+            <div class="sheet-3colrow">
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_mec_init"
+                    title="%{mec_init} Jet d'Initiative"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{mec_init}[Init.] + @{mec_init_var}[Dé(s)] &{tracker}]]}}">
+                    Init.</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_init" type="number" title="@{mec_init}" />
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre">DEF</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_defrap" type="number" title="@{mec_defrap} DEF (rapidité)" />&nbsp;/
+                  <input class="sheet-carac" name="attr_mec_depsol" type="number" title="@{mec_defsol} DEF (solidité)" />
+                </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre">PV</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_pv" type="number" title="@{mec_pv} PV courants" /> / <input
+                    class="sheet-carac" name="attr_mec_pv_max" type="number" title="@{mec_pv|max} PV MAX" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sheet-col">
+            <div class="sheet-row">
+              <span class="textfatleft">Mécanique</span>
+            </div>
+            <div class="sheet-2colrow">
+              <div class="sheet-col">
+                <div class="sheet-boxtitre">Vitesse</div>
+                <div class="sheet-boxinput">
+                  <select class="sheet-carac" name="attr_mec_vitbase" title="@{mec_vitbase} Vitesse de base">
+                    <option value="5">5 m</option>
+                    <option value="15">15 m</option>
+                    <option value="30">30 m</option>
+                  </select>
+                  / 
+                  <input class="sheet-carac" name="attr_mec_vitesse" type="number" title="@{mec_vitesse} Vitesse" />&nbsp;m
+                </div>
+              </div>
+              <div class="sheet-col">
+                <div class="sheet-boxtitre">Refroidissement</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_froid" type="number" title="@{mec_froid} Capacité de refroidissement" />
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <span class="textfatleft">Attaques</span>
+            </div>
+            <div class="sheet-2colrow">
+              <div class="sheet-col">
+                <div class="sheet-boxtitre">Contact</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_atc" type="number" title="@{mec_atc} Attaque au contact" />
+                </div>
+              </div>
+              <div class="sheet-col">
+                <div class="sheet-boxtitre">Distance</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_mec_atd" type="number" title="@{mec_atd} Attaque à distance" />
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">
+              <span class="textfatleft">Equipage</span>
+            </div>
+            <div class="sheet-row">
+              <div class="sheet-col" style="width: 100%;">
+                <ol>
+                  <li style="padding: 2px;">    
+                      <input type="text" class="sheet-carac" style="width: 50%;" name="attr_mec_crew1_name" title="@{mec_crew1_name}" placeholder="Nom" />
+                      <select class="sheet-carac" name="attr_mec_crew1_car" title="@{mec_crew1_car}">
+                        <option value="FOR" selected>FOR</option>
+                        <option value="FOR">DEX</option>
+                        <option value="PER">PER</option>
+                        <option value="INT">INT</option>
+                      </select>
+                      <input type="number" name="attr_mec_crew1_bonus" class="sheet-carac" title="@{mec_crew1_bonus}" />
+                      <input type="number" name="attr_mec_crew1_rank" class="sheet-carac" title="@{mec_crew1_rank}" />
+                  </li>
+                  <li style="padding: 2px;">
+                    <input type="text" class="sheet-carac" style="width: 50%;" name="attr_mec_crew2_name" title="@{mec_crew2_name}" placeholder="Nom" />
+                    <select class="sheet-carac" name="attr_mec_crew2_car" title="@{mec_crew2_car}">
+                      <option value="FOR" selected>FOR</option>
+                      <option value="FOR">DEX</option>
+                      <option value="PER">PER</option>
+                      <option value="INT">INT</option>
+                    </select>
+                    <input type="number" name="attr_mec_crew1_bonus" class="sheet-carac" title="@{mec_crew1_bonus}" />
+                    <input type="number" name="attr_mec_crew1_rank" class="sheet-carac" title="@{mec_crew1_rank}" />
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sheet-row">&nbsp;</div>
+        <img class="sheet-imghr-up"
+          src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
+        <div class="sheet-row">
+          <div class="sheet-row">
+            <table>
+              <tr>
+                <td class="textfatleft" style="width: 250px;" title="repeating_pnjatk">Attaques</td>
+                <td class="textbase" style="width: 55px;">Toucher</td>
+                <td class="textbase" style="width: 55px;">Crit.</td>
+                <td class="textbase" style="width: 150px;">DM</td>
+                <td class="textbase" style="width: 50px;">Portée</td>
+                <td class="textbase">Spécial</td>
+              </tr>
+            </table>
+          </div>
+          <fieldset class="repeating_pnjatk">
+            <table class="sheet-tabsep">
+              <tr>
+                <td style="width: 30px;">
+                  <button type="roll" class="sheet-neutre" style="width: 25px;" name="roll_pnjatk"
+                    title="%{repeating_pnjatk_$N_pnjatk}"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Attaque}} {{name=@{atknom}}} {{portee=@{atkportee}}} {{@{atkatt}[[@{atkjet}cf1cs>@{atkcrit}[Dé] + [[@{atkbonus}]][Attaque] ]]}} {{@{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}}" />
+                </td>
+                <td class="sheet-boxinputleft" style="width: 250px;">
+                  <input type="checkbox" name="attr_atkatt" title="@{atkatt} Faire un jet d'attaque pour toucher"
+                    value="attaque=" checked="checked" />
+                  <input type="text" class="sheet-carac" style="width: 180px;" name="attr_atknom"
+                    title="@{atknom} Nom de l'arme / attaque" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_atkjet"
+                    title="@{atkjet} Jet d'attaque normal (d20) ou expert (meilleur de deux d20)">
+                    <option value="1d20" selected>N Normal</option>
+                    <option value="2d20kh1">E Expert</option>
+                  </select>
+                  <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkbonus"
+                    title="@{atkbonus} Bonus d'attaque" value="0" />
+                </td>
+                <td class="sheet-boxinputleft" style="width: 35px;">
+                  <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkcrit"
+                    title="@{atkcrit} Seuil de critique" value="20" />
+                </td>
+                <td class="sheet-boxinputleft" style="width: 130px;">
+                  <input type="checkbox" name="attr_atkdmg" title="@{atkdmg} Faire un jet de dommages" value="degats="
+                    checked="checked" />
+                  <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkdmnbde"
+                    title="@{atkdmnbde} Nombre de dés de DM" value="0" />
+                  <select class="sheet-carac" style="width: 45px;" name="attr_atkdmde" title="@{atkdmde} Dé de DM">
+                    <optgroup label="Normaux">
+                      <option value="3">d3</option>
+                      <option value="4">d4</option>
+                      <option value="6" selected>d6</option>
+                      <option value="8">d8</option>
+                      <option value="10">d10</option>
+                      <option value="12">d12</option>
+                    </optgroup>
+                    <optgroup label="Sans limite">
+                      <option value="3!">d3</option>
+                      <option value="4!">d4</option>
+                      <option value="6!">d6</option>
+                      <option value="8!">d8</option>
+                      <option value="10!">d10</option>
+                      <option value="12!">d12</option>
+                    </optgroup>
+                  </select>
+                  +
+                  <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkdmbonus"
+                    title="@{atkdmbonus} Bonus aux DM" value="0" />
+                </td>
+                <td class="sheet-boxinputleft" style="width: 35px;">
+                  <input type="text" class="sheet-carac" style="width: 35px;" name="attr_atkportee"
+                    title="@{atkportee} Portée" value="" />
+                </td>
+                <td class="sheet-boxinputleft">
+                  <textarea class="sheet-carac" name="attr_atkspec" title="@{atkspec} Autres effets"></textarea>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </div>
+        <div class="sheet-row">&nbsp;</div>
+        <img class="sheet-imghr-up"
+          src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
+        <div class="sheet-row">
+          <div class="sheet-row">
+            <span class="textfatleft">Capacités</span>
+          </div>
+          <fieldset class="repeating_pnjcapas">
+            <table class="sheet-tabsep">
+              <tr>
+                <td style="width: 30px;">
+                  <button type="roll" class="sheet-neutre" style="width: 25px;" name="roll_pnjcapa"
+                    title="%{repeating_pnjcapas_$N_pnjcapa}"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Capacité}} {{name=@{capanom}}} {{text=@{capadesc}}}" />
+                </td>
+                <td class="sheet-boxinputleft" style="width: 200px;">
+                  <input type="text" class="sheet-carac" style="width: 200px;" name="attr_capanom"
+                    title="@{capanom} Nom de la capacité" />
+                </td>
+                <td class="sheet-boxinputleft">
+                  <textarea class="sheet-carac" name="attr_capadesc"
+                    title="@{capadesc} Description de la capacité"></textarea>
+                </td>
+              </tr>
+            </table>
+          </fieldset>
+        </div>
+        <div class="sheet-row">&nbsp;</div>
+        <img class="sheet-imghr-up"
+          src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
+        <div class="sheet-row">
+          <input type="checkbox" class="sheet-block-switch"><span>Importer statblock</span>
+          <div class="sheet-block-hidden"></div>
+          <div class="sheet-block-show">
+            <div class="sheet-2colrow">
+              <div class="sheet-col">
+                <textarea class="sheet-boxinputleft" name="attr_statblock" style="height: 10em;" placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
+              </div>
+              <div class="sheet-col">
+                <button type="action" name="act_sb_import" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
+                <textarea name="attr_sbresult" style="border: 1px solid; height: 5em;"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-tab-content sheet-tab2">
+      <div class="sheet-3colrow">
+        <div class="sheet-col">
+          <span class="textbase">Jets</span>&nbsp;
+          <select class="sheet-carac" style="width: 80px;" name="attr_mec_togm" title="@{mec_togm}" size="1">
+            <option value="" selected>Publics</option>
+            <option value="/w gm ">Cachés</option>
+          </select>
+        </div>
+        <div class="sheet-col">
+          <span class="textbase">Initiative variable</span>&nbsp;<input type="checkbox" name="attr_mec_init_var"
+            title="@{mec_init_var}" value="[[1d6!]]" />
         </div>
       </div>
       <div class="sheet-col"></div>
