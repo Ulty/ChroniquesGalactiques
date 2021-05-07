@@ -3479,6 +3479,7 @@
                 <div class="sheet-boxtitre">Refroidissement</div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_mec_froid" type="number" title="@{mec_froid} Capacité de refroidissement" />
+                  / <input class="sheet-carac" name="attr_mec_froid_max" type="number" title="@{mec_froid|MAX} Capacité de refroidissement MAX" />
                 </div>
               </div>
             </div>
@@ -3509,7 +3510,6 @@
                       <input type="text" class="sheet-carac" style="width: 50%;" name="attr_mec_crew1_name" title="@{mec_crew1_name}" placeholder="Nom" />
                       <select class="sheet-carac" name="attr_mec_crew1_car" title="@{mec_crew1_car} Carac. du mécha ajustée">
                         <option value="dex" selected>DEX</option>
-                        <option value="int">INT</option>
                         <option value="cha">CHA</option>
                         <option value="per">PER</option>
                       </select>
@@ -3520,14 +3520,13 @@
                   <li style="padding: 2px;">
                     <input type="text" class="sheet-carac" style="width: 50%;" name="attr_mec_crew2_name" title="@{mec_crew2_name}" placeholder="Nom" />
                     <select class="sheet-carac" name="attr_mec_crew2_car" title="@{mec_crew2_car} Carac. du mécha ajustée">
-                      <option value="dex" selected>DEX</option>
-                      <option value="int">INT</option>
+                      <option value="dex">DEX</option>
                       <option value="cha">CHA</option>
                       <option value="per">PER</option>
                     </select>
                     <input type="number" name="attr_mec_crew2_bonus" class="sheet-carac" title="@{mec_crew2_bonus} Carac. du méchanaute" />
                     <input type="number" name="attr_mec_crew2_rank" class="sheet-carac" title="@{mec_crew2_rank} Rang de voie prérequise" />
-                    <input type="checkbox" name="attr_mec_crew2_status" title="@{mec_crew2_status} Valide" value="1" checked />
+                    <input type="checkbox" name="attr_mec_crew2_status" title="@{mec_crew2_status} Valide" value="1" />
                   </li>
                 </ol>
               </div>
@@ -3541,7 +3540,7 @@
           <div class="sheet-row">
             <table>
               <tr>
-                <td class="textfatleft" style="width: 250px;" title="repeating_pnjatk">Attaques</td>
+                <td class="textfatleft" style="width: 250px;" title="repeating_mecatk">Attaques</td>
                 <td class="textbase" style="width: 55px;">Toucher</td>
                 <td class="textbase" style="width: 55px;">Crit.</td>
                 <td class="textbase" style="width: 150px;">DM</td>
@@ -3550,23 +3549,22 @@
               </tr>
             </table>
           </div>
-          <fieldset class="repeating_pnjatk">
+          <fieldset class="repeating_mecatk">
             <table class="sheet-tabsep">
               <tr>
                 <td style="width: 30px;">
-                  <button type="roll" class="sheet-neutre" style="width: 25px;" name="roll_pnjatk"
-                    title="%{repeating_pnjatk_$N_pnjatk}"
-                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Attaque}} {{name=@{atknom}}} {{portee=@{atkportee}}} {{@{atkatt}[[@{atkjet}cf1cs>@{atkcrit}[Dé] + [[@{atkbonus}]][Attaque] ]]}} {{@{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}}" />
+                  <button type="roll" class="sheet-neutre" style="width: 25px;" name="roll_mecatk"
+                    title="%{repeating_mecatk_$N_mecatk}"
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Attaque}} {{name=@{atknom}}} {{portee=@{atkportee}}} {{@{atkatt}[[@{atkjet}cf<@{atkinct}cs>@{atkcrit}[Dé] + [[@{atktype}]][Attaque mecha] + [[@{crewint}]][Artilleur] + [[@{atkbonus}]][Bonus] ]]}} {{@{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}}" />
                 </td>
                 <td class="sheet-boxinputleft" style="width: 250px;">
                   <input type="checkbox" name="attr_atkatt" title="@{atkatt} Faire un jet d'attaque pour toucher"
                     value="attaque=" checked="checked" />
                   <input type="text" class="sheet-carac" style="width: 180px;" name="attr_atknom"
                     title="@{atknom} Nom de l'arme / attaque" />
-                  <select class="sheet-carac" style="width: 30px;" name="attr_atkjet"
-                    title="@{atkjet} Jet d'attaque normal (d20) ou expert (meilleur de deux d20)">
-                    <option value="1d20" selected>N Normal</option>
-                    <option value="2d20kh1">E Expert</option>
+                  <select class="sheet-carac" style="width: 35px;" name="attr_atktype" title="@{atktype} Attaque au (C)ontact ou à (D)istance">
+                    <option value="@{mec_atc}" selected>C Contact</option>
+                    <option value="@{mec_atd}">D Distance</option>
                   </select>
                   <input type="number" class="sheet-carac" style="width: 35px;" name="attr_atkbonus"
                     title="@{atkbonus} Bonus d'attaque" value="0" />
@@ -3608,6 +3606,24 @@
                 </td>
                 <td class="sheet-boxinputleft">
                   <textarea class="sheet-carac" name="attr_atkspec" title="@{atkspec} Autres effets"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 30px;">&nbsp;</td>
+                <td class="sheet-boxinputleft" style="width: 250px;">
+                  <input type="text" class="sheet-carac" style="width: 200px;" name="attr_atkcrew"
+                    title="@{atkcrew} Nom du canonnier" />
+                  <input type="number" class="sheet-carac" name="attr_crewint" title="@{crewint} Bonus canonnier" />
+                  <select class="sheet-carac" style="width: 30px;" name="attr_atkjet"
+                    title="@{atkjet} Jet d'attaque normal (d20) ou expert (meilleur de deux d20)">
+                    <option value="1d12">R Risque</option>
+                    <option value="1d20" selected>N Normal</option>
+                    <option value="2d20kh1">E Expert</option>
+                  </select>
+                </td>
+                <td class="sheet-boxinputleft">
+                  <input type="number" style="width: 32px;" name="attr_atkinct" min="0" max="19" value="1"
+                      title="@{atkinct} Seuil d'incident de tir (par défaut 1)" />
                 </td>
               </tr>
             </table>
@@ -6869,7 +6885,7 @@ function rebuildAll() {
   getAttrs(['type_personnage'], function (v) {
     if (v.type_personnage === 'pj') rebuildAllPC();
     if (v.type_personnage === 'vaisseau') rebuildAllShip();
-    // if (v.type_personnage === 'mecha') rebuildAllMecha();
+    if (v.type_personnage === 'mecha') rebuildAllMech();
     const physical = ['vaisseau', 'mecha'].includes(v.type_personnage)
       ? '0'
       : '1';
@@ -7310,6 +7326,41 @@ on('clicked:dv_btn', function () {
 /**
  * Recalculate the crew adjustments to mecha's abilities
  */
+function updateMechCrew() {
+  getAttrs(
+    [
+      'mec_crew1_car',
+      'mec_crew1_bonus',
+      'mec_crew1_rank',
+      'mec_crew1_status',
+      'mec_crew2_car',
+      'mec_crew2_bonus',
+      'mec_crew2_rank',
+      'mec_crew2_status',
+    ],
+    function (values) {
+      if (values.mec_crew1_car === values.mec_crew2_car) return;
+      attrs = {
+        mec_crew_dex: 0,
+        mec_crew_int: 0,
+        mec_crew_cha: 0,
+        mec_crew_per: 0,
+      };
+      const crew1_bonus = parseInt(values.mec_crew1_bonus) || 0;
+      const crew1_rank = parseInt(values.mec_crew1_rank) || 0;
+      const crew1_status = parseInt(values.mec_crew1_status) || 0;
+      attrs[`mec_crew_${values.mec_crew1_car}`] =
+        crew1_status * Math.min(crew1_bonus, crew1_rank);
+      const crew2_bonus = parseInt(values.mec_crew2_bonus) || 0;
+      const crew2_rank = parseInt(values.mec_crew2_rank) || 0;
+      const crew2_status = parseInt(values.mec_crew2_status) || 0;
+      attrs[`mec_crew_${values.mec_crew2_car}`] =
+        crew2_status * Math.min(crew2_bonus, crew2_rank);
+      setAttrs(attrs);
+    }
+  );
+}
+
 on(
   [
     'change:mec_crew1_car',
@@ -7322,44 +7373,29 @@ on(
     'change:mec_crew2_status',
   ].join(' '),
   function () {
-    getAttrs(
-      [
-        'mec_crew1_car',
-        'mec_crew1_bonus',
-        'mec_crew1_rank',
-        'mec_crew1_status',
-        'mec_crew2_car',
-        'mec_crew2_bonus',
-        'mec_crew2_rank',
-        'mec_crew2_status',
-      ],
-      function (values) {
-        if (values.mec_crew1_car === values.mec_crew2_car) return;
-        attrs = {
-          mec_crew_dex: 0,
-          mec_crew_int: 0,
-          mec_crew_cha: 0,
-          mec_crew_per: 0,
-        };
-        const crew1_bonus = parseInt(values.mec_crew1_bonus) || 0;
-        const crew1_rank = parseInt(values.mec_crew1_rank) || 0;
-        const crew1_status = parseInt(values.mec_crew1_status) || 0;
-        attrs[`mec_crew_${values.mec_crew1_car}`] =
-          crew1_status * Math.min(crew1_bonus, crew1_rank);
-        const crew2_bonus = parseInt(values.mec_crew2_bonus) || 0;
-        const crew2_rank = parseInt(values.mec_crew2_rank) || 0;
-        const crew2_status = parseInt(values.mec_crew2_status) || 0;
-        attrs[`mec_crew_${values.mec_crew2_car}`] =
-          crew2_status * Math.min(crew2_bonus, crew2_rank);
-        setAttrs(attrs);
-      }
-    );
+    updateMechCrew();
   }
 );
 
 /**
  * Recalculate attack scores
  */
+function updateMechAttacks() {
+  getAttrs(['NIVEAU', 'mec_for', 'mec_int', 'mec_crew_int'], function (values) {
+    let mec_atc = 0;
+    mec_atc += parseInt(values.NIVEAU) || 0;
+    mec_atc += parseInt(values.mec_for) || 0;
+    let mec_atd = 0;
+    mec_atd += parseInt(values.NIVEAU) || 0;
+    mec_atd += parseInt(values.mec_int) || 0;
+    mec_atd += parseInt(values.mec_crew_int) || 0;
+    setAttrs({
+      mec_atc: mec_atc,
+      mec_atd: mec_atd,
+    });
+  });
+}
+
 on(
   [
     'change:niveau',
@@ -7368,44 +7404,55 @@ on(
     'change:mec_crew_int',
   ].join(' '),
   function () {
-    getAttrs(
-      ['NIVEAU', 'mec_for', 'mec_int', 'mec_crew_int'],
-      function (values) {
-        let mec_atc = 0;
-        mec_atc += parseInt(values.NIVEAU) || 0;
-        mec_atc += parseInt(values.mec_for) || 0;
-        let mec_atd = 0;
-        mec_atd += parseInt(values.NIVEAU) || 0;
-        mec_atd += parseInt(values.mec_int) || 0;
-        mec_atd += parseInt(values.mec_crew_int) || 0;
-        setAttrs({
-          mec_atc: mec_atc,
-          mec_atd: mec_atd,
-        });
-      }
-    );
+    updateMechAttacks();
   }
 );
 
 /**
  * Recalculate cooling score
  */
+function updateMechCooling() {
+  getAttrs(['NIVEAU', 'mec_cha', 'mec_crew_cha'], function (values) {
+    let mec_froid_max = 0;
+    mec_froid_max += parseInt(values.NIVEAU) || 0;
+    mec_froid_max += parseInt(values.mec_cha) || 0;
+    mec_froid_max += parseInt(values.mec_crew_cha) || 0;
+    setAttrs({ mec_froid_max: mec_froid_max });
+  });
+}
+
 on(
   ['change:niveau', 'change:mec_cha', 'change:mec_crew_cha'].join(' '),
   function () {
-    getAttrs(['NIVEAU', 'mec_cha', 'mec_crew_cha'], function (values) {
-      let mec_froid = 0;
-      mec_froid += parseInt(values.NIVEAU) || 0;
-      mec_froid += parseInt(values.mec_cha) || 0;
-      mec_froid += parseInt(values.mec_crew_cha) || 0;
-      setAttrs({ mec_froid: mec_froid });
-    });
+    updateMechCooling();
   }
 );
 
 /**
- * Recalculate Init. & DEFenses
+ * Recalculate Init & DEFenses
  */
+function updateMechInitDef() {
+  getAttrs(
+    ['mec_dex', 'mec_crew_dex', 'mec_per', 'mec_crew_per', 'mec_con'],
+    function (values) {
+      let defrap = 10;
+      defrap += parseInt(values.mec_dex) || 0;
+      defrap += parseInt(values.mec_crew_dex) || 0;
+      defrap += parseInt(values.mec_per) || 0;
+      defrap += parseInt(values.mec_crew_per) || 0;
+      let defsol = 10;
+      defsol += parseInt(values.mec_con) || 0;
+      defsol += parseInt(values.mec_per) || 0;
+      defsol += parseInt(values.mec_crew_per) || 0;
+      setAttrs({
+        mec_init: defrap,
+        mec_defrap: defrap,
+        mec_defsol: defsol,
+      });
+    }
+  );
+}
+
 on(
   [
     'change:mec_dex',
@@ -7415,44 +7462,30 @@ on(
     'change:mec_con',
   ].join(' '),
   function () {
-    getAttrs(
-      ['mec_dex', 'mec_crew_dex', 'mec_per', 'mec_crew_per', 'mec_con'],
-      function (values) {
-        let defrap = 10;
-        defrap += parseInt(values.mec_dex) || 0;
-        defrap += parseInt(values.mec_crew_dex) || 0;
-        defrap += parseInt(values.mec_per) || 0;
-        defrap += parseInt(values.mec_crew_per) || 0;
-        let defsol = 10;
-        defsol += parseInt(values.mec_con) || 0;
-        defsol += parseInt(values.mec_per) || 0;
-        defsol += parseInt(values.mec_crew_per) || 0;
-        setAttrs({ 
-          mec_init: defrap, 
-          mec_defrap: defrap, 
-          mec_defsol: defsol 
-        });
-      }
-    );
+    updateMechInitDef();
   }
 );
 
 /**
  * Recalculate speed
  */
-on('change:mec_dex change:mec_crew_dex change:mec_vitesse_base', function () {
+function updateMechSpeed() {
   getAttrs(['mec_dex', 'mec_crew_dex', 'mec_vitesse_base'], function (values) {
     const dex =
       1 + parseInt(values.mec_dex) || 0 + parseInt(values.mec_crew_dex) || 0;
     const base = parseInt(values.mec_vitesse_base) || 0;
     setAttrs({ mec_vitesse: dex * base });
   });
+}
+
+on('change:mec_dex change:mec_crew_dex change:mec_vitesse_base', function () {
+  updateMechSpeed();
 });
 
 /**
  * Recalculate hit points
  */
-on('change:niveau change:mec_dv change:mec_con', function () {
+function updateMechHP() {
   getAttrs(['NIVEAU', 'mec_dv', 'mec_con', 'mec_pv'], function (values) {
     const niveau = parseInt(values.NIVEAU) || 0;
     const dv = parseInt(values.mec_dv) || 0;
@@ -7462,7 +7495,23 @@ on('change:niveau change:mec_dv change:mec_con', function () {
     if (values.mec_pv === '') mec_pv = mec_pv_max;
     setAttrs({ mec_pv: mec_pv, mec_pv_max: mec_pv_max });
   });
+}
+
+on('change:niveau change:mec_dv change:mec_con', function () {
+  updateMechHP();
 });
+
+/**
+ * Recalculate all
+ */
+function rebuildAllMech() {
+  updateMechCrew();
+  updateMechAttacks();
+  updateMechCooling();
+  updateMechInitDef();
+  updateMechSpeed();
+  updateMechHP();
+}
 
 </script>
 <!-- FIN SCRIPTS / SHEET WORKERS -->
