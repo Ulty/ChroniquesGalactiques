@@ -6886,10 +6886,9 @@ function rebuildAll() {
     if (v.type_personnage === 'pj') rebuildAllPC();
     if (v.type_personnage === 'vaisseau') rebuildAllShip();
     if (v.type_personnage === 'mecha') rebuildAllMech();
-    const physical = ['vaisseau', 'mecha'].includes(v.type_personnage)
-      ? '0'
-      : '1';
-    const update = v.type_personnage === 'vaisseau' ? 'update' : '';
+    const vehicle = ['vaisseau', 'mecha'].includes(v.type_personnage);
+    const physical = vehicle ? '0' : '1';
+    const update = vehicle ? `update:${v.type_personnage}` : '';
     setAttrs({ physical: physical, POSTES_EQ: update });
   });
 }
