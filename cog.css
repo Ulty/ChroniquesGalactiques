@@ -641,9 +641,8 @@ input[type='checkbox'].sheet-block-switch:checked + span::before {
 }
 
 .sheet-rolltemplate-co1 div.sheet-desc {
-  padding-top: 6px;
-  min-height: 25px;
-  max-height: 250px;
+  margin: 5px;
+  max-height: 150px;
   overflow-y: auto;
 }
 
@@ -652,7 +651,7 @@ input[type='checkbox'].sheet-block-switch:checked + span::before {
   font-style: italic;
   text-align: justify;
   text-justify: inter-word;
-  margin: 2px;
+  margin: 5px;
 }
 
 .sheet-rolltemplate-co1 .inlinerollresult {
