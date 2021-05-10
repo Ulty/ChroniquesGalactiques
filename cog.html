@@ -3155,18 +3155,34 @@
                 </div>
               </div>
               <div class="sheet-col" style="width: 25%;">
-                <div class="sheet-boxtitre">DEF / DEP</div>
+                <div class="sheet-boxtitre">DEF
+                  <input type="number" class="sheet-carac sheet-align-right" style="width: 30px;" name="attr_pnj_rd" title="@{pnj_rd} Réduction DM">
+                </div>
                 <div class="sheet-boxinput">
-                  <input class="sheet-carac" name="attr_pnj_def" type="number" title="@{pnj_def}" />&nbsp;/
-                  <input class="sheet-carac" name="attr_pnj_dep" type="number" title="@{pnj_dep}" />
+                  <input class="sheet-carac" name="attr_pnj_def" type="number" title="@{pnj_def}" />
                 </div>
               </div>
               <div class="sheet-col" style="width: 25%;">
-                <div class="sheet-boxtitre">PV</div>
+                <div class="sheet-boxtitre">DEP</div>
+                <div class="sheet-boxinput">
+                  <input class="sheet-carac" name="attr_pnj_dep" type="number" title="@{pnj_dep}" />
+                </div>
+              </div>
+            </div>
+            <div class="sheet-row">&nbsp;</div>
+            <div class="sheet-3colrow">
+              <div class="sheet-col" style="width: 25%;">
+                <div class="sheet-boxtitre">PV
+                  <input type="number" class="sheet-carac sheet-align-right" style="width: 35px;" name="attr_pnj_sbg" title="@{pnj_sbg} Seuil de Blessure Grave">
+                </div>
                 <div class="sheet-boxinput">
                   <input class="sheet-carac" name="attr_pnj_pv" type="number" title="@{pnj_pv} PV courants" /> / <input
                     class="sheet-carac" name="attr_pnj_pv_max" type="number" title="@{pnj_pv|max} PV MAX" />
                 </div>
+              </div>
+              <div class="sheet-col" style="width: 25%;">
+              </div>
+              <div class="sheet-col" style="width: 25%;">
               </div>
             </div>
           </div>
@@ -3175,7 +3191,7 @@
               <span class="textfatleft">Divers</span>
             </div>
             <div class="sheet-row">
-              <textarea name="attr_pnj_divers" style="border: 1px solid; height: 15em;"
+              <textarea name="attr_pnj_divers" style="border: 1px solid; height: 20em;"
                 title="@{pnj_divers}"></textarea>
             </div>
           </div>
@@ -3290,7 +3306,7 @@
         <img class="sheet-imghr-up"
           src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
         <div class="sheet-row">
-          <input type="checkbox" class="sheet-block-switch"><span>Importer statblock</span>
+          <input type="checkbox" class="sheet-block-switch"><span>Importer un statblock</span>
           <div class="sheet-block-hidden"></div>
           <div class="sheet-block-show">
             <div class="sheet-2colrow">
@@ -3298,7 +3314,7 @@
                 <textarea class="sheet-boxinputleft" name="attr_statblock" style="height: 10em;" placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
               </div>
               <div class="sheet-col">
-                <button type="action" name="act_sb_import" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
+                <button type="action" name="act_pnj_import" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
                 <textarea name="attr_sbresult" style="border: 1px solid; height: 5em;"></textarea>
               </div>
             </div>
@@ -3559,7 +3575,7 @@
                 <td style="width: 30px;">
                   <button type="roll" class="sheet-neutre" style="width: 25px;" name="roll_mecatk"
                     title="%{repeating_mecatk_$N_mecatk}"
-                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Attaque}} {{name=@{atknom}}} {{portee=@{atkportee}}} {{@{atkatt}[[@{atkjet}cf<@{atkinct}cs>@{atkcrit}[Dé] + [[@{atktype}]][Attaque mecha] + [[@{crewint}]][Artilleur] + [[@{atkbonus}]][Bonus] ]]}} {{@{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}} {{text=@{atkplus}}}" />
+                    value="@{mec_togm}&{template:co1} {{perso=@{character_name}}} {{subtags=Attaque}} {{name=@{atknom}}} {{portee=@{atkportee}}} {{@{atkatt}[[@{atkjet}cf<@{atkinct}cs>@{atkcrit}[Dé] + [[@{atktype}]][Attaque mecha] + [[@{crewint}]][Artilleur] + [[@{atkbonus}]][Bonus] ]]}} {{@{atkdmg}[[@{atkdmnbde}d@{atkdmde}[Dé DM] + [[@{atkdmbonus}]][Mod.DM] ]]}} {{special=@{atkspec}}} {{text=@{atkopts}}}" />
                 </td>
                 <td class="sheet-boxinputleft" style="width: 280px;">
                   <input type="checkbox" name="attr_atkatt" title="@{atkatt} Faire un jet d'attaque pour toucher"
@@ -3633,7 +3649,7 @@
                       title="@{atkinct} Seuil d'incident de tir (par défaut 1)" />
                 </td>
                 <td class="sheet-boxinputleft" colspan="3">
-                  <textarea class="sheet-carac" name="attr_atkplus" title="@{atkplus}"></textarea>
+                  <textarea class="sheet-carac" name="attr_atkopts" title="@{atkopts}" placeholder="Options, équipement spécial"></textarea>
                 </td>
               </tr>
             </table>
@@ -3665,24 +3681,6 @@
               </tr>
             </table>
           </fieldset>
-        </div>
-        <div class="sheet-row">&nbsp;</div>
-        <img class="sheet-imghr-up"
-          src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
-        <div class="sheet-row">
-          <input type="checkbox" class="sheet-block-switch"><span>Importer statblock</span>
-          <div class="sheet-block-hidden"></div>
-          <div class="sheet-block-show">
-            <div class="sheet-2colrow">
-              <div class="sheet-col">
-                <textarea class="sheet-boxinputleft" name="attr_statblock" style="height: 10em;" placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
-              </div>
-              <div class="sheet-col">
-                <button type="action" name="act_sb_import" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
-                <textarea name="attr_sbresult" style="border: 1px solid; height: 5em;"></textarea>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -3958,7 +3956,9 @@ function addTrait(npcObj, traitObj) {
 function importStatblock(text) {
   text = text.replace(/\r/g, '');
   text = text.replace(/\n[ ]*\+/g, '+');
+  text = text.replace(/\t/g, ' ');
   var npc = {
+    character_name: '',
     NC: 0,
     PROFIL: '',
     TAILLE: '',
@@ -3973,6 +3973,8 @@ function importStatblock(text) {
     PV: 0,
     DEF: 0,
     DEP: 0,
+    RD: 0,
+    SBG: 0,
     Atks: [],
     Capas: [],
     Extras: [],
@@ -4041,6 +4043,7 @@ function importStatblock(text) {
     dataRow = dataRow.replace(/ATP \(/g, 'ATP-');
     dataRow = dataRow.replace(/très /g, 'très~'); // handle 'très petite' size
     dataRow = dataRow.replace(/créature /g, 'PROFIL créature~'); // handle 'créature' mention
+    if (dataRow.startsWith('PV')) dataRow = dataRow.replace('(', 'SBG ');
     var items = dataRow.split(' ');
     console.log(items);
     for (var item = 0; item < items.length; item++) {
@@ -4152,6 +4155,8 @@ function processBaseAttributes(universe, pnjObj) {
   pnjAttrs.pnj_pv = parseInt(pnjObj.PV);
   pnjAttrs.pnj_pv_max = parseInt(pnjObj.PV);
   delete pnjObj.PV;
+  pnjAttrs.pnj_sbg = parseInt(pnjObj.SBG) || 0;
+  delete pnjObj.SBG;
   pnjAttrs.pnj_rd = parseInt(pnjObj.RD) || 0;
   delete pnjObj.RD;
   consoleLog(pnjAttrs, 'setting attributes');
@@ -4429,6 +4434,7 @@ function migrateSheet(verfdp) {
         } else {
           sint = '@{JETNORMAL}';
         }
+        a;
         if (jets.PER_SUP == '2') {
           sper = '@{JETSUP}';
         } else {
@@ -5591,7 +5597,7 @@ on('change:pv', function () {
  * - Parse the statblock text
  * - Create the NPC character sheet
  */
-on('clicked:sb_import', function () {
+on('clicked:pnj_import', function () {
   getAttrs(['UNIVERS', 'statblock'], function (values) {
     if (values.statblock.trim() === '') return;
     let messages = '';
@@ -5628,7 +5634,8 @@ on('clicked:sb_import', function () {
       let otherAttrs = Object.keys(pnjObj);
       consoleLog(otherAttrs, 'additional data');
       for (const other in otherAttrs) {
-        divers += other + ' ' + pnjObj[other] + '\n';
+        if (pnjObj[other] !== undefined)
+          divers += other + ' ' + pnjObj[other] + '\n';
       }
       setAttrs({
         pnj_divers: divers,
