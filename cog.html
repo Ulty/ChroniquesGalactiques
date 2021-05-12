@@ -1,8 +1,8 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="3.999.1" />
-  <input type="hidden" name="attr_VERSION" value="3.999.1" />
+  <input type="hidden" name="attr_verfdp" value="3.999.2" />
+  <input type="hidden" name="attr_VERSION" value="3.999.2" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Libellés -->
@@ -146,8 +146,19 @@
       </table>
     </div>
     <div style="width: 120px; margin-left: 10px;">
-      <input type="checkbox" class="optional-block-switch" name="attr_physical" value="1" ><span></span>
-      <div class="optional-block">
+      <input type="checkbox" class="sheet-block-switch" style="display: none;" name="attr_physical" value="1" />
+      <div class="sheet-block-hidden">
+        <div>
+          <input type="checkbox" class="sheet-block-switch" style="display: none;" name="attr_vehicle_starship" value="1" />
+          <div class="sheet-block-hidden">
+            <img src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/mecha.png" />
+          </div>
+          <div class="sheet-block-show">
+            <img src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/starship.png" />
+          </div>
+        </div>
+      </div>
+      <div class="sheet-block-show">
         <table>
           <tr>
             <td class="sheet-textfatleft">Sexe</td>
@@ -627,28 +638,26 @@
                           </td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxtitre" style="width: 65px;" title="Points de Récupération">
-                          <button class="sheet-boxtitre" type="roll" name="roll_jet_pr" title="%{jet_pr} Jet de Récupération"
-                            value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Récupération}} {{subtags=Vitalit&eacute;}} {{RECUP=[[1d@{DV}[DV] + @{NIVEAU}[Niveau] + [[@{CON}]][Mod. CON] ]]}}">
-                            PR</button></td>
-                        <td class="sheet-boxinput">
-                          <input type="number" name="attr_PR" title="@{PR} Points de Récupération restants" value="0" />
-                          /<input type="number" name="attr_PR_max" title="@{PR|max} Points de Récupération MAX" value="0" />
-                        </td>
-                      </tr>
-                      <tr>
                         <td class="sheet-boxinputleft" colspan="2">
                           <span class="textbase">&nbsp;DM temporaires</span>&nbsp;
                           <input type="number" name="attr_DMTEMP" class="sheet-align-right" title="@{DMTEMP} Dommages Temporaires" value="0" />
                         </td>
                       </tr>
                       <tr>
+                        <td class="sheet-boxtitre" colspan="2">Blessures Graves</td>
+                      </tr>
+                      <tr>
                         <td class="sheet-boxinputleft" colspan="2">
-                          &nbsp;<input type="checkbox" name="attr_BLESSURE" title="@{BLESSURE} Gravement blessé"
-                            value="1" />
-                          <span class="textbase">Blessure grave</span>&nbsp;
                           <input type="hidden" name="attr_SEUILBG" />
-                          (<span name="attr_SEUILBG" title="@{SEUILBG} Seuil de blessure grave (10 + CON + FOR)"></span>)
+                          <div class="sheet-txt-center">
+                            Seuil : <span name="attr_SEUILBG" title="@{SEUILBG} 10 + CON + FOR"></span>
+                            <br>
+                            <input type="checkbox" name="attr_BLESSURE" title="@{BLESSURE} Gravement blessé" value="1" />
+                            &nbsp;<input type="checkbox" name="attr_BLGRAVE2" title="@{BLGRAVE2}" value="1" />
+                            &nbsp;<input type="checkbox" name="attr_BLGRAVE3" title="@{BLGRAVE3}" value="1" />
+                            &nbsp;<input type="checkbox" name="attr_BLGRAVE4" title="@{BLGRAVE4}" value="1" />
+                            &nbsp;<input type="checkbox" name="attr_BLGRAVE5" title="@{BLGRAVE5}" value="1" />
+                          </div>
                         </td>
                       </tr>
                     </table>
@@ -2003,7 +2012,7 @@
       <img class="sheet-imghr"
         src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_hr.png" />
       <div>
-        <span class="sheet-textfatleft">Traits</span>
+        <span class="sheet-textfatleft">Traits, Avantages, Relations</span>
         <fieldset class="repeating_traits">
           <table class="sheet-tabsep">
             <tr>
@@ -2639,10 +2648,9 @@
                         <td class="sheet-boxtitre" title="Boucliers (réduction des dommages)">RD</td>
                         <td class="sheet-boxinput">
                           <input type="hidden" name="attr_RDE" value="0" />
-                          (<span name="attr_RDE" title="@{RDE} Réduction des DM effective"></span>)
+                          <input type="number" name="attr_RD" style="width: 30px;" title="@{RD} Ecrans déflecteurs" value="0" />
                           <input type="checkbox" name="attr_rd_1pe" title="@{rd_1pe} Ecrans chargés" value="1" />
-                          <input type="number" name="attr_RD" style="width: 30px;"
-                            title="@{RD} Ecrans déflecteurs" value="0" />
+                          (<span name="attr_RDE" title="@{RDE} Réduction des DM effective"></span>)
                           </td>
                       </tr>
                       <tr>
@@ -4568,9 +4576,8 @@ function migrateSheet(verfdp) {
       if (traits.length >= 2) {
         newRowID = generateRowID();
         var traitRow = {};
-        traitRow[
-          'repeating_traits_' + newRowID + '_traitnom'
-        ] = traits[0].trim();
+        traitRow['repeating_traits_' + newRowID + '_traitnom'] =
+          traits[0].trim();
         traitRow['repeating_traits_' + newRowID + '_traittype'] =
           'Race / Humain';
         traits.splice(0, 1);
@@ -4798,6 +4805,21 @@ function migrateSheet(verfdp) {
             }
           );
         }
+      });
+    }
+    if (verfdp.patch < 2) {
+      setAttrs({
+        POSTE_PIL_OQP: 0,
+        POSTE_MOT_OQP: 0,
+        POSTE_SEN_OQP: 0,
+        POSTE_ORD_OQP: 0,
+      });
+      getSectionIDs('repeating_armesv', function (ids) {
+        attrs = {};
+        for (const id of ids) {
+          attrs[`repeating_armesv_${id}_armecan_oqp`] = 0;
+        }
+        setAttrs(attrs);
       });
     }
   }
@@ -5848,17 +5870,19 @@ function setStation(v, attr, fill) {
   if (attr === 'CAN') {
     attrx = 'repeating_armesv_armecan_oqp';
     attrn = 'repeating_armesv_armecan_nom';
+    attrc = 'repeating_armesv_armecan_dex';
     attrb = 'repeating_armesv_armecan_bonus';
-    attrb = 'repeating_armesv_armecan_dex';
   } else {
     attrx = `POSTE_${attr}_OQP`;
     attrn = `POSTE_${attr}_NOM`;
+    attrc = `POSTE_${attr}_${fill[0]}`;
     attrb = `POSTE_${attr}_BONUS`;
-    attrc = fill[fill.length - 1];
   }
   let station_held = parseInt(v[attrx]) || 0;
-  let crew_name = v[attrn] || '';
-  let station_name = crew_name != '' ? `@{${crew_name}|${fill[0]}}` : '0';
+  let station_crew = ' ' + v[attrn] || '';
+  if (station_held === 1 && station_crew.trim() === '')
+    station_crew = ' ' + fill[2];
+  let station_car = parseInt(v[attrc]) || 0;
   let station_bonus = parseInt(v[attrb]) || 0;
   let station_attr = '';
   if (attr === 'CAN') {
@@ -5868,8 +5892,8 @@ function setStation(v, attr, fill) {
   }
   station[
     station_attr
-  ] = `[[${station_name}*${station_held}]][${fill[1]}] + [[${station_bonus}*${station_held}]][${fill[2]}]`;
-  station[`EQUIP_${attr}`] = station_held === 1 ? crew_name : 'aucun';
+  ] = `[[${station_car}*${station_held}]][${fill[0]}${station_crew}] + [[${station_bonus}*${station_held}]][${fill[1]}${station_crew}]`;
+  station[`EQUIP_${attr}`] = station_held === 1 ? station_crew.trim() : 'aucun';
   setAttrs(station);
 }
 
@@ -5886,7 +5910,7 @@ on(
   ].join(' '),
   function () {
     getAttrs(attrStation('PIL', 'DEX'), function (values) {
-      setStation(values, 'PIL', ['DEX', 'DEX pilote', 'Pilotage']);
+      setStation(values, 'PIL', ['DEX', 'Pilotage', 'pilote']);
     });
   }
 );
@@ -5900,7 +5924,7 @@ on(
   ].join(' '),
   function () {
     getAttrs(attrStation('MOT', 'INT'), function (values) {
-      setStation(values, 'MOT', ['INT', 'INT mécano', 'Moteurs']);
+      setStation(values, 'MOT', ['INT', 'Moteurs', 'mécano']);
     });
   }
 );
@@ -5914,7 +5938,7 @@ on(
   ].join(' '),
   function () {
     getAttrs(attrStation('SEN', 'INT'), function (values) {
-      setStation(values, 'SEN', ['INT', 'INT scan', 'Electronique']);
+      setStation(values, 'SEN', ['INT', 'Electronique', 'scantech']);
     });
   }
 );
@@ -5928,7 +5952,7 @@ on(
   ].join(' '),
   function () {
     getAttrs(attrStation('ORD', 'INT'), function (values) {
-      setStation(values, 'ORD', ['INT', 'INT info', 'Electronique']);
+      setStation(values, 'ORD', ['INT', 'Electronique', 'infotech']);
     });
   }
 );
@@ -5949,7 +5973,7 @@ on(
         'repeating_armesv_armecan_dex',
       ],
       function (values) {
-        setStation(values, 'CAN', ['DEX', 'DEX canonnier', 'Armes lourdes']);
+        setStation(values, 'CAN', ['DEX', 'Armes lourdes', 'canonnier']);
       }
     );
   }
@@ -6897,6 +6921,7 @@ function rebuildAllShip() {
   updateShipEP();
   updateShipInit();
   updateShipDEF();
+  setAttrs({ vehicle_starship: 1, vehicle_mecha: 0 });
 }
 
 /**
@@ -7559,6 +7584,7 @@ function rebuildAllMech() {
   updateMechInitDef();
   updateMechSpeed();
   updateMechHP();
+  setAttrs({ vehicle_starship: 0, vehicle_mecha: 1 });
 }
 
 </script>
