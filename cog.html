@@ -2561,10 +2561,10 @@
                         <td class="sheet-boxinput" colspan="4">
                           <input type="text" style="width: 200px;" name="attr_POSTE_PIL_NOM" title="@{POSTE_PIL_NOM}"
                             placeholder="Nom du pilote" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_PIL_DEX"
-                            title="@{POSTE_PIL_DEX} DEX pilote" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_PIL_BONUS"
-                            title="@{POSTE_PIL_BONUS} Rangs de Pilotage" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_PIL_DEX"
+                            title="@{POSTE_PIL_DEX} DEX pilote" value="0" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_PIL_BONUS"
+                            title="@{POSTE_PIL_BONUS} Rangs de Pilotage" value="0" />
                         </td>
                       </tr>
                       <tr>
@@ -2574,10 +2574,10 @@
                         <td class="sheet-boxinput" colspan="4">
                           <input type="text" style="width: 200px;" name="attr_POSTE_MOT_NOM" title="@{POSTE_MOT_NOM}"
                             placeholder="Nom du mécanicien" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_MOT_INT"
-                            title="@{POSTE_MOT_INT} INT mécanicien" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_MOT_BONUS"
-                            title="@{POSTE_MOT_BONUS} Rangs de Moteurs" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_MOT_INT"
+                            title="@{POSTE_MOT_INT} INT mécanicien" value="0" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_MOT_BONUS"
+                            title="@{POSTE_MOT_BONUS} Rangs de Moteurs" value="0" />
                         </td>
                       </tr>
                       <tr>
@@ -2587,10 +2587,10 @@
                         <td class="sheet-boxinput" colspan="4">
                           <input type="text" style="width: 200px;" name="attr_POSTE_SEN_NOM" title="@{POSTE_SEN_NOM}"
                             placeholder="Nom du scantech" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_SEN_INT"
-                            title="@{POSTE_SEN_INT} INT scantech" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_SEN_BONUS"
-                            title="@{POSTE_SEN_BONUS} Rangs d'Electronique" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_SEN_INT"
+                            title="@{POSTE_SEN_INT} INT scantech" value="0" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_SEN_BONUS"
+                            title="@{POSTE_SEN_BONUS} Rangs d'Electronique" value="0" />
                         </td>
                       </tr>
                       <tr>
@@ -2600,10 +2600,10 @@
                         <td class="sheet-boxinput" colspan="4">
                           <input type="text" style="width: 200px;" name="attr_POSTE_ORD_NOM" title="@{POSTE_ORD_NOM}"
                             placeholder="Nom de l'infotech" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_ORD_INT"
-                            title="@{POSTE_ORD_INT} INT infotech" />
-                          <input type="number" style="width: 30px;" name="attr_POSTE_ORD_BONUS"
-                            title="@{POSTE_ORD_BONUS} Rangs d'Electronique" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_ORD_INT"
+                            title="@{POSTE_ORD_INT} INT infotech" value="0" />
+                          <input type="number" class="sheet-buff" style="width: 30px;" name="attr_POSTE_ORD_BONUS"
+                            title="@{POSTE_ORD_BONUS} Rangs d'Electronique" value="0" />
                         </td>
                       </tr>
                     </table>
@@ -2796,10 +2796,10 @@
                   <td class="sheet-boxinputleft" style="width: 250px;">
                     <input type="checkbox" name="attr_armecan_oqp" title="@{armecan_oqp} Poste CAN occupé" value="1" />
                     <input type="text" style="width: 220px;" name="attr_armecan_nom"
-                      title="@{armecan_nom} Nom du canonnier (CAN)" />
-                    <input type="number" style="width: 32px;" name="attr_armecan_dex"
+                      title="@{armecan_nom} Nom du canonnier (CAN)" placeholder="Nom du canonnier" />
+                    <input type="number" class="sheet-buff" style="width: 32px;" name="attr_armecan_dex"
                       title="@{armecan_dex} DEX canonnier" value="0" />
-                    <input type="number" style="width: 32px;" name="attr_armecan_bonus"
+                    <input type="number" class="sheet-buff" style="width: 32px;" name="attr_armecan_bonus"
                       title="@{armecan_bonus} Rangs Armes lourdes" value="0" />
                   </td>
                   <td>&nbsp;</td>
