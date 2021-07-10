@@ -1,8 +1,8 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="3.999.2" />
-  <input type="hidden" name="attr_VERSION" value="3.999.2" />
+  <input type="hidden" name="attr_verfdp" value="3.999.3" />
+  <input type="hidden" name="attr_VERSION" value="3.999.3" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Libellés -->
@@ -5989,11 +5989,9 @@ function updateShipInit() {
       'DEX',
       'POSTE_PIL_OQP',
       'POSTE_PIL_DEX',
-      'POSTE_PIL_BONUS',
       'PER',
       'POSTE_SEN_OQP',
       'POSTE_SEN_INT',
-      'POSTE_SEN_BONUS',
     ],
     function (values) {
       if (values.type_fiche !== 'vaisseau') return;
@@ -6001,19 +5999,16 @@ function updateShipInit() {
       const dex = parseInt(values.DEX) || 0;
       const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
       const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
-      const poste_pil_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
       const per = parseInt(values.PER) || 0;
       const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
       const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
-      const poste_sen_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
       if (poste_pil_oqp !== 0) {
         initv =
           10 +
           dex +
           poste_pil_dex +
-          poste_pil_bonus +
           per +
-          poste_sen_oqp * (poste_sen_int + poste_sen_bonus);
+          (poste_sen_oqp * poste_sen_int);
       }
       setAttrs({ INITV: initv });
     }
@@ -6025,11 +6020,9 @@ on(
     'change:dex',
     'change:poste_pil_oqp',
     'change:poste_pil_dex',
-    'change:poste_pil_bonus',
     'change:per',
     'change:poste_sen_oqp',
     'change:poste_sen_int',
-    'change:poste_sen_bonus',
   ].join(' '),
   function () {
     updateShipInit();
@@ -6046,11 +6039,9 @@ function updateShipDEF() {
       'DEX_TEST',
       'POSTE_PIL_OQP',
       'POSTE_PIL_DEX',
-      'POSTE_PIL_BONUS',
       'PER_TEST',
       'POSTE_SEN_OQP',
       'POSTE_SEN_INT',
-      'POSTE_SEN_BONUS',
       'CON',
     ],
     function (values) {
@@ -6060,23 +6051,20 @@ function updateShipDEF() {
       const dex_test = parseInt(values.DEX_TEST) || 0;
       const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
       const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
-      const poste_pil_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
       const per_test = parseInt(values.PER_TEST) || 0;
       const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
       const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
-      const poste_sen_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
       const con = parseInt(values.CON) || 0;
       if (poste_pil_oqp !== 0) {
         defrap =
           10 +
           dex_test +
           poste_pil_dex +
-          poste_pil_bonus +
           per_test +
-          poste_sen_oqp * (poste_sen_int + poste_sen_bonus);
+          (poste_sen_oqp * poste_sen_int);
       }
       defsol =
-        10 + con + per_test + poste_sen_oqp * (poste_sen_int * poste_sen_bonus);
+        10 + con + per_test + (poste_sen_oqp * poste_sen_int);
       setAttrs({ DEFRAP: defrap, DEFSOL: defsol });
     }
   );
@@ -6086,10 +6074,8 @@ on(
   [
     'change:dex_test',
     'change:poste_pil_oqp',
-    'change:poste_pil_bonus',
     'change:per_test',
     'change:poste_sen_oqp',
-    'change:poste_sen_bonus',
     'change:con',
   ].join(' '),
   function () {
