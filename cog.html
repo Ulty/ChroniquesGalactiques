@@ -2521,23 +2521,6 @@
                         <td class="sheet-textfat">Total</td>
                       </tr>
                       <tr>
-                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_initv"
-                            title="%{jet_initv} Initiative"
-                            value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{POSTE_PIL_OQP}[Pilote]*(@{INITV} + @{INIT_VAR})[Dé(s)] &{tracker}]]}}">
-                            INITIATIVE</button></td>
-                        <td class="sheet-boxinputlight">10</td>
-                        <td class="sheet-boxinputlight" colspan="2">
-                          + <input type="number" name="attr_DEXV" value="@{DEX}+@{POSTE_PIL_DEX}+@{POSTE_PIL_BONUS}" 
-                          title="@{DEX} Manoeuvrabilit&eacute; + @{POSTE_PIL_DEX} DEX Pilote + @{POSTE_PIL_BONUS} Rangs de Pilotage" disabled />
-                          + <input type="number" name="attr_PERV" value="@{PER}+@{POSTE_SEN_INT}+@{POSTE_SEN_BONUS}" 
-                          title="@{PER} Senseurs + @{POSTE_SEN_INT} INT Scantech + @{POSTE_SEN_BONUS} Rangs d'Electronique" disabled />
-                        </td>
-                        <td class="sheet-boxinputlight">
-                          <input type="hidden" name="attr_INITV" value="0" />
-                          <span name="attr_INITV" title="@{INITV}"></span>
-                        </td>
-                      </tr>
-                      <tr>
                         <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_tirv"
                             title="%{jet_tirv} Jet d'attaque à distance"
                             value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=&Agrave; Distance}} {{subtags=Attaque}} {{attaque=[[1d20cs20cf1[Dé] + [[@{ATKTIRV}]][Bonus] ]] }}">
@@ -2553,6 +2536,23 @@
                             title="@{ATKTIRV_DIV} Bonus divers" value="@{ATKTIRV_BUFF}" disabled /></td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_ATKTIRV" title="@{ATKTIRV}"
                             value="@{ATKTIRV_BASE}+@{ATKTIRV_CARAC}+@{ATKTIRV_DIV}" disabled /></td>
+                      </tr>
+                      <tr>
+                        <td class="sheet-boxtitre"><button class="sheet-boxtitre" type="roll" name="roll_jet_initv"
+                            title="%{jet_initv} Initiative"
+                            value="@{togm}&{template:co1} {{perso=@{character_name}}} {{name=Initiative}} {{subtags=Combat}} {{carac=[[@{POSTE_PIL_OQP}[Pilote]*(@{INITV} + @{INIT_VAR})[Dé(s)] &{tracker}]]}}">
+                            INITIATIVE</button></td>
+                        <td class="sheet-boxinputlight">10</td>
+                        <td class="sheet-boxinputlight" colspan="2">
+                          + <input type="number" name="attr_DEXV" value="@{DEX}+@{POSTE_PIL_DEX}+@{POSTE_PIL_BONUS}" 
+                          title="@{DEX} Manoeuvrabilit&eacute; + @{POSTE_PIL_DEX} DEX Pilote" disabled />
+                          + <input type="number" name="attr_PERV" value="@{PER}+@{POSTE_SEN_INT}+@{POSTE_SEN_BONUS}" 
+                          title="@{PER} Senseurs + @{POSTE_SEN_INT} INT Scantech" disabled />
+                        </td>
+                        <td class="sheet-boxinputlight">
+                          <input type="hidden" name="attr_INITV" value="0" />
+                          <span name="attr_INITV" title="@{INITV}"></span>
+                        </td>
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" title="Poste de pilotage (PIL)">Pilotage
@@ -2678,13 +2678,13 @@
                         <td class="sheet-boxinputlight">DEX : <input type="number" name="attr_DEFVDEX" value="@{DEX_TEST}"
                             title="@{DEFVDEX} Bonus de Manoeuvrabilit&eacute;" disabled /></td>
                         <td class="sheet-boxinputlight">
-                          <input type="number" name="attr_DEFVPIL" value="@{POSTE_PIL_OQP}*(@{POSTE_PIL_DEX}+@{POSTE_PIL_BONUS})"
+                          <input type="number" name="attr_DEFVPIL" value="@{POSTE_PIL_OQP}*@{POSTE_PIL_DEX}"
                             title="@{DEFVPIL} Bonus du Pilote" disabled />
                         </td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVPER" value="@{PER_TEST}"
                             title="@{DEFVPER} Bonus de Senseurs" disabled /></td>
                         <td class="sheet-boxinputlight">
-                          <input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*(@{POSTE_SEN_INT}+@{POSTE_SEN_BONUS})"
+                          <input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*@{POSTE_SEN_INT}"
                             title="@{DEFVSEN} Bonus du Scantech" disabled />
                         </td>
                         <td class="sheet-boxinputlight"><span name="attr_DEFRAP" title="@{DEFRAP} D&eacute;fense (rapidit&eacute;)" /></td>
@@ -2697,7 +2697,7 @@
                         <td class="sheet-textbase">&nbsp;</td>
                         <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVPER" value="@{PER_TEST}"
                             title="@{DEFVPER} Bonus de Senseurs" disabled /></td>
-                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*@{POSTE_SEN_BONUS}"
+                        <td class="sheet-boxinputlight"><input type="number" name="attr_DEFVSEN" value="@{POSTE_SEN_OQP}*@{POSTE_SEN_INT}"
                             title="@{DEFVSEN} Bonus du Scantech" disabled /></td>
                         <td class="sheet-boxinputlight"><span name="attr_DEFSOL" title="@{DEFSOL} D&eacute;fense (solidit&eacute;)" /></td>
                       </tr>
