@@ -306,7 +306,10 @@ img.sheet-iconimg {
 }
 
 img.sheet-iconimg:hover {
-  width: 32px;
+  width: 24px;
+  background-color: tan;
+  border-style: solid 1px black;
+  border-radius: 100%;
 }
 
 input,
