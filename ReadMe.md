@@ -10,9 +10,14 @@ Le jeu complet est paru dans le magazine [Casus Belli](http://www.black-book-edi
 
 # Version courante
 
-V3.115.0 [Screenshot](cog_v3.png)
+V3.115.1 [Screenshot](cog_v3.png)
 
 # Notes de version
+
+## V3.115.1 (2021.12.18)
+
+- Correction noms boutons action (pas de \_ dans le nom après act\_)
+- Modification libellés options DM sans limites (bug 'optgroup' de Roll20)
 
 ## V3.115.0 (2021.11.12)
 

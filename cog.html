@@ -1,8 +1,8 @@
 <div class="sheet-mainBg">
   <!-- FDP -->
   <!-- INPUT HIDDEN Version FdP -->
-  <input type="hidden" name="attr_verfdp" value="3.115.0" />
-  <input type="hidden" name="attr_VERSION" value="3.115.0" />
+  <input type="hidden" name="attr_verfdp" value="3.115.1" />
+  <input type="hidden" name="attr_VERSION" value="3.115.1" />
   <!-- INPUT HIDDEN Univers (COF, CG, COC) -->
   <input type="hidden" name="attr_UNIVERS" value="CG" />
     <!-- INPUT HIDDEN Libellés -->
@@ -84,7 +84,7 @@
   <div class="sheet-container">
     <!-- Identité -->
     <div style="width: 420px; vertical-align: middle; text-align: center;">
-      <img width="320px" title="Version 3.115.0 - 12/11/2021"
+      <img width="320px" title="Version 3.115.1 - 18/12/2021"
         src="https://raw.githubusercontent.com/Roll20/roll20-character-sheets/master/ChroniquesGalactiques/cog_logo.png" />
       <img width="90px" height="90px" name="attr_character_token" />
     </div>
@@ -326,35 +326,35 @@
                 </tr>
                 <tr>
                   <td class="sheet-boxinputlight" colspan="6">
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_aveugle" title="Aveuglé">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_aveugle" title="Aveuglé">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_aveugle.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_effraye" title="Effrayé">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_effraye" title="Effrayé">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_effraye.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_etourdi" title="Etourdi">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_etourdi" title="Etourdi">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_etourdi.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_immobilise" title="Immobilisé">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_immobilise" title="Immobilisé">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_immobilise.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_panique" title="Paniqué">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_panique" title="Paniqué">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_panique.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_ralenti" title="Ralenti">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_ralenti" title="Ralenti">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_ralenti.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_renverse" title="Renversé">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_renverse" title="Renversé">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_renverse.png" />
                     </button>
-                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_cond_surpris" title="Surpris">
+                    <button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_surpris" title="Surpris">
                       <img class="sheet-iconimg"
                         src="https://raw.githubusercontent.com/stephaned68/ChroniquesGalactiques/master/cond_surpris.png" />
                     </button>
@@ -555,7 +555,7 @@
                       </tr>
                       <tr>
                         <td class="sheet-boxtitre" style="width: 65px;">
-                          <button class="sheet-boxtitre" type="action" name="act_dv_btn"
+                          <button class="sheet-boxtitre" type="action" name="act_hitdice"
                             title="Progression d'un niveau">
                             DV</button>
                         </td>
@@ -764,12 +764,12 @@
                         <option value="12">d12</option>
                       </optgroup>
                       <optgroup label="Sans limite">
-                        <option value="3!">d3</option>
-                        <option value="4!">d4</option>
-                        <option value="6!" selected>d6</option>
-                        <option value="8!">d8</option>
-                        <option value="10!">d10</option>
-                        <option value="12!">d12</option>
+                        <option value="3!">d3+</option>
+                        <option value="4!">d4+</option>
+                        <option value="6!" selected>d6+</option>
+                        <option value="8!">d8+</option>
+                        <option value="10!">d10+</option>
+                        <option value="12!">d12+</option>
                       </optgroup>
                     </select>+<select class="sheet-carac" style="width: 52px;" name="attr_armedmcar" size="1"
                       title="@{armedmcar} Modificateur aux dommages">
@@ -783,12 +783,12 @@
                         <option value="@{CHA}">CHA</option>
                       </optgroup>
                       <optgroup label="Mod. de test">
-                        <option value="@{FOR_TEST}">FOR</option>
-                        <option value="@{DEX_TEST}">DEX</option>
-                        <option value="@{CON_TEST}">CON</option>
-                        <option value="@{INT_TEST}">INT</option>
-                        <option value="@{PER_TEST}">PER</option>
-                        <option value="@{CHA_TEST}">CHA</option>
+                        <option value="@{FOR_TEST}">FOR(t)</option>
+                        <option value="@{DEX_TEST}">DEX(t)</option>
+                        <option value="@{CON_TEST}">CON(t)</option>
+                        <option value="@{INT_TEST}">INT(t)</option>
+                        <option value="@{PER_TEST}">PER(t)</option>
+                        <option value="@{CHA_TEST}">CHA(t)</option>
                       </optgroup>
                     </select>+<input type="number" style="width: 32px;" name="attr_armedmdiv" value="0"
                       title="@{armedmdiv} Bonus de dommage divers" />
@@ -1877,16 +1877,16 @@
                     <option value="@{INT}">INT</option>
                     <option value="@{PER}">PER</option>
                     <option value="@{CHA}">CHA</option>
-                    <option value="@{QRYMOD}">Choix</option>
+                    <option value="@{QRYMOD}">Choix base</option>
                   </optgroup>
                   <optgroup label="Mod. de Test">
-                    <option value="@{FOR_TEST}">FOR</option>
-                    <option value="@{DEX_TEST}">DEX</option>
-                    <option value="@{CON_TEST}">CON</option>
-                    <option value="@{INT_TEST}">INT</option>
-                    <option value="@{PER_TEST}">PER</option>
-                    <option value="@{CHA_TEST}">CHA</option>
-                    <option value="@{QRYMODT}">Choix</option>
+                    <option value="@{FOR_TEST}">FOR(t)</option>
+                    <option value="@{DEX_TEST}">DEX(t)</option>
+                    <option value="@{CON_TEST}">CON(t)</option>
+                    <option value="@{INT_TEST}">INT(t)</option>
+                    <option value="@{PER_TEST}">PER(t)</option>
+                    <option value="@{CHA_TEST}">CHA(t)</option>
+                    <option value="@{QRYMODT}">Choix test</option>
                   </optgroup>
                   <optgroup label="Attaques">
                     <option value="@{ATKCAC}">ATC</option>
@@ -2205,7 +2205,7 @@
     <div class="sheet-tab-content sheet-tab4">
       <div class="sheet-row">
         <!-- Config -->
-        <span style="float: right;"><button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_reset_btn"
+        <span style="float: right;"><button type="action" class="sheet-flatbtn sheet-iconbtn" name="act_resetattrib"
             title="Re-calculer attributs (rangs, encombrement)">r</button>
         </span>
         <div class="sheet-textfatleft">PARAMETRES</div>
@@ -3207,12 +3207,12 @@
                       <option value="12">d12</option>
                     </optgroup>
                     <optgroup label="Sans limite">
-                      <option value="3!">d3</option>
-                      <option value="4!">d4</option>
-                      <option value="6!">d6</option>
-                      <option value="8!">d8</option>
-                      <option value="10!">d10</option>
-                      <option value="12!">d12</option>
+                      <option value="3!">d3+</option>
+                      <option value="4!">d4+</option>
+                      <option value="6!">d6+</option>
+                      <option value="8!">d8+</option>
+                      <option value="10!">d10+</option>
+                      <option value="12!">d12+</option>
                     </optgroup>
                   </select>
                   +
@@ -3270,7 +3270,7 @@
                   placeholder="Coller ici un statblock copié depuis le PDF"></textarea>
               </div>
               <div class="sheet-col">
-                <button type="action" name="act_sb_import" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
+                <button type="action" name="act_statblockimport" class="sheet-flatbtn sheet-iconbtn" title="Importer le stat-block">W</button>
                 <textarea name="attr_sbresult" style="border: 1px solid; height: 5em;"></textarea>
               </div>
             </div>
@@ -3530,11 +3530,11 @@ function removeRepeating(sectionName) {
  * @param {object} traitObj
  */
 function addTrait(npcObj, traitObj) {
-  if (traitObj['nom'] !== '' && traitObj['desc'] !== '') {
-    if (!npcObj['Capas']) npcObj['Capas'] = [];
-    npcObj['Capas'].push(`${traitObj['nom']}~${traitObj['desc']}`);
-    traitObj['nom'] = '';
-    traitObj['desc'] = '';
+  if (traitObj.nom !== '' && traitObj.desc !== '') {
+    if (!npcObj.Capas) npcObj.Capas = [];
+    npcObj.Capas.push(`${traitObj.nom}~${traitObj.desc}`);
+    traitObj.nom = '';
+    traitObj.desc = '';
   }
 }
 
@@ -3546,7 +3546,9 @@ function addTrait(npcObj, traitObj) {
 function importStatblock(text) {
   text = text.replace(/\r/g, '');
   text = text.replace(/\n[ ]*\+/g, '+');
+  text = text.replace(/\t/g, ' ');
   var npc = {
+    character_name: '',
     NC: 0,
     PROFIL: '',
     TAILLE: '',
@@ -3561,6 +3563,8 @@ function importStatblock(text) {
     PV: 0,
     DEF: 0,
     DEP: 0,
+    RD: 0,
+    SBG: 0,
     Atks: [],
     Capas: [],
     Extras: [],
@@ -3576,7 +3580,7 @@ function importStatblock(text) {
     console.log(dataRow);
     if (rownr === 0 && dataRow.toUpperCase().indexOf('NC') === -1) {
       // assume first line is name
-      npc['character_name'] = dataRow;
+      npc.character_name = dataRow;
       return;
     }
     // reading attacks list
@@ -3586,13 +3590,13 @@ function importStatblock(text) {
         // this is an attack line, handle CG statblocks
         dataRow = dataRow.replace(/ \(DM/g, ' DM');
         dataRow = dataRow.replace(/\)$/g, '');
-        npc['Atks'].push(dataRow);
+        npc.Atks.push(dataRow);
         return;
       }
     }
     // reading paths & ranks
     if (dataRow.toUpperCase().startsWith('VOIE ')) {
-      npc['Extras'].push(dataRow);
+      npc.Extras.push(dataRow);
       return;
     }
     if (capacites) {
@@ -3600,13 +3604,13 @@ function importStatblock(text) {
       let s = dataRow.indexOf(':');
       if (s !== -1) {
         addTrait(npc, capacite);
-        capacite['nom'] = dataRow.substring(0, s - 1).trim();
-        if (capacite['nom'].indexOf(' RD') !== -1) {
-          capacite['nom'] = capacite['nom'].replace(' RD', ' (RD');
+        capacite.nom = dataRow.substring(0, s - 1).trim();
+        if (capacite.nom.indexOf(' RD') !== -1) {
+          capacite.nom = capacite.nom.replace(' RD', ' (RD');
         }
-        capacite['desc'] = dataRow.substring(s + 1).trim();
+        capacite.desc = dataRow.substring(s + 1).trim();
       } else {
-        capacite['desc'] += ' ' + dataRow.trim();
+        capacite.desc += ' ' + dataRow.trim();
       }
       return;
     }
@@ -3629,6 +3633,7 @@ function importStatblock(text) {
     dataRow = dataRow.replace(/ATP \(/g, 'ATP-');
     dataRow = dataRow.replace(/très /g, 'très~'); // handle 'très petite' size
     dataRow = dataRow.replace(/créature /g, 'PROFIL créature~'); // handle 'créature' mention
+    if (dataRow.startsWith('PV')) dataRow = dataRow.replace('(', 'SBG ');
     var items = dataRow.split(' ');
     console.log(items);
     for (var item = 0; item < items.length; item++) {
@@ -3643,8 +3648,8 @@ function importStatblock(text) {
         if (v.trim() !== '') {
           v = v.replace(/~/g, ' ');
           npc[k] = v;
-          if (k === 'SAG') delete npc['PER'];
-          if (k === 'PER') delete npc['SAG'];
+          if (k === 'SAG') delete npc.PER;
+          if (k === 'PER') delete npc.SAG;
         }
       }
     }
@@ -3663,8 +3668,8 @@ function importStatblock(text) {
  */
 function processBaseAttributes(universe, pnjObj) {
   var result = '';
-  var pnj_sagorper = '';
-  var pnj_jetsagorper = '';
+  var pnj_sagper = '';
+  var pnj_jetsagper = '';
   if (universe === 'COF') {
     // COF uses SAG (Wisdom)
     pnj_sagper = 'pnj_sag';
@@ -3693,57 +3698,59 @@ function processBaseAttributes(universe, pnjObj) {
   var jsup = '2d20kh1';
   var pnjAttrs = {};
   if (pnjObj.character_name != '') {
-    pnjAttrs['character_name'] = pnjObj.character_name;
+    pnjAttrs.character_name = pnjObj.character_name;
   }
-  delete pnjObj['character_name'];
-  pnjAttrs['NIVEAU'] = parseInt(pnjObj.NC) || 0;
-  delete pnjObj['NC'];
-  pnjAttrs['TAILLE'] = pnjObj.TAILLE || '';
-  delete pnjObj['TAILLE'];
+  delete pnjObj.character_name;
+  pnjAttrs.NIVEAU = parseInt(pnjObj.NC) || 0;
+  delete pnjObj.NC;
+  pnjAttrs.TAILLE = pnjObj.TAILLE || '';
+  delete pnjObj.TAILLE;
   if (pnjObj.PROFIL !== '') {
-    pnjAttrs['PROFIL'] = pnjObj.PROFIL;
+    pnjAttrs.PROFIL = pnjObj.PROFIL;
   }
-  delete pnjObj['PROFIL'];
-  pnjAttrs['pnj_for'] = parseInt(pnjObj['FOR'].replace('*', ''));
-  pnjAttrs['pnj_jetfor'] =
-    pnjObj['FOR'].charAt(pnjObj['FOR'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['FOR'];
-  pnjAttrs['pnj_dex'] = parseInt(pnjObj['DEX'].replace('*', ''));
-  pnjAttrs['pnj_jetdex'] =
-    pnjObj['DEX'].charAt(pnjObj['DEX'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['DEX'];
-  pnjAttrs['pnj_con'] = parseInt(pnjObj['CON'].replace('*', ''));
-  pnjAttrs['pnj_jetcon'] =
-    pnjObj['CON'].charAt(pnjObj['CON'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['CON'];
-  pnjAttrs['pnj_int'] = parseInt(pnjObj['INT'].replace('*', ''));
-  pnjAttrs['pnj_jetint'] =
-    pnjObj['INT'].charAt(pnjObj['INT'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['INT'];
+  delete pnjObj.PROFIL;
+  pnjAttrs.pnj_for = parseInt(pnjObj.FOR.replace('*', ''));
+  pnjAttrs.pnj_jetfor =
+    pnjObj.FOR.charAt(pnjObj.FOR.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.FOR;
+  pnjAttrs.pnj_dex = parseInt(pnjObj.DEX.replace('*', ''));
+  pnjAttrs.pnj_jetdex =
+    pnjObj.DEX.charAt(pnjObj.DEX.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.DEX;
+  pnjAttrs.pnj_con = parseInt(pnjObj.CON.replace('*', ''));
+  pnjAttrs.pnj_jetcon =
+    pnjObj.CON.charAt(pnjObj.CON.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.CON;
+  pnjAttrs.pnj_int = parseInt(pnjObj.INT.replace('*', ''));
+  pnjAttrs.pnj_jetint =
+    pnjObj.INT.charAt(pnjObj.INT.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.INT;
   pnjAttrs[pnj_sagper] = parseInt(sagOrPer.replace('*', ''));
   pnjAttrs[pnj_jetsagper] =
     sagOrPer.charAt(sagOrPer.length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['SAG'];
-  delete pnjObj['PER'];
-  pnjAttrs['pnj_cha'] = parseInt(pnjObj['CHA'].replace('*', ''));
-  pnjAttrs['pnj_jetcha'] =
-    pnjObj['CHA'].charAt(pnjObj['CHA'].length - 1) == '*' ? jsup : jnor;
-  delete pnjObj['CHA'];
-  pnjAttrs['pnj_init'] = parseInt(pnjObj.INIT);
-  delete pnjObj['INIT'];
-  pnjAttrs['pnj_def'] = parseInt(pnjObj.DEF);
-  delete pnjObj['DEF'];
+  delete pnjObj.SAG;
+  delete pnjObj.PER;
+  pnjAttrs.pnj_cha = parseInt(pnjObj.CHA.replace('*', ''));
+  pnjAttrs.pnj_jetcha =
+    pnjObj.CHA.charAt(pnjObj.CHA.length - 1) == '*' ? jsup : jnor;
+  delete pnjObj.CHA;
+  pnjAttrs.pnj_init = parseInt(pnjObj.INIT);
+  delete pnjObj.INIT;
+  pnjAttrs.pnj_def = parseInt(pnjObj.DEF);
+  delete pnjObj.DEF;
   if (universe === 'CG') {
     pnjAttrs.pnj_dep = parseInt(pnjObj.DEP);
   }
   delete pnjObj.DEP;
-  pnjAttrs['pnj_pv'] = parseInt(pnjObj.PV);
-  pnjAttrs['pnj_pv_max'] = parseInt(pnjObj.PV);
-  delete pnjObj['PV'];
-  pnjAttrs['pnj_rd'] = parseInt(pnjObj.RD) || 0;
-  delete pnjObj['RD'];
+  pnjAttrs.pnj_pv = parseInt(pnjObj.PV);
+  pnjAttrs.pnj_pv_max = parseInt(pnjObj.PV);
+  delete pnjObj.PV;
+  pnjAttrs.pnj_sbg = parseInt(pnjObj.SBG) || 0;
+  delete pnjObj.SBG;
+  pnjAttrs.pnj_rd = parseInt(pnjObj.RD) || 0;
+  delete pnjObj.RD;
   consoleLog(pnjAttrs, 'setting attributes');
-  pnjAttrs['statblock'] = '';
+  pnjAttrs.statblock = '';
   setAttrs(pnjAttrs);
 
   return result;
@@ -3759,7 +3766,7 @@ function processAttacks(universe, pnjObj) {
   removeRepeating('pnjatk');
   let result = '';
 
-  for (const atk of pnjObj['Atks']) {
+  for (const atk of pnjObj.Atks) {
     const atkItems = atk.split(' ');
     consoleLog(atkItems, 'attacks found');
     if (atkItems[atkItems.length - 1] === 'DM') {
@@ -3887,7 +3894,7 @@ function processTraits(universe, pnjObj) {
   removeRepeating('pnjcapas');
   let result = '';
 
-  for (const capa of pnjObj['Capas']) {
+  for (const capa of pnjObj.Capas) {
     const capacite = capa.split('~');
     if (capacite.length == 2) {
       let name = capacite[0] || '';
@@ -3930,12 +3937,12 @@ function processTraits(universe, pnjObj) {
 function buildCaracs() {
   getAttrs(
     [
-      'FORCE',
-      'DEXTERITE',
-      'CONSTITUTION',
-      'INTELLIGENCE',
-      'PERCEPTION',
-      'CHARISME',
+      'FOR',
+      'DEX',
+      'CON',
+      'INT',
+      'PER',
+      'CHA',
       'NIVEAU',
       'RANG_VOIE1',
       'RANG_VOIE2',
@@ -3957,20 +3964,10 @@ function buildCaracs() {
       'voie9nom',
     ],
     function (values) {
-      let caracs = {
-        FOR: 0,
-        DEX: 0,
-        CON: 0,
-        INT: 0,
-        PER: 0,
-        CHA: 0,
-      };
+      let caracs = {};
       for (let car in values) {
         let vcar = values[car];
         if (vcar && !isNaN(vcar)) vcar = parseInt(vcar) || 0;
-        let mod = car.substring(0, 3);
-        if (caracs.hasOwnProperty(mod))
-          caracs[mod] = Math.floor((vcar - 10) / 2);
         if (car.startsWith('RANG_')) {
           if (!caracs.hasOwnProperty('rangs'))
             caracs.rangs = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -4027,6 +4024,7 @@ function migrateSheet(verfdp) {
         } else {
           sint = '@{JETNORMAL}';
         }
+        a;
         if (jets.PER_SUP == '2') {
           sper = '@{JETSUP}';
         } else {
@@ -4160,9 +4158,8 @@ function migrateSheet(verfdp) {
       if (traits.length >= 2) {
         newRowID = generateRowID();
         var traitRow = {};
-        traitRow[
-          'repeating_traits_' + newRowID + '_traitnom'
-        ] = traits[0].trim();
+        traitRow['repeating_traits_' + newRowID + '_traitnom'] =
+          traits[0].trim();
         traitRow['repeating_traits_' + newRowID + '_traittype'] =
           'Race / Humain';
         traits.splice(0, 1);
@@ -4280,7 +4277,7 @@ function migrateSheet(verfdp) {
             }
           }
         }
-        for (buffItem of buffRepeat) {
+        for (const buffItem of buffRepeat) {
           const rowId = 'repeating_buffs_' + generateRowID();
           let newRow = {};
           newRow[`${rowId}_buffon`] = buffItem.enabled ? '1' : '0';
@@ -4362,15 +4359,58 @@ function migrateSheet(verfdp) {
         abilityAttrs[ability] = desc;
         abilityAttrs[ability.replace('-', '-t')] = title;
       });
-      consoleLog(abilityAttrs);
       setAttrs(abilityAttrs);
     });
+  }
+  // update to COG v2
+  // WILL NEED TO BE CHANGED TO MAJOR < 4
+  if (verfdp.major == 3 && verfdp.minor <= 999 && verfdp.patch < 999) {
+    updatePC();
+    updateINIT();
+    updateDEF();
+    updateDEP();
+    updateSEUILBG();
+    if (verfdp.patch < 1) {
+      getAttrs(['UNIVERS', 'type_personnage'], function (values) {
+        if (values.UNIVERS !== 'CG') return;
+        if (values.type_personnage === 'pj') {
+          getAttrs(
+            ['FOR_SUP', 'CON_SUP', 'INT_SUP', 'PER_SUP', 'CHA_SUP'],
+            function (values) {
+              setAttrs({
+                FOR_SUP: values.FOR_SUP.replace('JET', 'JP'),
+                CON_SUP: values.CON_SUP.replace('JET', 'JP'),
+                INT_SUP: values.INT_SUP.replace('JET', 'JM'),
+                PER_SUP: values.PER_SUP.replace('JET', 'JM'),
+                CHA_SUP: values.CHA_SUP.replace('JET', 'JM'),
+              });
+            }
+          );
+        }
+      });
+    }
+    if (verfdp.patch < 2) {
+      setAttrs({
+        POSTE_PIL_OQP: 0,
+        POSTE_MOT_OQP: 0,
+        POSTE_SEN_OQP: 0,
+        POSTE_ORD_OQP: 0,
+      });
+      getSectionIDs('repeating_armesv', function (ids) {
+        attrs = {};
+        for (const id of ids) {
+          attrs[`repeating_armesv_${id}_armecan_oqp`] = 0;
+        }
+        setAttrs(attrs);
+      });
+    }
   }
 }
 
 /**
  * Parse semantic version label
  * @param {string} version
+ * @returns version object
  */
 function parseSemVer(version) {
   version += '.0.0';
@@ -4393,10 +4433,10 @@ function parseSemVer(version) {
 on('sheet:opened', function () {
   // **** Gestion transition de version
   getAttrs(['VERSION', 'VERFDP'], function (values) {
-    const verfdp = parseSemVer(values.VERSION);
+    let verfdp = parseSemVer(values.VERSION);
     const newver = parseSemVer(values.VERFDP);
     if (verfdp.major == 2020 && verfdp == 525) {
-      const verfdp = parseSemVer(values.VERFDP);
+      verfdp = parseSemVer(values.VERFDP);
     }
     if (
       verfdp.major < newver.major ||
@@ -4418,11 +4458,6 @@ on('sheet:opened', function () {
       'PER_BUFF1_DESC',
       'CHA_BUFF1_DESC',
       'ATKTIRV_BUFF1_DESC',
-      'INIT_BUFF1_DESC',
-      'DEFVPIL_BUFF1_DESC',
-      'DEFVPIL_BUFF2_DESC',
-      'DEFVSEN_BUFF1_DESC',
-      'DEFVSEN_BUFF2_DESC',
     ],
     function (values) {
       if (values.UNIVERS == 'CG') {
@@ -4433,11 +4468,6 @@ on('sheet:opened', function () {
           const per_buff_desc = values.PER_BUFF1_DESC || values.PE_ONCE;
           const cha_buff_desc = values.CHA_BUFF1_DESC || values.PE_ONCE;
           const atktirv_buff_desc = values.ATKTIRV_BUFF1_DESC || values.PE_ONCE;
-          const init_buff_desc = values.INIT_BUFF1_DESC || 'Valeur DEX pilote';
-          const defvpil_buff1_desc =
-            values.DEFVPIL_BUFF1_DESC || 'Mod. DEX Pilote';
-          const defvsen_buff1_desc =
-            values.DEFVSEN_BUFF1_DESC || 'Mod. INT Scantech';
           setAttrs({
             FOR_BUFF1_DESC: for_buff_desc,
             DEX_BUFF1_DESC: dex_buff_desc,
@@ -4445,9 +4475,6 @@ on('sheet:opened', function () {
             PER_BUFF1_DESC: per_buff_desc,
             CHA_BUFF1_DESC: cha_buff_desc,
             ATKTIRV_BUFF1_DESC: atktirv_buff_desc,
-            INIT_BUFF1_DESC: init_buff_desc,
-            DEFVPIL_BUFF1_DESC: defvpil_buff1_desc,
-            DEFVSEN_BUFF1_DESC: defvsen_buff1_desc,
             PE_ONCE: '',
             type_personnage: 'vaisseau',
           });
@@ -4468,29 +4495,17 @@ on('sheet:opened', function () {
       setArmorMalus();
     }
   });
-  // RANG_VOIE#
-  for (let voie = 1; voie <= 9; voie++) {
-    setRank(voie.toString());
-  }
   // seuil_enc (if needed)
-  getAttrs(['seuil_enc', 'FORCE'], function (values) {
+  getAttrs(['seuil_enc', 'FOR'], function (values) {
     let seuil_enc = parseInt(values.seuil_enc) || 0;
     if (seuil_enc === 0) {
       setAttrs({
-        seuil_enc: parseInt(values.FORCE) || 0,
+        seuil_enc: 10 + (parseInt(values.FOR) || 0) * 2,
       });
     }
   });
-  // encombrement (refresh)
-  encumbrance();
-  // CARACS
-  buildCaracs();
-  // update INIT
-  updateINIT();
-  // update DEF
-  updateDEF();
-  // update ship EP
-  updateShipEP();
+  // rebuild all
+  rebuildAll();
 });
 
 /**
@@ -4504,6 +4519,82 @@ on('change:character_name', function () {
     charName = charName.replace(/" /g, '» ');
     setAttrs({ character_name: charName });
   });
+});
+
+/**
+ * Update the xxx_TEST attributes
+ */
+function updateModTest(carac) {
+  getAttrs([`${carac}`, `${carac}_BUFF`], function (values) {
+    const attr = {};
+    let test = 0;
+    for (const value in values) {
+      test += parseInt(values[value]) || 0;
+    }
+    attr[`${carac}_TEST`] = test;
+    setAttrs(attr);
+  });
+}
+
+on('change:for change:for_buff', function () {
+  updateModTest('FOR');
+});
+
+on('change:dex change:dex_buff', function () {
+  updateModTest('DEX');
+});
+
+on('change:con change:con_buff', function () {
+  updateModTest('CON');
+});
+
+on('change:int change:int_buff', function () {
+  updateModTest('INT');
+});
+
+on('change:per change:per_buff', function () {
+  updateModTest('PER');
+});
+
+on('change:cha change:cha_buff', function () {
+  updateModTest('CHA');
+});
+
+/**
+ * On changing base PC, CHA or addtl PC :
+ * - update max PC
+ */
+
+function updatePC() {
+  getAttrs(['PCBASE', 'CHA', 'PCDIV'], function (values) {
+    let pc_max = 0;
+    for (const value in values) {
+      pc_max += parseInt(values[value]) || 0;
+    }
+    setAttrs({ PC_max: pc_max });
+  });
+}
+
+on('change:pcbase change:cha change:pcdiv', function () {
+  updatePC();
+});
+
+/**
+ * On changing CON or FOR :
+ * - update wounds threshold
+ */
+function updateSEUILBG() {
+  getAttrs(['CON', 'FOR'], function (values) {
+    let seuilbg = 10;
+    for (const value in values) {
+      seuilbg += parseInt(values[value]) || 0;
+    }
+    setAttrs({ SEUILBG: seuilbg });
+  });
+}
+
+on('change:con change:for', function () {
+  updateSEUILBG();
 });
 
 /**
@@ -4594,8 +4685,8 @@ function parseBuff(buffAttr) {
  */
 function updateBuffs(e) {
   const caracs = ['FOR', 'DEX', 'CON', 'INT', 'PER', 'CHA'];
-  let mod = e.sourceAttribute.substring(0, 3).toUpperCase();
-  if (!caracs.includes(mod)) return;
+  const changed = e.sourceAttribute.toUpperCase();
+  if (!caracs.includes(changed)) return;
   const attrs = [
     ...caracs,
     'ATKCAC',
@@ -4609,7 +4700,7 @@ function updateBuffs(e) {
   for (let a = 0; a < attrs.length; a++) {
     attrs[a] = `${attrs[a]}_BUFF_LIST`;
   }
-  attrs.unshift(mod);
+  attrs.unshift(changed);
   getAttrs(attrs, function (values) {
     let props = Object.keys(values);
     for (let p = 1; p < props.length; p++) {
@@ -4625,12 +4716,12 @@ function updateBuffs(e) {
  */
 on(
   [
-    'change:force',
-    'change:dexterite',
-    'change:constitution',
-    'change:intelligence',
-    'change:perception',
-    'change:charisme',
+    'change:for',
+    'change:dex',
+    'change:con',
+    'change:int',
+    'change:per',
+    'change:cha',
     'change:niveau',
     'change:defarmureon',
     'change:voie1nom',
@@ -4664,9 +4755,10 @@ on(
  * Update the INIT(iative) attribute
  */
 function updateINIT() {
-  getAttrs(['DEXTERITE', 'INIT_BUFF', 'ARMURE_MALUS'], function (values) {
-    let initVal = 0;
-    initVal += parseInt(values.DEXTERITE) || 0;
+  getAttrs(['DEX', 'PER', 'INIT_BUFF', 'ARMURE_MALUS'], function (values) {
+    let initVal = 10;
+    initVal += parseInt(values.DEX) || 0;
+    initVal += parseInt(values.PER) || 0;
     initVal += parseInt(values.INIT_BUFF) || 0;
     initVal -= parseInt(values.ARMURE_MALUS) || 0;
     setAttrs({ INIT: initVal });
@@ -4678,7 +4770,9 @@ function updateINIT() {
  * Update the INIT(iative) attribute
  */
 on(
-  ['change:dexterite', 'change:init_buff', 'change:armure_malus'].join(' '),
+  ['change:dex', 'change:per', 'change:init_buff', 'change:armure_malus'].join(
+    ' '
+  ),
   function () {
     updateINIT();
   }
@@ -4694,7 +4788,7 @@ function updateDEF() {
       'DEFARMUREON',
       'DEFBOUCLIER',
       'DEFBOUCLIERON',
-      'DEXTERITE',
+      'DEX',
       'DEF_BUFF',
       'DEFACT',
     ],
@@ -4705,7 +4799,7 @@ function updateDEF() {
       defVal +=
         (parseInt(values.DEFBOUCLIER) || 0) *
         (parseInt(values.DEFBOUCLIERON) || 0);
-      defVal += getMod(values.DEXTERITE);
+      defVal += parseInt(values.DEX) || 0;
       defVal += parseInt(values.DEF_BUFF) || 0;
       defVal += parseInt(values.DEFACT) || 0;
       setAttrs({ DEF: defVal });
@@ -4723,7 +4817,7 @@ on(
     'change:defarmureon',
     'change:defbouclier',
     'change:defbouclieron',
-    'change:dexterite',
+    'change:dex',
     'change:def_buff',
     'change:defact',
   ].join(' '),
@@ -4731,6 +4825,26 @@ on(
     updateDEF();
   }
 );
+
+/**
+ * Update the DE(fense) P(sychique) attribute
+ */
+function updateDEP() {
+  getAttrs(['CHA', 'DEP_BUFF'], function (values) {
+    let depVal = 10;
+    depVal += parseInt(values.CHA) || 0;
+    depVal += parseInt(values.DEP_BUFF) || 0;
+    setAttrs({ DEP: depVal });
+  });
+}
+
+/**
+ * On changing the relevant attributes
+ * Update the DE(fense) P(sychique) attribute
+ */
+on('change:cha change:dep_buff', function () {
+  updateDEP();
+});
 
 /**
  * On changing the buff lists
@@ -5008,51 +5122,6 @@ on(
 
 on(
   [
-    'change:init_buff1',
-    'change:init_buff2',
-    'change:init_buff3',
-    'change:init_buff4',
-    'change:init_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('INIT'), function (values) {
-      setBuff(values, 'INIT');
-    });
-  }
-);
-
-on(
-  [
-    'change:defvpil_buff1',
-    'change:defvpil_buff2',
-    'change:defvpil_buff3',
-    'change:defvpil_buff4',
-    'change:defvpil_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('DEFVPIL'), function (values) {
-      setBuff(values, 'DEFVPIL');
-    });
-  }
-);
-
-on(
-  [
-    'change:defvsen_buff1',
-    'change:defvsen_buff2',
-    'change:defvsen_buff3',
-    'change:defvsen_buff4',
-    'change:defvsen_buff5',
-  ].join(' '),
-  function () {
-    getAttrs(attrBuff('DEFVSEN'), function (values) {
-      setBuff(values, 'DEFVSEN');
-    });
-  }
-);
-
-on(
-  [
     'change:pev_buff1',
     'change:pev_buff2',
     'change:pev_buff3',
@@ -5132,7 +5201,7 @@ on('change:pv', function () {
  * - Parse the statblock text
  * - Create the NPC character sheet
  */
-on('clicked:sb_import', function () {
+on('clicked:statblockimport', function () {
   getAttrs(['UNIVERS', 'statblock'], function (values) {
     if (values.statblock.trim() === '') return;
     let messages = '';
@@ -5143,33 +5212,34 @@ on('clicked:sb_import', function () {
       // process characteristics & combat attributes
       messages = processBaseAttributes(values.UNIVERS, pnjObj);
       // process attack lines
-      if (pnjObj['Atks'].length > 0) {
+      if (pnjObj.Atks.length > 0) {
         result = processAttacks(values.UNIVERS, pnjObj);
         if (result != '' && messages != '') {
           result = '\n' + result;
         }
         messages += result;
       }
-      delete pnjObj['Atks'];
+      delete pnjObj.Atks;
       // process trait/ability lines
-      if (pnjObj['Capas'].length > 0) {
+      if (pnjObj.Capas.length > 0) {
         result = processTraits(values.UNIVERS, pnjObj);
         if (result != '' && messages != '') {
           result = '\n' + result;
         }
         messages += result;
       }
-      delete pnjObj['Capas'];
+      delete pnjObj.Capas;
       // Other attributes go to DIVERS field
       let divers = '';
-      if (pnjObj['Extras'].length > 0) {
-        divers = pnjObj['Extras'].join('\n');
+      if (pnjObj.Extras.length > 0) {
+        divers = pnjObj.Extras.join('\n');
       }
-      delete pnjObj['Extras'];
+      delete pnjObj.Extras;
       let otherAttrs = Object.keys(pnjObj);
       consoleLog(otherAttrs, 'additional data');
       for (const other in otherAttrs) {
-        divers += other + ' ' + pnjObj[other] + '\n';
+        if (pnjObj[other] !== undefined)
+          divers += other + ' ' + pnjObj[other] + '\n';
       }
       setAttrs({
         pnj_divers: divers,
@@ -5218,39 +5288,31 @@ function convertToPC() {
     ],
     function (values) {
       let attrs = {};
-      for (let attr of [
-        'FORCE',
-        'DEXTERITE',
-        'CONSTITUTION',
-        'INTELLIGENCE',
-        'PERCEPTION',
-        'CHARISME',
-      ]) {
-        let attrv =
-          parseInt(values[`pnj_${attr.substring(0, 3).toLowerCase()}`]) || 0;
-        attrs[attr] = 10 + 2 * attrv;
-        if (attr === 'DEXTERITE') {
+      for (let attr of ['FOR', 'DEX', 'CON', 'INT', 'PER', 'CHA']) {
+        let attrv = parseInt(values[`pnj_${attr.toLowerCase()}`]) || 0;
+        attrs[attr] = attrv;
+        if (attr === 'DEX') {
           let init = parseInt(values.pnj_init) || 0;
           if (init === attrv + 1) {
             attrs[attr]++;
           } else {
-            attrs['INIT_BUFF_LIST'] = 'Bonus Init.';
-            attrs['INIT_BUFF'] = init - attrs[attr];
+            attrs.INIT_BUFF_LIST = 'Bonus Init.';
+            attrs.INIT_BUFF = init - attrs[attr];
           }
           let defb = 10 + attrv;
           let def = parseInt(values.pnj_def) || 0;
           if (def !== defb) {
-            attrs['DEF_BUFF_LIST'] = 'Bonus DEF';
-            attrs['DEF_BUFF'] = def - defb;
+            attrs.DEF_BUFF_LIST = 'Bonus DEF';
+            attrs.DEF_BUFF = def - defb;
           }
-          attrs['DEX_SUP'] =
-            values['pnj_jetdex'] === '2d20kh1' ? '@{JDEXSUP}' : '@{JDEX}';
-        } else if (attr === 'CHARISME') {
+          attrs.DEX_SUP =
+            values.pnj_jetdex === '2d20kh1' ? '@{JDEXSUP}' : '@{JDEX}';
+        } else if (attr === 'CHA') {
           let depb = 10 + attrv;
           let dep = parseInt(values.pnj_dep) || 0;
           if (dep !== depb) {
-            attrs['DEP_BUFF_LIST'] = 'Bonus DEP';
-            attrs['DEP_BUFF'] = dep - depb;
+            attrs.DEP_BUFF_LIST = 'Bonus DEP';
+            attrs.DEP_BUFF = dep - depb;
           }
         } else {
           attrs[`${attr.substring(0, 3)}_SUP`] =
@@ -5259,8 +5321,8 @@ function convertToPC() {
               : '@{JETNORMAL}';
         }
       }
-      attrs['PV'] = parseInt(values.pnj_pv) || 0;
-      attrs['PV_max'] = parseInt(values.pnj_pv_max) || 0;
+      attrs.PV = parseInt(values.pnj_pv) || 0;
+      attrs.PV_max = parseInt(values.pnj_pv_max) || 0;
       getSectionIDs('repeating_armes', function (ids) {
         for (let id of ids) {
           removeRepeatingRow(`repeating_armes_${id}`);
@@ -5283,14 +5345,14 @@ function convertToPC() {
               }
               newRowID = generateRowID();
               let atkRow = {};
-              atkRow[`repeating_armes_${newRowID}_armeatt`] = v['atkatt'];
-              atkRow[`repeating_armes_${newRowID}_armenom`] = v['atknom'];
-              let psyint = v['atknom'].toLowerCase().includes('psy intuition');
-              let psyinf = v['atknom'].toLowerCase().includes('psy influence');
-              let tohit = parseInt(v['atkbonus']) || 0;
+              atkRow[`repeating_armes_${newRowID}_armeatt`] = v.atkatt;
+              atkRow[`repeating_armes_${newRowID}_armenom`] = v.atknom;
+              let psyint = v.atknom.toLowerCase().includes('psy intuition');
+              let psyinf = v.atknom.toLowerCase().includes('psy influence');
+              let tohit = parseInt(v.atkbonus) || 0;
               let atk = 0;
               let bdm = 0;
-              if (v['atkportee'] && v['atkportee'] !== '') {
+              if (v.atkportee && v.atkportee !== '') {
                 atk = values.pnj_dex || 0;
                 if (psyint) atk = values.pnj_int || 0;
                 if (psyinf) atk = values.pnj_cha || 0;
@@ -5319,16 +5381,16 @@ function convertToPC() {
               }
               if (tohit !== atk)
                 atkRow[`repeating_armes_${newRowID}_armeatkdiv`] = tohit - atk;
-              atkRow[`repeating_armes_${newRowID}_armejetd`] = v['atkjet'];
-              atkRow[`repeating_armes_${newRowID}_armecrit`] = v['atkcrit'];
-              atkRow[`repeating_armes_${newRowID}_armedmg`] = v['atkdmg'];
-              atkRow[`repeating_armes_${newRowID}_armedmnbde`] = v['atkdmnbde'];
-              atkRow[`repeating_armes_${newRowID}_armedmde`] = v['atkdmde'];
-              let dmdiv = parseInt(v['atkdmbonus']) || 0;
+              atkRow[`repeating_armes_${newRowID}_armejetd`] = v.atkjet;
+              atkRow[`repeating_armes_${newRowID}_armecrit`] = v.atkcrit;
+              atkRow[`repeating_armes_${newRowID}_armedmg`] = v.atkdmg;
+              atkRow[`repeating_armes_${newRowID}_armedmnbde`] = v.atkdmnbde;
+              atkRow[`repeating_armes_${newRowID}_armedmde`] = v.atkdmde;
+              let dmdiv = parseInt(v.atkdmbonus) || 0;
               if (dmdiv !== bdm)
                 atkRow[`repeating_armes_${newRowID}_armedmdiv`] = dmdiv - bdm;
-              atkRow[`repeating_armes_${newRowID}_armeportee`] = v['atkportee'];
-              atkRow[`repeating_armes_${newRowID}_armespec`] = v['atkspec'];
+              atkRow[`repeating_armes_${newRowID}_armeportee`] = v.atkportee;
+              atkRow[`repeating_armes_${newRowID}_armespec`] = v.atkspec;
               setAttrs(atkRow);
             }
           );
@@ -5348,25 +5410,31 @@ on('change:type_personnage', function (eventInfo) {
     convertToPC();
   // if (eventInfo.previousValue === 'pj' && eventInfo.newValue === 'pnj') convertToNPC();
   getAttrs(['type_personnage'], function (value) {
-    let attrs = { physical: '1' };
-    attrs.type_fiche = value.type_personnage;
-    if (value.type_personnage === 'pnj') attrs.pnj_togm = '/w gm ';
-    if (value.type_personnage === 'vaisseau') {
-      attrs.physical = '0';
-      attrs.lib_profil = 'Classe';
-      attrs.lib_famille = 'Taille';
-    }
+    const pnj = value.type_personnage === 'pnj';
+    const vehicle = ['vaisseau', 'mecha'].includes(value.type_personnage);
+    let attrs = {
+      type_fiche: value.type_personnage,
+      pnj_togm: pnj ? '/w gm ' : '',
+      physical: vehicle ? '0' : '1',
+      lib_profil: vehicle ? 'Classe' : 'Profil',
+      lib_famille: vehicle ? 'Taille' : 'Famille',
+    };
     setAttrs(attrs);
-    consoleLog(attrs);
   });
 });
 
 /**
  * Return attributes array for a starship station
- * @param {string} attr Spaceship station shortname
+ * @param {string} ship_attr Spaceship station shortname
+ * @param {string} crew_attr Crew station ability
  */
-function attrStation(attr) {
-  return [`POSTE_${attr}_OQP`, `POSTE_${attr}_NOM`, `POSTE_${attr}_BONUS`];
+function attrStation(ship_attr, crew_attr) {
+  return [
+    `POSTE_${ship_attr}_OQP`,
+    `POSTE_${ship_attr}_NOM`,
+    `POSTE_${ship_attr}_BONUS`,
+    `POSTE_${ship_attr}_${crew_attr}`,
+  ];
 }
 
 /**
@@ -5380,18 +5448,23 @@ function setStation(v, attr, fill) {
   let attrx = '';
   let attrn = '';
   let attrb = '';
+  let attrc = '';
   if (attr === 'CAN') {
     attrx = 'repeating_armesv_armecan_oqp';
     attrn = 'repeating_armesv_armecan_nom';
+    attrc = 'repeating_armesv_armecan_dex';
     attrb = 'repeating_armesv_armecan_bonus';
   } else {
     attrx = `POSTE_${attr}_OQP`;
     attrn = `POSTE_${attr}_NOM`;
+    attrc = `POSTE_${attr}_${fill[0]}`;
     attrb = `POSTE_${attr}_BONUS`;
   }
   let station_held = parseInt(v[attrx]) || 0;
-  let station_name = v[attrn] || '';
-  station_name = station_name != '' ? `@{${station_name}|${fill[0]}}` : '0';
+  let station_crew = ' ' + v[attrn] || '';
+  if (station_held === 1 && station_crew.trim() === '')
+    station_crew = ' ' + fill[2];
+  let station_car = parseInt(v[attrc]) || 0;
   let station_bonus = parseInt(v[attrb]) || 0;
   let station_attr = '';
   if (attr === 'CAN') {
@@ -5401,12 +5474,13 @@ function setStation(v, attr, fill) {
   }
   station[
     station_attr
-  ] = `[[${station_name}*${station_held}]][${fill[1]}] + [[${station_bonus}*${station_held}]][${fill[2]}]`;
+  ] = `[[${station_car}*${station_held}]][${fill[0]}${station_crew}] + [[${station_bonus}*${station_held}]][${fill[1]}${station_crew}]`;
+  station[`EQUIP_${attr}`] = station_held === 1 ? station_crew.trim() : 'aucun';
   setAttrs(station);
 }
 
 /**
- * On change of spaceship stations character names of bonus
+ * On change of spaceship stations character names or bonus
  * - Rebuild hidden macro formulas
  */
 on(
@@ -5414,10 +5488,11 @@ on(
     'change:poste_pil_oqp',
     'change:poste_pil_nom',
     'change:poste_pil_bonus',
+    'change:poste_pil_dex',
   ].join(' '),
   function () {
-    getAttrs(attrStation('PIL'), function (values) {
-      setStation(values, 'PIL', ['DEX', 'DEX pilote', 'Pilotage']);
+    getAttrs(attrStation('PIL', 'DEX'), function (values) {
+      setStation(values, 'PIL', ['DEX', 'Pilotage', 'pilote']);
     });
   }
 );
@@ -5427,10 +5502,11 @@ on(
     'change:poste_mot_oqp',
     'change:poste_mot_nom',
     'change:poste_mot_bonus',
+    'change:poste_pil_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('MOT'), function (values) {
-      setStation(values, 'MOT', ['INT', 'INT mécano', 'Moteurs']);
+    getAttrs(attrStation('MOT', 'INT'), function (values) {
+      setStation(values, 'MOT', ['INT', 'Moteurs', 'mécano']);
     });
   }
 );
@@ -5440,14 +5516,11 @@ on(
     'change:poste_sen_oqp',
     'change:poste_sen_nom',
     'change:poste_sen_bonus',
+    'change:poste_sen_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('SEN'), function (values) {
-      setStation(values, 'SEN', [
-        'INT',
-        'INT scan',
-        'Electronique/Investigation',
-      ]);
+    getAttrs(attrStation('SEN', 'INT'), function (values) {
+      setStation(values, 'SEN', ['INT', 'Electronique', 'scantech']);
     });
   }
 );
@@ -5457,10 +5530,11 @@ on(
     'change:poste_ord_oqp',
     'change:poste_ord_nom',
     'change:poste_ord_bonus',
+    'change:poste_ord_int',
   ].join(' '),
   function () {
-    getAttrs(attrStation('ORD'), function (values) {
-      setStation(values, 'ORD', ['INT', 'INT info', 'Electronique']);
+    getAttrs(attrStation('ORD', 'INT'), function (values) {
+      setStation(values, 'ORD', ['INT', 'Electronique', 'infotech']);
     });
   }
 );
@@ -5470,6 +5544,7 @@ on(
     'change:repeating_armesv:armecan_oqp',
     'change:repeating_armesv:armecan_nom',
     'change:repeating_armesv:armecan_bonus',
+    'change:repeating_armesv:armecan_dex',
   ].join(' '),
   function () {
     getAttrs(
@@ -5477,11 +5552,57 @@ on(
         'repeating_armesv_armecan_oqp',
         'repeating_armesv_armecan_nom',
         'repeating_armesv_armecan_bonus',
+        'repeating_armesv_armecan_dex',
       ],
       function (values) {
-        setStation(values, 'CAN', ['DEX', 'DEX canonnier', 'Armes lourdes']);
+        setStation(values, 'CAN', ['DEX', 'Armes lourdes', 'canonnier']);
       }
     );
+  }
+);
+
+/**
+ * Rebuild starship INITiative
+ */
+function updateShipInit() {
+  getAttrs(
+    [
+      'type_fiche',
+      'DEX',
+      'POSTE_PIL_OQP',
+      'POSTE_PIL_DEX',
+      'PER',
+      'POSTE_SEN_OQP',
+      'POSTE_SEN_INT',
+    ],
+    function (values) {
+      if (values.type_fiche !== 'vaisseau') return;
+      let initv = 0;
+      const dex = parseInt(values.DEX) || 0;
+      const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
+      const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
+      const per = parseInt(values.PER) || 0;
+      const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
+      const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
+      if (poste_pil_oqp !== 0) {
+        initv = 10 + dex + poste_pil_dex + per + poste_sen_oqp * poste_sen_int;
+      }
+      setAttrs({ INITV: initv });
+    }
+  );
+}
+
+on(
+  [
+    'change:dex',
+    'change:poste_pil_oqp',
+    'change:poste_pil_dex',
+    'change:per',
+    'change:poste_sen_oqp',
+    'change:poste_sen_int',
+  ].join(' '),
+  function () {
+    updateShipInit();
   }
 );
 
@@ -5491,49 +5612,35 @@ on(
 function updateShipDEF() {
   getAttrs(
     [
-      'DEXTERITE',
-      'DEX_BUFF',
+      'type_fiche',
+      'DEX_TEST',
       'POSTE_PIL_OQP',
-      'DEFVPIL_BUFF',
-      'POSTE_PIL_BONUS',
-      'PERCEPTION',
-      'PER_BUFF',
+      'POSTE_PIL_DEX',
+      'PER_TEST',
       'POSTE_SEN_OQP',
-      'DEFVSEN_BUFF',
-      'POSTE_SEN_BONUS',
-      'CONSTITUTION',
+      'POSTE_SEN_INT',
+      'CON',
     ],
     function (values) {
+      if (values.type_fiche !== 'vaisseau') return;
       let defrap = 0;
       let defsol = 0;
-      const mod_dex = getMod(values.DEXTERITE);
-      const dex_buff = parseInt(values.DEX_BUFF) || 0;
+      const dex_test = parseInt(values.DEX_TEST) || 0;
       const poste_pil_oqp = parseInt(values.POSTE_PIL_OQP) || 0;
-      const defvpil_buff = parseInt(values.DEFVPIL_BUFF) || 0;
-      const poste_pil_bonus = parseInt(values.POSTE_PIL_BONUS) || 0;
-      const mod_per = getMod(values.PERCEPTION);
-      const per_buff = parseInt(values.PER_BUFF) || 0;
+      const poste_pil_dex = parseInt(values.POSTE_PIL_DEX) || 0;
+      const per_test = parseInt(values.PER_TEST) || 0;
       const poste_sen_oqp = parseInt(values.POSTE_SEN_OQP) || 0;
-      const poste_sen_bonus = parseInt(values.POSTE_SEN_BONUS) || 0;
-      const defvsen_buff = parseInt(values.DEFVSEN_BUFF) || 0;
-      const con = getMod(values.CONSTITUTION);
+      const poste_sen_int = parseInt(values.POSTE_SEN_INT) || 0;
+      const con = parseInt(values.CON) || 0;
       if (poste_pil_oqp !== 0) {
         defrap =
           10 +
-          mod_dex +
-          dex_buff +
-          defvpil_buff +
-          poste_pil_bonus +
-          mod_per +
-          per_buff +
-          poste_sen_oqp * (defvsen_buff + poste_sen_bonus);
+          dex_test +
+          poste_pil_dex +
+          per_test +
+          poste_sen_oqp * poste_sen_int;
       }
-      defsol =
-        10 +
-        con +
-        mod_per +
-        per_buff +
-        poste_sen_oqp * (defvsen_buff + poste_sen_bonus);
+      defsol = 10 + con + per_test + poste_sen_oqp * poste_sen_int;
       setAttrs({ DEFRAP: defrap, DEFSOL: defsol });
     }
   );
@@ -5541,17 +5648,11 @@ function updateShipDEF() {
 
 on(
   [
-    'change:dexterite',
-    'change:dex_buff',
+    'change:dex_test',
     'change:poste_pil_oqp',
-    'change:defvpil_buff',
-    'change:poste_pil_bonus',
-    'change:perception',
-    'change:per_buff',
+    'change:per_test',
     'change:poste_sen_oqp',
-    'change:defvsen_buff',
-    'change:poste_sen_bonus',
-    'change:constitution',
+    'change:con',
   ].join(' '),
   function () {
     updateShipDEF();
@@ -5563,14 +5664,14 @@ on(
  */
 function updateShipEP() {
   getAttrs(
-    ['type_fiche', 'NIVEAU', 'PEV_BUFF', 'FORCE', 'PEV_DMG', 'PEV'],
+    ['type_fiche', 'NIVEAU', 'PEV_BUFF', 'FOR', 'PEV_DMG', 'PEV'],
     function (values) {
       if (values.type_fiche !== 'vaisseau') return;
       const pev = parseInt(values.PEV) || 0;
       let pev_max = 0;
       pev_max += parseInt(values.NIVEAU) || 0;
       pev_max += parseInt(values.PEV_BUFF) || 0;
-      pev_max += getMod(values.FORCE) || 0;
+      pev_max += parseInt(values.FOR) || 0;
       pev_max -= parseInt(values.PEV_DMG) || 0;
       let chatmsg = '';
       if (pev > pev_max) {
@@ -5587,7 +5688,7 @@ function updateShipEP() {
 }
 
 on(
-  ['change:niveau', 'change:pev_buff', 'change:force', 'change:pev_dmg'].join(
+  ['change:niveau', 'change:pev_buff', 'change:for', 'change:pev_dmg'].join(
     ' '
   ),
   function () {
@@ -5667,6 +5768,7 @@ function attrRanks(voie) {
   let attrs = [];
   for (let r = 1; r < 6; r++) {
     attrs.push(`v${voie}r${r}`);
+    attrs.push(`voie${voie}-t${r}`);
     attrs.push(`voie${voie}-${r}`);
   }
   return attrs;
@@ -6050,11 +6152,11 @@ on(
         if (rang.startsWith('@{') && rang.endsWith('}')) {
           vn = parseInt(rang.slice(rang.length - 2, rang.length - 1)) || -1;
           if (vn >= 0) {
-            voie = caracs['voies'][vn - 1] || '';
+            voie = caracs.voies[vn - 1] || '';
             if (voie !== '') {
               voie = voie.slice(0, 1) + voie.slice(1).toLowerCase();
             }
-            rang = caracs['rangs'][vn - 1] || 0;
+            rang = caracs.rangs[vn - 1] || 0;
           }
         }
         let skill = voierang;
@@ -6228,24 +6330,24 @@ on(
           }
           // Armor malus
           if (propName === 'DEF-') {
-            const defmalus = parseInt(values['DEFARMUREMALUS']) || 0;
+            const defmalus = parseInt(values.DEFARMUREMALUS) || 0;
             if (propVal !== defmalus) {
-              attrs['DEFARMUREMALUS'] = propVal;
+              attrs.DEFARMUREMALUS = propVal;
             }
           }
           // Damage reduction
           if (propName === 'RD') {
-            const rd = values['RD'];
+            const rd = values.RD;
             const propVal = parseInt(parsed.value) || 0;
             if (eqpon === 1) {
               if (propVal !== rd) {
-                attrs['RD'] = propVal;
+                attrs.RD = propVal;
               }
             }
           }
           // Damage dice 1 & 2
           if (propName === 'DM') {
-            atkInfo['dm'] = [];
+            atkInfo.dm = [];
             if (parsed.value) {
               if (parsed.value.indexOf(' ') !== -1) {
                 atkInfo.dmtype = parsed.value.split(' ')[1];
@@ -6348,27 +6450,62 @@ on('change:total_enc', function () {
 
 /**
  * Rebuild derived attributes
- * - Reset the CARACS attribute
- * - Reset characters encumbrance
- * - Rebuild the general buffs
- * - Rebuild the attack and DM modifiers
+ * - ranks in skill branches
+ * - encumbrance
+ * - CARACS attribute
+ * - INITiative value
+ * - DEFense value
+ * - Psy Defense value
+ * - General buffs
+ * - Attack and DM mods
  */
-function rebuildAll() {
-  for (let v = 1; v <= 9; v++) {
+function rebuildAllPC() {
+  for (const v of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
     setRank(v.toString());
   }
-  buildCaracs();
   encumbrance();
+  buildCaracs();
+  updateINIT();
+  updateDEF();
+  updateDEP();
   rebuildBuffs();
   rebuildModAtkDM('repeating_modatk', 'armebuff');
   rebuildModAtkDM('repeating_moddm', 'armebuffdm');
 }
 
 /**
+ * Rebuild Ship derived attributes
+ * - Energy Points
+ * - INITiative value
+ * - DEFense values
+ */
+function rebuildAllShip() {
+  updateShipEP();
+  updateShipInit();
+  updateShipDEF();
+  setAttrs({ vehicle_starship: 1, vehicle_mecha: 0 });
+}
+
+/**
+ * Rebuild derived attributes
+ */
+function rebuildAll() {
+  getAttrs(['type_personnage'], function (v) {
+    if (v.type_personnage === 'pj') rebuildAllPC();
+    if (v.type_personnage === 'vaisseau') rebuildAllShip();
+    if (v.type_personnage === 'mecha') rebuildAllMech();
+    const vehicle = ['vaisseau', 'mecha'].includes(v.type_personnage);
+    const physical = vehicle ? '0' : '1';
+    const update = vehicle ? `update:${v.type_personnage}` : '';
+    setAttrs({ physical: physical, POSTES_EQ: update });
+  });
+}
+
+/**
  * On clicking the Reset button
  * - Rebuild derived attributes
  */
-on('clicked:reset_btn', function () {
+on('clicked:resetattrib', function () {
   rebuildAll();
 });
 
@@ -6415,8 +6552,13 @@ function rebuildModAtkDM(section, buffAttr) {
           const modNom = values[Object.keys(values)[1]] || '';
           let modVal = values[Object.keys(values)[2]] || '';
           if (modOn === '1' && modNom !== '' && modVal !== '') {
+            let sign = '';
+            if (modVal.startsWith('-') || modVal.startsWith('+')) {
+              sign = modVal.substring(0, 1);
+              modVal = modVal.substring(1);
+            }
             if (modVal.search(/\d+[dD]\d+/) !== -1) {
-              modVal = `[[${modVal}]]`;
+              modVal = `${sign}[[${modVal}]]`;
             } else {
               modVal = buffValue(modVal, caracs);
             }
@@ -6460,6 +6602,8 @@ on(['change:repeating_moddm', 'remove:repeating_moddm'].join(' '), function () {
  */
 const conditions = {
   aveugle: 'A',
+  blesse: 'B',
+  confus: 'C',
   effraye: 'F',
   etourdi: 'E',
   immobilise: 'I',
@@ -6486,6 +6630,12 @@ const conditions_data = {
     def: 5,
     init: 5,
     title: 'Aveuglé',
+  },
+  B: {
+    title: 'Blessé',
+  },
+  C: {
+    title: 'Confus',
   },
   E: {
     atc: 0,
@@ -6547,31 +6697,44 @@ const conditions_data = {
 function applyConditions(buffs, conditionAttr, s) {
   if (conditionAttr === '') return;
   for (let cond of conditionAttr) {
-    buffs.atc += s * conditions_data[cond].atc;
-    buffs.atd += s * conditions_data[cond].atd;
-    buffs.def += s * conditions_data[cond].def;
-    buffs.init += s * conditions_data[cond].init;
+    buffs.atc += s * conditions_data[cond].atc || 0;
+    buffs.atd += s * conditions_data[cond].atd || 0;
+    buffs.def += s * conditions_data[cond].def || 0;
+    buffs.init += s * conditions_data[cond].init || 0;
   }
 }
 
+/**
+ * On changing the weakened state
+ * - Change the physical and mental state rolls
+ */
+on('change:etatde', function () {
+  getAttrs(['ETATDE'], function (v) {
+    setAttrs({
+      PHYSDE: v.ETATDE,
+      MENTDE: v.ETATDE,
+    });
+  });
+});
 /**
  * On changing the enabled condition(s)
  * - Set/Unset combat stats buffs
  */
 on(
   [
-    'clicked:cond_aveugle',
-    'clicked:cond_effraye',
-    'clicked:cond_etourdi',
-    'clicked:cond_immobilise',
-    'clicked:cond_panique',
-    'clicked:cond_ralenti',
-    'clicked:cond_renverse',
-    'clicked:cond_surpris',
+    'clicked:aveugle',
+    'clicked:blesse',
+    'clicked:confus',
+    'clicked:effraye',
+    'clicked:etourdi',
+    'clicked:immobilise',
+    'clicked:panique',
+    'clicked:ralenti',
+    'clicked:renverse',
+    'clicked:surpris',
   ].join(' '),
   function (eventInfo) {
-    var clickedCondition =
-      conditions[eventInfo.triggerName.replace('clicked:cond_', '')];
+    var clickedCondition = conditions[eventInfo.triggerName.split(':')[1]];
     getAttrs(
       [
         'PCONDITION',
@@ -6581,6 +6744,8 @@ on(
         'INIT_BUFF',
         'DEF_BUFF',
         'ETATDE',
+        'PHYSDE',
+        'MENTDE',
       ],
       function (values) {
         let buffs = {
@@ -6602,24 +6767,46 @@ on(
         // buff new condition
         applyConditions(buffs, condition, -1);
         // check prior condition for die roll
-        let etatde = values.ETATDE;
+        let etatde = values.ETATDE || '20';
+        let physde = values.PHYSDE || '20';
+        let mentde = values.MENTDE || '20';
         if (
           pcondition !== '' &&
           (pcondition.includes(conditions.immobilise) ||
             pcondition.includes(conditions.panique))
-        )
+        ) {
           etatde = '20';
+          physde = '20';
+          mentde = '20';
+        }
+        if (pcondition !== '' && pcondition.includes(conditions.blesse)) {
+          physde = '20';
+        }
+        if (pcondition !== '' && pcondition.includes(conditions.confus)) {
+          mentde = '20';
+        }
+        if (physde === '20' && mentde === '20') etatde = '20';
         // check condition for die roll
         if (
           condition !== '' &&
           (condition.includes(conditions.immobilise) ||
             condition.includes(conditions.panique))
-        )
+        ) {
           etatde = '12';
-        //
+          physde = '12';
+          mentde = '12';
+        }
+        if (condition !== '' && condition.includes(conditions.blesse)) {
+          physde = '12';
+        }
+        if (condition !== '' && condition.includes(conditions.confus)) {
+          mentde = '12';
+        }
+        if (physde === '12' && mentde === '12') etatde = '12';
+        // build displayed conditions
         let displayConditions = '';
         if (condition !== '') {
-          for (cond of Object.keys(conditions)) {
+          for (const cond of Object.keys(conditions)) {
             if (condition.includes(conditions[cond])) {
               displayConditions +=
                 (displayConditions === '' ? '' : ', ') +
@@ -6634,6 +6821,8 @@ on(
           DEF_BUFF: buffs.def,
           INIT_BUFF: buffs.init,
           ETATDE: etatde,
+          PHYSDE: physde,
+          MENTDE: mentde,
           CONDITION: condition,
           PCONDITION: condition,
           conditions: displayConditions,
@@ -6649,38 +6838,28 @@ on(
  */
 function hitPoints(attr) {
   getAttrs(
-    [
-      'type_fiche',
-      'NIVEAU',
-      'DV',
-      'CONSTITUTION',
-      'PV_NIVEAU',
-      'PV_BUFF',
-      'prog_pv',
-    ],
+    ['type_fiche', 'NIVEAU', 'DV', 'CON', 'PV_NIVEAU', 'PV_BUFF', 'prog_pv'],
     function (values) {
       let niveau = parseInt(values.NIVEAU) || 0;
       if (niveau === 0) return;
       let dv = parseInt(values.DV) || 0;
       if (dv === 0) return;
-      let constitution = parseInt(values.CONSTITUTION) || 0;
-      let modcon = 0;
-      if (constitution > 0) modcon = Math.floor((constitution - 10) / 2);
+      let valCON = parseInt(values.CON) || 0;
       let pv_niveau = values.PV_NIVEAU || '';
       let pv = [];
-      if (attr === 'niveau' || attr === 'constitution' || attr === 'pv_buff') {
+      if (attr === 'niveau' || attr === 'con' || attr === 'pv_buff') {
         if (pv_niveau !== '') pv = JSON.parse(pv_niveau);
       }
       let average = parseInt(values.prog_pv) || 0 === 1 ? 1 + dv / 2 : 0;
       let pv_buff = parseInt(values.PV_BUFF) || 0;
       let pv_max = 0;
       if (values.type_fiche == 'vaisseau') {
-        pv_max = (dv + modcon) * niveau;
+        pv_max = (dv + valCON) * niveau;
       } else {
         for (let n = 1; n <= niveau; n++) {
           let pvie = 0;
           if (n === 1) {
-            pvie = dv + modcon; // niveau 1 : Max. DV + Mod. CON
+            pvie = dv + valCON; // niveau 1 : Max. DV + Mod. CON
           } else {
             if (n > 10) {
               // niveaux > 10 : 1 ou 2 PV selon DV
@@ -6697,7 +6876,7 @@ function hitPoints(attr) {
                   } else {
                     pvie = getRandom(dv); // ... soit tirage de DV
                   }
-                  if (modcon < 0) pvie += modcon; // ... + Mod. CON si négative
+                  if (valCON < 0) pvie += valCON; // ... + Mod. CON si négative
                   if (pvie < 0) pvie = 0; // ... mais on ne perd pas de PV
                 } else {
                   // niveau existant
@@ -6705,7 +6884,7 @@ function hitPoints(attr) {
                 }
               } else {
                 // niveau impair
-                if (modcon > 0) pvie = modcon; // Mod. CON si positif
+                if (valCON > 0) pvie = valCON; // Mod. CON si positif
               }
             }
           }
@@ -6732,7 +6911,7 @@ on(
   [
     'change:niveau',
     'change:dv',
-    'change:constitution',
+    'change:con',
     'change:pv_buff',
     'change:prog_pv',
   ].join(' '),
@@ -6745,7 +6924,7 @@ on(
  * On Hit Dice button click
  * - Increase character level
  */
-on('clicked:dv_btn', function () {
+on('clicked:hitdice', function () {
   getAttrs(['NIVEAU'], function (value) {
     let niveau = parseInt(value.NIVEAU) || 0;
     if (niveau > 0 && niveau <= 20) {
@@ -6755,6 +6934,225 @@ on('clicked:dv_btn', function () {
     }
   });
 });
+
+/**
+ * Recalculate the crew adjustments to mecha's abilities
+ */
+function updateMechCrew() {
+  getAttrs(
+    [
+      'mec_crew1_car',
+      'mec_crew1_bonus',
+      'mec_crew1_rank',
+      'mec_crew1_status',
+      'mec_crew2_car',
+      'mec_crew2_bonus',
+      'mec_crew2_rank',
+      'mec_crew2_status',
+    ],
+    function (values) {
+      if (values.mec_crew1_car === values.mec_crew2_car) return;
+      attrs = {
+        mec_crew_dex: 0,
+        mec_crew_int: 0,
+        mec_crew_cha: 0,
+        mec_crew_per: 0,
+      };
+      const crew1_bonus = parseInt(values.mec_crew1_bonus) || 0;
+      const crew1_rank = parseInt(values.mec_crew1_rank) || 0;
+      const crew1_status = parseInt(values.mec_crew1_status) || 0;
+      attrs[`mec_crew_${values.mec_crew1_car}`] =
+        crew1_status * Math.min(crew1_bonus, crew1_rank);
+      const crew2_bonus = parseInt(values.mec_crew2_bonus) || 0;
+      const crew2_rank = parseInt(values.mec_crew2_rank) || 0;
+      const crew2_status = parseInt(values.mec_crew2_status) || 0;
+      attrs[`mec_crew_${values.mec_crew2_car}`] =
+        crew2_status * Math.min(crew2_bonus, crew2_rank);
+      setAttrs(attrs);
+    }
+  );
+}
+
+on(
+  [
+    'change:mec_crew1_car',
+    'change:mec_crew1_bonus',
+    'change:mec_crew1_rank',
+    'change:mec_crew1_status',
+    'change:mec_crew2_car',
+    'change:mec_crew2_bonus',
+    'change:mec_crew2_rank',
+    'change:mec_crew2_status',
+  ].join(' '),
+  function () {
+    updateMechCrew();
+  }
+);
+
+/**
+ * Recalculate attack scores
+ */
+function updateMechAttacks() {
+  getAttrs(['NIVEAU', 'mec_for', 'mec_int', 'mec_crew_int'], function (values) {
+    let mec_atc = 0;
+    mec_atc += parseInt(values.NIVEAU) || 0;
+    mec_atc += parseInt(values.mec_for) || 0;
+    let mec_atd = 0;
+    mec_atd += parseInt(values.NIVEAU) || 0;
+    mec_atd += parseInt(values.mec_int) || 0;
+    mec_atd += parseInt(values.mec_crew_int) || 0;
+    setAttrs({
+      mec_atc: mec_atc,
+      mec_atd: mec_atd,
+    });
+  });
+}
+
+on(
+  [
+    'change:niveau',
+    'change:mec_for',
+    'change:mec_int',
+    'change:mec_crew_int',
+  ].join(' '),
+  function () {
+    updateMechAttacks();
+  }
+);
+
+/**
+ * Recalculate cooling score
+ */
+function updateMechCooling() {
+  getAttrs(['NIVEAU', 'mec_cha', 'mec_crew_cha'], function (values) {
+    let mec_froid_max = 0;
+    mec_froid_max += parseInt(values.NIVEAU) || 0;
+    mec_froid_max += parseInt(values.mec_cha) || 0;
+    mec_froid_max += parseInt(values.mec_crew_cha) || 0;
+    setAttrs({ mec_froid_max: mec_froid_max });
+  });
+}
+
+on(
+  ['change:niveau', 'change:mec_cha', 'change:mec_crew_cha'].join(' '),
+  function () {
+    updateMechCooling();
+  }
+);
+
+/**
+ * Recalculate Init & DEFenses
+ */
+function updateMechInitDef() {
+  getAttrs(
+    ['mec_dex', 'mec_crew_dex', 'mec_per', 'mec_crew_per', 'mec_con'],
+    function (values) {
+      let defrap = 10;
+      defrap += parseInt(values.mec_dex) || 0;
+      defrap += parseInt(values.mec_crew_dex) || 0;
+      defrap += parseInt(values.mec_per) || 0;
+      defrap += parseInt(values.mec_crew_per) || 0;
+      let defsol = 10;
+      defsol += parseInt(values.mec_con) || 0;
+      defsol += parseInt(values.mec_per) || 0;
+      defsol += parseInt(values.mec_crew_per) || 0;
+      setAttrs({
+        mec_init: defrap,
+        mec_defrap: defrap,
+        mec_defsol: defsol,
+      });
+    }
+  );
+}
+
+on(
+  [
+    'change:mec_dex',
+    'change:mec_crew_dex',
+    'change:mec_per',
+    'change:mec_crew_per',
+    'change:mec_con',
+  ].join(' '),
+  function () {
+    updateMechInitDef();
+  }
+);
+
+/**
+ * Recalculate speed
+ */
+function updateMechSpeed() {
+  getAttrs(['mec_dex', 'mec_crew_dex', 'mec_vitesse_base'], function (values) {
+    const dex =
+      1 + parseInt(values.mec_dex) || 0 + parseInt(values.mec_crew_dex) || 0;
+    const base = parseInt(values.mec_vitesse_base) || 0;
+    setAttrs({ mec_vitesse: dex * base });
+  });
+}
+
+on('change:mec_dex change:mec_crew_dex change:mec_vitesse_base', function () {
+  updateMechSpeed();
+});
+
+/**
+ * Recalculate hit points
+ */
+function updateMechHP() {
+  getAttrs(['NIVEAU', 'mec_dv', 'mec_con', 'mec_pv'], function (values) {
+    const niveau = parseInt(values.NIVEAU) || 0;
+    const dv = parseInt(values.mec_dv) || 0;
+    const con = parseInt(values.mec_con) || 0;
+    const mec_pv_max = (dv + con) * niveau;
+    let mec_pv = parseInt(values.mec_pv) || 0;
+    if (values.mec_pv === '') mec_pv = mec_pv_max;
+    setAttrs({ mec_pv: mec_pv, mec_pv_max: mec_pv_max });
+  });
+}
+
+on('change:niveau change:mec_dv change:mec_con', function () {
+  updateMechHP();
+});
+
+/**
+ * Recalculate gunner bonus
+ */
+on(
+  [
+    'change:repeating_mecatk:crewint_bonus',
+    'change:repeating_mecatk:crewint_rank',
+    'change:repeating_mecatk:crewint_status',
+  ].join(' '),
+  function () {
+    getAttrs(
+      [
+        'repeating_mecatk_crewint_bonus',
+        'repeating_mecatk_crewint_rank',
+        'repeating_mecatk_crewint_status',
+      ],
+      function (values) {
+        const bonus = parseInt(values.repeating_mecatk_crewint_bonus) || 0;
+        const rank = parseInt(values.repeating_mecatk_crewint_rank) || 0;
+        const status = parseInt(values.repeating_mecatk_crewint_status) || 0;
+        setAttrs({
+          repeating_mecatk_crewint: status * Math.min(bonus, rank),
+        });
+      }
+    );
+  }
+);
+
+/**
+ * Recalculate all
+ */
+function rebuildAllMech() {
+  updateMechCrew();
+  updateMechAttacks();
+  updateMechCooling();
+  updateMechInitDef();
+  updateMechSpeed();
+  updateMechHP();
+  setAttrs({ vehicle_starship: 0, vehicle_mecha: 1 });
+}
 
 </script>
 <!-- FIN SCRIPTS / SHEET WORKERS -->
