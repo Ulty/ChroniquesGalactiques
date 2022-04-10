@@ -165,6 +165,12 @@ table.sheet-tabsep {
   font-style: italic;
 }
 
+.sheet-optgroup {
+  background: gray;
+  font-weight: bold;
+  color: white;
+}
+
 span.sheet-label {
   padding: 0;
 }

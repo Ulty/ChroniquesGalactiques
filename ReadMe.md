@@ -14,9 +14,9 @@ V4.0.0 [Screenshot](cog_v4.png)
 
 # Notes de version
 
-## V4.0.0 (2021.??.??)
+## V4.0.0 (2022.05.03)
 
-Révision de la fiche pour CG 2E
+Révision de la fiche pour Chroniques Oubliées Galactiques v2
 
 ## V3.114.1 (2021.04.28)
 
