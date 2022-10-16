@@ -191,6 +191,13 @@ div.sheet-boxability {
   user-select: text;
 }
 
+span.sheet-boxability-scroll {
+  display: block;
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  max-height: 100px;
+}
+
 div.sheet-boxability {
   padding: 5px;
 }
@@ -585,6 +592,12 @@ input[type='checkbox'].sheet-block-switch:checked + span::before {
   margin: 0;
   padding: 0;
   float: left;
+}
+
+div.sheet-scroll-300 {
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+  max-height: 300px;
 }
 
 /* TEMPLATES */
