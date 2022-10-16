@@ -33,6 +33,15 @@ div.sheet-mainBg {
   padding: 6px 0px 6px 0px;
 }
 
+.charsheet .repcontrol button.repcontrol_edit,
+.charsheet .repcontrol button.repcontrol_add {
+  border-radius: 2px;
+  margin-top: 5px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: small;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
