@@ -595,6 +595,7 @@ input[type='checkbox'].sheet-block-switch:checked + span::before {
 }
 
 div.sheet-scroll-300 {
+  font-size: smaller;
   overflow-y: scroll; 
   overflow-x: hidden; 
   max-height: 300px;
