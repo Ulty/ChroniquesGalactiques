@@ -10,9 +10,18 @@ Le jeu complet est paru dans le magazine [Casus Belli](http://www.black-book-edi
 
 # Version courante
 
-V3.115.1 [Screenshot](cog_v3.png)
+V4.0.0 [Screenshot](cog_v4.png)
 
 # Notes de version
+
+## V4.0.0 (2022.12.30)
+
+_Chroniques Oubliées Galactiques v2_
+
+- Révision des fiches de PJ, PNJ et Vaisseau
+- Ajout de la fiche de Mécha
+
+V3.115.1 [Screenshot](cog_v3.png)
 
 ## V3.115.1 (2021.12.18)
 
