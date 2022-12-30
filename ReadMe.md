@@ -14,7 +14,7 @@ V4.0.0 [Screenshot](cog_v4.png)
 
 # Notes de version
 
-## V4.0.0 (2022.12.??)
+## V4.0.0 (2022.12.30)
 
 _Chroniques Oubliées Galactiques v2_
 
