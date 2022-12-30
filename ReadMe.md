@@ -21,6 +21,17 @@ _Chroniques Oubliées Galactiques v2_
 - Révision des fiches de PJ, PNJ et Vaisseau
 - Ajout de la fiche de Mécha
 
+V3.115.1 [Screenshot](cog_v3.png)
+
+## V3.115.1 (2021.12.18)
+
+- Correction noms boutons action (pas de \_ dans le nom après act\_)
+- Modification libellés options DM sans limites (bug 'optgroup' de Roll20)
+
+## V3.115.0 (2021.11.12)
+
+- Ajout du nouveau pseudo-attribut permettant d'afficher le token par défaut sur la fiche
+
 ## V3.114.1 (2021.04.28)
 
 - Correction d'un bug sur le titre de la capacité de rang 3 de la voie 3 dupliquée sur le rang 3 de la voie 8
