@@ -16,7 +16,10 @@ V4.0.0 [Screenshot](cog_v4.png)
 
 ## V4.0.0 (2022.12.??)
 
-Révision de la fiche pour Chroniques Oubliées Galactiques v2
+_Chroniques Oubliées Galactiques v2_
+
+- Révision des fiches de PJ, PNJ et Vaisseau
+- Ajout de la fiche de Mécha
 
 ## V3.114.1 (2021.04.28)
 
